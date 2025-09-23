@@ -1,6 +1,6 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import React, {useEffect, useState, useCallback} from 'react';
+import {useEffect, useState, useCallback} from 'react';
 import Slider from "react-slick";
 import { saveAs } from 'file-saver';
 import Logo from "../../imagenes/logo_verde.png";
@@ -182,7 +182,6 @@ const YearCard = ({ yearMonth, data, isSelected, onClick }) => {
 const Historia = () => {
     const [selectedYear, setSelectedYear] = useState(null);
     const [timelineYears] = useState(Object.keys(achievementsData));
-    const [copiedLink, setCopiedLink] = useState(false);
 
 
     const openModal = (year) => {
@@ -193,7 +192,7 @@ const Historia = () => {
         setSelectedYear(null);
     };
 
-    const navigateAchievement = (direction) => {
+    const navigateAchievement = useCallback((direction) => {
         const currentIndex = timelineYears.indexOf(selectedYear);
         let newIndex;
 
@@ -204,7 +203,7 @@ const Historia = () => {
         }
 
         setSelectedYear(timelineYears[newIndex]);
-    };
+    }, [selectedYear, timelineYears]);
 
     const handlePrint = useCallback(() => {
         const achievement = achievementsData[selectedYear];
@@ -243,13 +242,7 @@ const Historia = () => {
             navigator.share(shareData)
                 .then(() => console.log('Successfully shared'))
                 .catch((error) => console.log('Error sharing', error));
-        } else {
-            navigator.clipboard.writeText(shareData.url)
-                .then(() => {
-                    setCopiedLink(true);
-                    setTimeout(() => setCopiedLink(false), 2000);
-                });
-        }
+        } 
     }, [selectedYear]);
 
     const handleDownload = useCallback(() => {
@@ -322,12 +315,15 @@ const Historia = () => {
                 case 'Escape':
                     closeModal();
                     break;
+                default:
+                    // No action needed for other keys
+                    break;
             }
         };
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [selectedYear]);
+    }, [selectedYear, navigateAchievement]);
 
     return (
         <div id="logros" className="flex flex-col gap-4 relative bg-gradient-to-r from-gray-50 to-gray-100 p-6 rounded-xl shadow-sm">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect, useMemo } from 'react';
 import Destacado from './Destacado';
 import imgP from '../../imagenes/Social/instas.webp';
 import imgP1 from '../../imagenes/Social/img_1.webp'
@@ -14,7 +14,7 @@ const Contenido = () => {
     const [activeTab, setActiveTab] = useState('all');
     const [visiblePosts, setVisiblePosts] = useState([]);
 
-    const allPosts = [
+    const allPosts = useMemo(() => [
 
         //FACEBOOK
         {
@@ -210,7 +210,7 @@ const Contenido = () => {
             mensajePost: "Descubriendo nuevos lugares en Ecuador 🇪🇨 ¡Acompáñame en esta aventura! #Ecuador #Travel #BernardoPolo #Turismo #AventuraEcuador #VisitaEcuador #NuevoContenido #Instagram #Reels #Viajes #Descubriendo",
             platform: "instagram"
         }
-    ];
+    ], []);
 
     useEffect(() => {
         if (activeTab === 'all') {
@@ -218,7 +218,7 @@ const Contenido = () => {
         } else {
             setVisiblePosts(allPosts.filter(post => post.platform === activeTab));
         }
-    }, [activeTab]);
+    }, [activeTab, allPosts]);
 
     const platforms = [
         { id: 'all', name: 'Todo', icon: <span className="icon-[heroicons--squares-2x2] h-5 w-5"></span> },

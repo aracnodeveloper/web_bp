@@ -1,18 +1,7 @@
 import { BarChart } from '@tremor/react';
-import React, { useState, useEffect, useMemo } from 'react';
+import  { useState, useEffect, useMemo } from 'react';
 
-const SegmentacionEdad = () => {
-    const [activeRange, setActiveRange] = useState(null);
-    const [isVisible, setIsVisible] = useState(false);
-    const [hoverRange, setHoverRange] = useState(null);
-
-    useEffect(() => {
-        // Trigger animation after component mounts
-        const timer = setTimeout(() => setIsVisible(true), 300);
-        return () => clearTimeout(timer);
-    }, []);
-
-    const segmentos = [
+const segmentos = [
         {
             range: '13-17',
             porcentaje: 0.17,
@@ -62,7 +51,18 @@ const SegmentacionEdad = () => {
             emoji: "🧓",
             color: "#172554"
         },
-    ];
+];
+
+const SegmentacionEdad = () => {
+    const [activeRange, setActiveRange] = useState(null);
+    const [isVisible, setIsVisible] = useState(false);
+    const [hoverRange, setHoverRange] = useState(null);
+
+    useEffect(() => {
+        // Trigger animation after component mounts
+        const timer = setTimeout(() => setIsVisible(true), 300);
+        return () => clearTimeout(timer);
+    }, []);
 
     const maxPorcentaje = useMemo(() => Math.max(...segmentos.map(item => item.porcentaje)), []);
 
@@ -78,11 +78,6 @@ const SegmentacionEdad = () => {
     }, [audienciaTotal]);
 
     const valueFormatter = (number) => `${number.toFixed(2)}%`;
-
-    const getSegmentGradient = (index) => {
-        const colors = ['#60a5fa', '#3b82f6', '#2563eb', '#1d4ed8', '#1e40af', '#1e3a8a', '#172554'];
-        return colors[index % colors.length];
-    };
 
     const handleCardHover = (range) => {
         setHoverRange(range);

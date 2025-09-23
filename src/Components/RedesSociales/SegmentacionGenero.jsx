@@ -1,5 +1,5 @@
-import { DonutChart, Legend } from '@tremor/react';
-import React, { useState, useEffect } from 'react';
+import { DonutChart } from '@tremor/react';
+import { useState, useEffect } from 'react';
 
 const SegmentacionDashboard = () => {
     const [isVisible, setIsVisible] = useState(false);
