@@ -40,9 +40,6 @@ import imgP37 from '../../imagenes/Influencers/img_44.webp';
 import imgP38 from '../../imagenes/Influencers/img_45.webp';
 import imgP39 from '../../imagenes/Influencers/img_46.webp';
 import imgP40 from '../../imagenes/Influencers/img_47.webp';
-
-
-
 import CreadoresNetworking from "./CreadoresNetworking";
 
 const Influencers = () => {
