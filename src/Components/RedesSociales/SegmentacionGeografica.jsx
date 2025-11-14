@@ -24,21 +24,17 @@ const SegmentacionGeografica = () => {
     ];
 
     const datosCiudades = [
-        { name: 'Cuenca', percent: 50.56, icon: "🏙️" },
-        { name: 'Guayaquil', percent: 8.11, icon: "🌆" },
-        { name: 'Quito', percent: 5.1, icon: "🏛️" },
-        { name: 'Nueva York', percent: 2.4, icon: "🗽" },
-        { name: 'Riobamba', percent: 1.51, icon: "🌇" },
-        { name: 'Machala', percent: 1.02, icon: "🌃" },
-        { name: 'Loja', percent: 0.68, icon: "🌄" },
-        { name: 'Azogues', percent: 0.65, icon: "🏘️" },
-        { name: 'Manta', percent: 0.6, icon: "⚓" },
-        { name: 'Ambato', percent: 0.59, icon: "🌁" },
-        { name: 'Latacunga', percent: 0.53, icon: "🏔️" },
-        { name: 'Samborondón', percent: 0.46, icon: "🌉" },
-        { name: 'Gualaceo', percent: 0.45, icon: "🏞️" },
-        { name: 'Sígsig', percent: 0.43, icon: "🌅" },
-        { name: 'Milagros', percent: 0.41, icon: "✨" }
+        { name: 'Cuenca', percent: 30.6, icon: "🏙️" },
+        { name: 'Guayaquil', percent: 18.6, icon: "🌆" },
+        { name: 'Quito', percent: 16.2, icon: "🏛️" },
+        { name: 'Nueva York', percent: 4.2, icon: "🗽" },
+        { name: 'Riobamba', percent: 1.9, icon: "🌇" },
+        { name: 'Santo Domingo (Ecuador)', percent: 2.6, icon: "🌄" },
+        { name: 'Manta', percent: 2.0, icon: "⚓" },
+        { name: 'Ambato', percent: 2.0, icon: "🌁" },
+        { name: 'Machala', percent: 2.0, icon: "🌃" },
+        { name: 'Portoviejo', percent: 1.8, icon: "🏘️" },
+        { name: 'Durán', percent: 1.6, icon: "🌉" },
     ];
 
     const colorMapPaises = {
@@ -128,12 +124,6 @@ const SegmentacionGeografica = () => {
                                 ))}
                             </div>
 
-                            <div className="mt-4 pt-4 border-t border-gray-200">
-                                <div className="flex justify-between text-sm text-gray-500">
-                                    <span>{totalLabel}:</span>
-                                    <span className="font-medium">{totalValue}</span>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

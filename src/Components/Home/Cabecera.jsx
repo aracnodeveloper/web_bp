@@ -9,7 +9,7 @@ const Cabecera = () => {
     };
 
     return (
-        <div className='flex flex-col mx-auto max-w-6xl py-6 px-4 sm:px-6 lg:px-8 w-full mt-7'>
+        <div className='flex flex-col mx-auto max-w-6xl py-6 px-4 sm:px-6 lg:px-8 w-full mt-7 '>
             <div className='flex flex-col md:flex-row'>
                 {/* Left column / Top on mobile */}
                 <div className='flex flex-col w-full md:w-1/2 items-center justify-center mb-8 md:mb-0'>
@@ -21,7 +21,7 @@ const Cabecera = () => {
                     <label className='text-xl sm:text-2xl font-light text-gray-700'>Emprendedor disruptivo</label>
                     <label className='text-xl sm:text-2xl font-light text-gray-700'>Bloguero</label>
                     <div className='h-6 sm:h-10'/>
-                    <p className='text-center md:text-justify text-sm text-gray-600 max-w-md'>Bernardo Polo Andrade empresario cuencano de 53 años. Hombre visionario, con más de 26 años de experiencia en la promoción de la hotelería, turismo y negociación en el Ecuador y Latinoamérica.</p>
+                    <p className='text-center md:text-justify text-sm text-gray-600 max-w-md'>Bernardo Polo Andrade empresario cuencano de 56 años. Hombre visionario, con más de 26 años de experiencia en la promoción de la hotelería, turismo y negociación en el Ecuador y Latinoamérica.</p>
                     <div
                         className='flex mt-3 items-center w-full max-w-md cursor-pointer'
                         onClick={() => navigateToSection('logros')}

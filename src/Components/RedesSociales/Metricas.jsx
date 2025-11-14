@@ -25,19 +25,19 @@ const Metricas = () => {
                         red={"INST/FANPAGE"}
                         color={"#db5781"}
                         icono={"./images/instagram_icon.webp"}
-                        seguidores={"140 K"}
+                        seguidores={"135 K"}
                     />
                     <SeguidoresRed
                         red={"FK/FANPAGE"}
                         color={"#3e8ba4"}
                         icono={"./images/facebook_icon.webp"}
-                        seguidores={"34 K"}
+                        seguidores={"205 K"}
                     />
                     <SeguidoresRed
                         red={"TIK TOK"}
                         color={"#60605f"}
                         icono={"./images/tiktok_icon.webp"}
-                        seguidores={"25,8 K"}
+                        seguidores={"312.5 k"}
                     />
                     <SeguidoresRed
                         red={"YOUTUBE"}
@@ -49,7 +49,7 @@ const Metricas = () => {
                         red={"INST/PERSONAL"}
                         color={"#e33f72"}
                         icono={"./images/instagram_icon.webp"}
-                        seguidores={"46.3 K"}
+                        seguidores={"44.7 K"}
                     />
                     <SeguidoresRed
                         red={"FK/PERSONAL"}

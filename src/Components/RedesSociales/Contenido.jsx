@@ -24,8 +24,8 @@ const Contenido = () => {
             colorRed: "#3b5998",
             linkPost: "https://www.facebook.com/watch/?v=691013228632325",
             linkPerfil: "https://www.facebook.com/bernardopolopolito",
-            imagePost: "./images/destacado_facebook.webp",
-            mensajePost: "Familia del Presidente LASSO - Los mejores BOLLOS de Guayaquil | Los Clásicos GYE ✅#Turismo #BernardoPolo #Huecas #NicolasMuñoz #NicoBell Guillermo Lasso TeleamazonasEcuavisa@guillermo Villalobos",
+            imagePost: "./images/img_4.png",
+            mensajePost: "El aeropuerto de Cuenca ahora también es un centro comercial Bacán!!! Cristian Zamora - Alcalde de Cuenca 2023 Aeropuerto Cuenca Bernardo Polo #VisitaEcuador #BernardoPolo #Aeropuerto #Cuenca #innovacion #trabajo #alcaldia",
             platform: "facebook"
         },
         {
@@ -69,13 +69,13 @@ const Contenido = () => {
         },
         {
             id: 15,
-            fecha: "10 de marzo de 2025",
+            fecha: "22 de Abril de 2025",
             iconoRed: <span className="icon-[mdi--instagram] h-6 w-6 text-[#dd2a7b]"></span>,
             colorRed: "#dd2a7b",
-            linkPost: "https://www.instagram.com/reel/DHAImayp2an/",
+            linkPost: "https://www.instagram.com/reel/DIxD8aSxpx4/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
             linkPerfil: "https://www.instagram.com/bernardopolopolito/",
-            imagePost: imgP23,
-            mensajePost: "Que buen seco por santa. 🐷🐽 #cuenca #ecuador #seco #cuchara #juguito #jugo #extra #puroamor #santo #santa #secos #fyp #parati #foryou #rico #riquisimo #cerdo #chancho #azuay",
+            imagePost: "./images/img_5.png",
+            mensajePost: "Porqué todo el mundo habla de éste auto?? Aquí la razón ⬇️ #BernardoPolo #VisitaEcuador #BYD #Auto #Electrico #innovacion #medioambiente #velocidad #futuro  #Viral",
             platform: "instagram"
         },
         {
@@ -83,10 +83,10 @@ const Contenido = () => {
             fecha: "10 de marzo de 2025",
             iconoRed: <span className="icon-[mdi--instagram] h-6 w-6 text-[#dd2a7b]"></span>,
             colorRed: "#dd2a7b",
-            linkPost: "https://www.instagram.com/reel/DE3PTbnpw55/",
+            linkPost: "https://www.instagram.com/reel/DIewJv_z_rc/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
             linkPerfil: "https://www.instagram.com/bernardopolopolito/",
-            imagePost: imgP24,
-            mensajePost: "En ésta cafetería puedes crear tu obra de arte con café en mano TE VA A ENCANTAR !! 😍👩🏻‍🎨☕️🎨 #bernardopolo #visitaecuador #CafeteriaPicaMaria #turismo #arte #huecas #arte #cafe #cuenca",
+            imagePost: "./images/img_6.png",
+            mensajePost: "Precio de distribuidor para todos! 😱😱 Victoria Salcedo aprueba los zapatos de #Ivannas #BernardoPolo #VictoriaSalcedo #ChocolateFilmsEc #VisitaEcuador #Turismo #Emprendimiento #Zapatos #comodidad #calidad #Gualaceo #Viral #Cuenca",
             platform: "instagram"
         },
 
@@ -97,10 +97,10 @@ const Contenido = () => {
             fecha: "03 de enero de 2024",
             iconoRed: <span className="icon-[mingcute--tiktok-fill] h-6 w-6 text-black"></span>,
             colorRed: "#000000",
-            linkPost: "https://www.tiktok.com/@bernardopolopolito/video/7320014550873410822?_r=1&_t=8mNf0KeOx1R",
+            linkPost: "https://www.tiktok.com/@bernardopolopolito/video/7481020990613409029",
             linkPerfil: "https://www.tiktok.com/@bernardopolopolito",
-            imagePost: "./images/destacado_tiktok.webp",
-            mensajePost: "Explorando la CASA EMBRUJADA de Cuenca..misterios PARANORMALES🧟‍🦇 @clau_ullauri @abigailjaramillo003 @phojg #cuenca #ecuador #visitaecuador #viral #Ecuador #PoliTo #visitaecuador #bernardopolo #emprendedoresdeexito #VISITANOS #viral #virals #tour #TERROR #CASAEMBRUJADA #EMBRUJADA #PARANORMAL",
+            imagePost: "./images/img_7.png",
+            mensajePost: "Peugeot NUNCA MÁS !! La historia completa. #BernardoPolo #VisitaEcuador #Peugeot #falla #NuncaMas #Viral",
             platform: "tiktok"
         },
         {
@@ -108,10 +108,10 @@ const Contenido = () => {
             fecha: "02 de febrero de 2025",
             iconoRed: <span className="icon-[mingcute--tiktok-fill] h-6 w-6 text-black"></span>,
             colorRed: "#000000",
-            linkPost: "https://www.tiktok.com/@bernardopolopolito/video/7468804195064335622",
+            linkPost: "https://www.tiktok.com/@bernardopolopolito/video/7448043683816934662",
             linkPerfil: "https://www.tiktok.com/@bernardopolopolito",
-            imagePost: imgP4,
-            mensajePost: "Güecaquil: Un restaurante costeño bacán con el puro sabor ecuatoriano. 🇪🇨🦞🍤 #BernardoPolo #VisitaEcuador #Güecaquil #food #seafood #ComidaCosteña #Moro #cremosito #ceviche #Ecuatoriano #cuencanas #viral #huecas #PrecioDeCarretilla #Cuenca #Ecuador @Güecaquil",
+            imagePost: "./images/img_8.png",
+            mensajePost: "Mc Mary modo navidad 🎄 🤶 #bernardopolo #visitaecuador #McMary #Hamburguesas #LasMejoresHamburguesas #OjalaTeAtores #Sonsonazo @McMary Cuenca",
             platform: "tiktok"
         },
         {
@@ -119,10 +119,10 @@ const Contenido = () => {
             fecha: "01 de enero de 2020",
             iconoRed: <span className="icon-[mingcute--tiktok-fill] h-6 w-6 text-black"></span>,
             colorRed: "#000000",
-            linkPost: "https://www.tiktok.com/@bernardopolopolito/video/7462123776205966597",
+            linkPost: "https://www.tiktok.com/@bernardopolopolito/video/7448052915199069446",
             linkPerfil: "https://www.tiktok.com/@bernardopolopolito",
-            imagePost: imgP1,
-            mensajePost: "¡TODO CON MIEL! Productos Naturales hechos con mucho pero mucho AMOR. 🐝🍯 #BernardoPolo #VisitaEcuador #Apimel #Turismo #Huecas #Productos #Turron #abejas #miel #Cuenca@Michelle Maldonado",
+            imagePost: "./images/img_9.png",
+            mensajePost: "El sonsonazo sí existe !! 😱😱😱 @McMary Cuenca #Bernardopolo #visitaecuador #McMary #sonsonazo #hamburguesas #comida #food #fastfood #navidad",
             platform: "tiktok"
         },
 
@@ -204,10 +204,10 @@ const Contenido = () => {
             fecha: "06 de marzo de 2025",
             iconoRed: <span className="icon-[mdi--instagram] h-6 w-6 text-[#dd2a7b]"></span>,
             colorRed: "#dd2a7b",
-            linkPost: "https://www.instagram.com/reel/DFoCU7uJ71F/",
+            linkPost: "https://www.instagram.com/reel/DJ7KG8xxcY9/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA== ",
             linkPerfil: "https://www.instagram.com/bernardopoloa/",
-            imagePost: imgP,
-            mensajePost: "Descubriendo nuevos lugares en Ecuador 🇪🇨 ¡Acompáñame en esta aventura! #Ecuador #Travel #BernardoPolo #Turismo #AventuraEcuador #VisitaEcuador #NuevoContenido #Instagram #Reels #Viajes #Descubriendo",
+            imagePost: "./images/img_10.png",
+            mensajePost: "@pacoelmorlaco sueña con poder ayudar a mas personas, ayúdanos a llegar a las personas que más lo necesitan #pacoelmorlaco #protesis #ayuda #fundacion #social #apoyo #donar #mano",
             platform: "instagram"
         }
     ], []);

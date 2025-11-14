@@ -22,7 +22,7 @@ const Medidor = () => {
                     <div className="flex items-end gap-2">
                         <div className="relative">
                             <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#005F6B] to-[#96c121]">
-                                253,832 K
+                                652,584 K
                             </span>
                             <div className="absolute -top-4 right-0 bg-yellow-400 text-xs font-bold px-2 py-1 rounded-full text-gray-800 transform rotate-12">
                                 ¡Récord!
@@ -30,7 +30,7 @@ const Medidor = () => {
                         </div>
                         <div className="flex flex-col items-center">
                             <span className="icon-[ph--arrow-up] h-8 w-8 text-green-500"></span>
-                            <span className="text-sm font-semibold text-green-500">+56.27K</span>
+                            <span className="text-sm font-semibold text-green-500">+306.27K</span>
                         </div>
                     </div>
 

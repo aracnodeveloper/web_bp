@@ -9,22 +9,16 @@ const SegmentacionDashboard = () => {
         const timer = setTimeout(() => setIsVisible(true), 300);
         return () => clearTimeout(timer);
     }, []);
-
     const datosGenero = [
         {
             name: 'Hombre',
-            percent: 58.78,
+            percent: 64.2,
             icon: "👨",
         },
         {
             name: 'Mujer',
-            percent: 38.48,
+            percent: 35.8,
             icon: "👩",
-        },
-        {
-            name: 'Desconocido',
-            percent: 2.74,
-            icon: "❓",
         },
     ];
 
@@ -79,12 +73,6 @@ const SegmentacionDashboard = () => {
                             </div>
                         ))}
 
-                        <div className="mt-4 pt-4 border-t border-gray-200">
-                            <div className="flex justify-between text-sm text-gray-500">
-                                <span>{totalLabel}:</span>
-                                <span className="font-medium">253,832K personas</span>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

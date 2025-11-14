@@ -1,8 +1,8 @@
 import React from 'react';
 import ProyectoSection from './ProyectoSection';
-import imgP from '../../imagenes/Social/instas.webp'
-import imgP1 from '../../imagenes/Social/img_1.webp'
-import imgP2 from '../../imagenes/Social/img.webp'
+import imgP from '../../imagenes/Social/img.png'
+import imgP1 from '../../imagenes/Social/img_1.png'
+import imgP2 from '../../imagenes/Social/img_2.png'
 import imgP3 from '../../imagenes/Social/img_2.webp'
 import imgP4 from '../../imagenes/Social/img_3.webp'
 import imgP5 from '../../imagenes/Social/img_4.webp'
@@ -21,9 +21,9 @@ import imgP17 from '../../imagenes/Social/img_16.webp'
 import imgP18 from '../../imagenes/Social/img_17.webp'
 import imgP19 from '../../imagenes/Social/img_18.webp'
 import imgP20 from '../../imagenes/Social/img_19.webp'
-import imgP21 from '../../imagenes/Social/img_25.webp'
+import imgP21 from '../../imagenes/Social/img_3.png'
 import imgP22 from '../../imagenes/Social/img_26.webp'
-import imgP23 from '../../imagenes/Social/img_27.webp'
+import imgP23 from '../../imagenes/Social/img_4.png'
 
 const ImpactoSocial = () => {
     return (
@@ -46,32 +46,41 @@ const ImpactoSocial = () => {
                     proyectos={[
                         {
                             imagen: imgP,
-                            enlace: "https://www.instagram.com/reel/DFoCU7uJ71F/",
-                            mensaje: "PONLE TÚ SELLO PERSONAL !! Así crean tu estilo único en Zombie Kater",
+                            enlace: "https://www.instagram.com/reel/DOKE1aFEYdy/",
+                            mensaje: "El sánduche es con carne pues ñaño… pero este sánduche vegetariano de Pamilas estuvo BRUTAL! @pamilastogo @camipinedaq 🤯😋 ",
                             ubicacion: "Cuenca, Ecuador"
                         },
                         {
                             imagen: imgP1,
-                            enlace: "https://www.instagram.com/reel/DFEPsKIJByR/",
-                            mensaje: "¡TODO CON MIEL! Productos Naturales hechos con mucho pero mucho AMOR.",
+                            enlace: "https://www.instagram.com/reel/DNrJAeJUhxX/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+                            mensaje: "El MEJOR bollo que he probado ñaño 🤤😮‍💨 Llegué en mi @cuencataxi a comer en Q’ RIKO BOLLO y ñaño… está como para chuparse los dedos 💥 ",
                             ubicacion: "Cuenca, Ecuador"
                         },
                         {
                             imagen: imgP2,
-                            enlace: "https://www.instagram.com/reel/DDF-zB9xz8d/",
-                            mensaje: "Morochos del fantasma, sabor paranormal! 👻🥤",
+                            enlace: "https://www.instagram.com/reel/DN1hR4y4hoX/",
+                            mensaje: "Me encontré con estas maravillas de cristales de murano😱 \n" +
+                                "\n" +
+                                "#bernardopolopolito #turismo #artesanias #ecuador #visitaecuador #Quito #polito #reels",
                             ubicacion: "Cuenca, Ecuador"
                         },
                         {
                             imagen: imgP21,
-                            enlace: "https://www.instagram.com/reel/DDIilJvphKf/",
-                            mensaje: "Nos pegamos un platanazo en Guayaquil",
-                            ubicacion: "Guayaquil, Ecuador"
+                            enlace: "https://www.instagram.com/reel/DNYTp8dN9aD/",
+                            mensaje: "🚨¡CONFIRMADO ÑAÑO! Cuenca salvó al cóndor 🦅 \n" +
+                                "Me fui a conocer a la primera guambra cóndor CUENCANA de taitas del Azuay 👀 nacida en cautiverio.  Sí ñaño, el cóndor es 100% CUENCANO. 💥\n" +
+                                "Lo que hace Amaru Bioparque Cuenca - Zoológico para cuidar a esta especie es puro orgullo cuencano 💛❤️\n" +
+                                "Ya sabes... aquí viven más de 2500 especies. ¡Apoya y ponte pilas ñaño! \n" +
+                                "@danielnoboaok  @nielsolsen  @czamoramatute ",
+                            ubicacion: "Cuenca, Ecuador"
                         },
                         {
                             imagen: imgP23,
-                            enlace: "https://www.instagram.com/reel/DBuJt6mJZjs/",
-                            mensaje: "El jugueteo del Garañón en fiestas de Cuenca ❤️💛",
+                            enlace: "https://www.instagram.com/reel/DNI7ZLKtIat/",
+                            mensaje: "🧺 ¿Canastas con brea y gasolina? 😱\n" +
+                                " ¡Pilas ñaño! Estas son las canastas de Luchito en el barrio Juan Pablo en San Joaquín \n" +
+                                "\n" +
+                                "#bernardopolopolito  #canastas  #visitaecuador  #CuencaEcuador  #producciónlocal #ecuador #PoliTo",
                             ubicacion: "Cuenca, Ecuador"
                         },
                         {
@@ -86,6 +95,12 @@ const ImpactoSocial = () => {
                 <ProyectoSection
                     titulo="La Sazón De"
                     proyectos={[
+                        {
+                            imagen: imgP1,
+                            enlace: "https://www.instagram.com/reel/DNrJAeJUhxX/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+                            mensaje: "El MEJOR bollo que he probado ñaño 🤤😮‍💨 Llegué en mi @cuencataxi a comer en Q’ RIKO BOLLO y ñaño… está como para chuparse los dedos 💥 ",
+                            ubicacion: "Cuenca, Ecuador"
+                        },
                         {
                             imagen: imgP3,
                             enlace: "https://www.instagram.com/reel/DGEWygVp6QK/",

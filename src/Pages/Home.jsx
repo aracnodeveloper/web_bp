@@ -5,9 +5,9 @@ import FooterHome from '../Components/Home/FooterHome';
 
 const Home = () => {
     return (
-        <div>
+        <div className='h-full'>
             <Navbar activo={0}/>
-            <div className="pt-16">
+            <div className="pt-16 h-full">
                 <Cabecera/>
                 <FooterHome/>
             </div>

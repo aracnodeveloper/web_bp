@@ -46,7 +46,7 @@ const SobreMi = () => {
 
     return (
         <>
-            <Navbar activo={1}/>
+            <Navbar activo={2}/>
             <div className="pt-16">
                 <div ref={introduccionRef}>
                     <Introduccion/>

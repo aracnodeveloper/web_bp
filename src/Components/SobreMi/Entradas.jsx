@@ -63,7 +63,7 @@ const VideoCard = ({ entrada, index, onVideoClick }) => {
 
     return (
         <div
-            className="h-full"
+            className="h-full pl-4"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
@@ -104,9 +104,9 @@ const Entradas = () => {
     const entradas = [
         {
             id: 1,
-            titulo: "Desmintiendo el mito del cangrejo en Churute",
-            contenido: "Hola, hola, hola. Amigos viajeros ¿se han preguntado como se obtiene la pulpa de cangrejo? Bueno, después de tantos años de comprarle a mi buena amiga Melva, quien ha vendido pulpa de cangrejos durante más de 30 años en Churute (en la provincia del Guayas). Me pregunté ¿cómo lo hace?",
-            url: "https://www.youtube.com/embed/SduXEHsPzYE"
+            titulo: "TRIPLE BOMBA DE CARNE",
+            contenido: "Hola, hola, hola amigos… bienvenidos a mi nueva aventura en mi segmento La Sazón del Taxista. En esta ocasión viajé con mi amigo Iván gracias a Cuenca Taxi, quien me llevó a yçuna hueca en Cuenca y probé los Asados del Jasho.",
+            url: "https://www.youtube.com/embed/GCEP1FBMPGg"
         },
         {
             id: 2,
@@ -116,15 +116,15 @@ const Entradas = () => {
         },
         {
             id: 3,
-            titulo: "Aventuras en las Islas Galápagos",
-            contenido: "Les comparto mi experiencia navegando por el archipiélago de Galápagos, un paraíso natural único en el mundo. Desde nadar con tortugas marinas hasta observar aves exóticas, cada día fue una aventura inolvidable en este laboratorio viviente de evolución.",
-            url: "https://www.youtube.com/embed/_xPNgNvS4wg"
+            titulo: "CEVICHE DE CONCHA EN CEVICHERIA 7 PALOS",
+            contenido: "Hola Hola amigos… Les comento que la cocina ecuatoriana es una de las más diversas de Latinoamerica, así, que en esta ocasión visité la Cevichería 7 Palos para probar un delicioso ceviche de concha hecho por las manos de la gran Yajaira. ",
+            url: "https://www.youtube.com/embed/xbWuUMTadeI"
         },
         {
             id: 4,
-            titulo: "Desmintiendo el mito del cangrejo en Churute",
-            contenido: "Hola, hola, hola. Amigos viajeros ¿se han preguntado como se obtiene la pulpa de cangrejo? Bueno, después de tantos años de comprarle a mi buena amiga Melva, quien ha vendido pulpa de cangrejos durante más de 30 años en Churute (en la provincia del Guayas). Me pregunté ¿cómo lo hace?",
-            url: "https://www.youtube.com/embed/SduXEHsPzYE"
+            titulo: "ME SALVARON LA VIDA",
+            contenido: "Visité en el mercado 27 de febrero a mi amiga Rosita, quien me preparó la bebida levanta muertos, pero NO HUBO LUZ y se complicó la preparación. Entonces, gracias a mi BYD pudimos conseguir energía y disfrutar de este delicioso batido. ",
+            url: "https://www.youtube.com/embed/qBhclJfk6n4"
         }
     ];
     const handleVideoClick = (index) => {

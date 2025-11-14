@@ -3,53 +3,46 @@ import  { useState, useEffect, useMemo } from 'react';
 
 const segmentos = [
         {
-            range: '13-17',
-            porcentaje: 0.17,
-            audienciaEstimada: '431.5144',
-            emoji: "🧒",
+            range: '18-24',
+            porcentaje: 2.5,
+            audienciaEstimada: '325,000',
+            emoji: "🧑",
             color: "#60a5fa"
         },
         {
-            range: '18-24',
-            porcentaje: 3.22,
-            audienciaEstimada: '8,173.3904',
-            emoji: "🧑",
+            range: '25-34',
+            porcentaje: 15.2,
+            audienciaEstimada: '1,976,000',
+            emoji: "👨",
             color: "#3b82f6"
         },
         {
-            range: '25-34',
-            porcentaje: 16.37,
-            audienciaEstimada: '41,552.2984',
-            emoji: "👨",
+            range: '35-44',
+            porcentaje: 33.4,
+            audienciaEstimada: '4,340,400',
+            emoji: "👨‍💼",
             color: "#2563eb"
         },
         {
-            range: '35-44',
-            porcentaje: 31.49,
-            audienciaEstimada: '79,931.6968',
-            emoji: "👨‍💼",
+            range: '45-54',
+            porcentaje: 24.8,
+            audienciaEstimada: '3,224,800',
+            emoji: "👨‍🦱",
             color: "#1d4ed8"
         },
         {
-            range: '45-54',
-            porcentaje: 29.3,
-            audienciaEstimada: '74,372.776',
-            emoji: "👨‍🦱",
+            range: '55-64',
+            porcentaje: 15.6,
+            audienciaEstimada: '2,028,000',
+            emoji: "👴",
             color: "#1e40af"
         },
         {
-            range: '55-64',
-            porcentaje: 13.2,
-            audienciaEstimada: '33,505.824',
-            emoji: "👴",
-            color: "#1e3a8a"
-        },
-        {
             range: '65+',
-            porcentaje: 6.25,
-            audienciaEstimada: '15,864.5',
+            porcentaje: 8.5,
+            audienciaEstimada: '1,105,000',
             emoji: "🧓",
-            color: "#172554"
+            color: "#1e3a8a"
         },
 ];
 

@@ -6,7 +6,7 @@ import ContactoForm from '../Components/Contacto/ContactoForm';
 const Contacto = () => {
     return (
         <div>
-            <Navbar activo={4}/>
+            <Navbar activo={5}/>
             <div className="pt-16">
                 <ContactoForm/>
                 <Footer/>

@@ -4,16 +4,18 @@ import SobreMi from './Pages/SobreMi';
 import RedesSociales from './Pages/RedesSociales';
 import Proyectos from './Pages/Proyectos';
 import Contacto from './Pages/Contacto';
+import Marcablanca from "./Components/VE/Marcablanca";
 function App() {
   return (
     <div className="App">
-      <Router >
-        <Routes >
+      <Router>
+        <Routes>
           <Route path="/" element={<Home></Home>}/>
           <Route path="/sobre-mi" element={<SobreMi></SobreMi>}/>
           <Route path="/redes-sociales" element={<RedesSociales></RedesSociales>}/>
           <Route path="/proyectos" element={<Proyectos></Proyectos>}/>
           <Route path="/contacto" element={<Contacto></Contacto>}/>
+          <Route path="/ve" element={<Marcablanca></Marcablanca>}/>
         </Routes>
       </Router>
     </div>
