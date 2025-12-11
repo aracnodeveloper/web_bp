@@ -5,6 +5,9 @@ export const registerStudentApi = "/auth/register"
 //ABOUTME
 export const aboutmeApi = "/aboutme"
 
+//CONTENT (REDES SOCIALES)
+export const contentApi = "/content"
+
 //GALLERY (ENTREVISTAS)
 export const galleryApi = "/gallery"
 

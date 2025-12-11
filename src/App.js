@@ -8,6 +8,7 @@ import Marcablanca from "./Components/VE/Marcablanca";
 import {AuthProvider} from "./context/AuthContext";
 import {Login} from "./Pages/Login";
 import AdminAboutMe from './Pages/AdminAboutMe';
+import AdminSocialNetwork from "./Pages/AdminSocialNetwork";
 
 function App() {
     return (
@@ -23,8 +24,9 @@ function App() {
                         <Route path="/ve" element={<Marcablanca></Marcablanca>}/>
                         <Route path="/login" element={<Login />} />
 
-                        {/* Ruta de administración */}
+                        {/* Rutas de administración */}
                         <Route path="/admin/sobre-mi" element={<AdminAboutMe />} />
+                        <Route path="/admin/redes-sociales" element={<AdminSocialNetwork />} />
                     </Routes>
                 </BrowserRouter>
             </AuthProvider>
