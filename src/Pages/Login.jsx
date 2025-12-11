@@ -33,7 +33,8 @@ export const Login = () => {
         }
 
         try {
-            const response = await login(values.email, values.password);
+            const email = values.email || values.Email; // accept either key
+            const response = await login(email, values.password);
 
             if (response && response.success) {
                 const token = Cookies.get("accessToken"); //localStorage.getItem('accessToken');
@@ -55,10 +56,14 @@ export const Login = () => {
 
     return (
         <>
-            <Content className="h-screen flex justify-center items-center bg-[#785D99]">
+            <Content className="h-screen flex justify-center items-center">
                 <Card className="w-96 p-6 rounded-2xl shadow-lg text-center ">
                     <Space direction="vertical" align="center" size="large">
-                      <img src="/src/assets/img/124.JPG" className="rounded-full h-24 w-24"/>
+                        <img
+                            className='h-24 w-24 rounded-full object-contain'
+                            src='./images/foto_inicio.webp'
+                            alt="Foto de inicio"
+                        />
 
                         <Typography.Title level={4} className="m-0">
                             <img className='h-28 sm:h-36' src='./images/logo_vertical.webp' alt="Logo Vertical"/>

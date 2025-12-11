@@ -1,8 +1,9 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Slider from "react-slick";
-import VideoModal from  "./VideoModal"
+import VideoModal from "./VideoModal";
+import { useAboutMe } from "../../hooks/useAboutMe";
 
 const CustomNextArrow = (props) => {
     return (
@@ -67,16 +68,16 @@ const VideoCard = ({ entrada, index, onVideoClick }) => {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <div  className="h-full cursor-pointer  "
-                 onClick={() => onVideoClick(index)}
-                 onMouseEnter={() => setIsHovered(true)}
-                 onMouseLeave={() => setIsHovered(false)}>
+            <div
+                className="h-full cursor-pointer"
+                onClick={() => onVideoClick(index)}
+            >
                 <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-3">
-                    <div className={`absolute inset-0  opacity-0  z-10 `}></div>
+                    <div className="absolute inset-0 opacity-0 z-10"></div>
                     <iframe
-                        className="w-full h-full object-cover "
+                        className="w-full h-full object-cover"
                         src={entrada.url}
-                        title={entrada.titulo}
+                        title={entrada.title}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                     ></iframe>
@@ -84,10 +85,10 @@ const VideoCard = ({ entrada, index, onVideoClick }) => {
 
                 <div className="flex flex-col flex-grow">
                     <h3 className="text-lg font-bold text-gray-800 mb-2 group">
-                        {entrada.titulo}
+                        {entrada.title}
                         <span className={`block h-0.5 bg-[#005F6B] transition-all duration-300 ${isHovered ? 'w-full' : 'w-0'}`}></span>
                     </h3>
-                    <p className="text-sm text-gray-600 line-clamp-3 mb-3 flex-grow">{entrada.contenido}</p>
+                    <p className="text-sm text-gray-600 line-clamp-3 mb-3 flex-grow">{entrada.description}</p>
                     <div className={`text-[#96c121] text-sm font-medium transition-all duration-300 ${isHovered ? 'opacity-100' : 'opacity-70'}`}>
                         Leer más →
                     </div>
@@ -98,44 +99,41 @@ const VideoCard = ({ entrada, index, onVideoClick }) => {
 };
 
 const Entradas = () => {
+    const { items: blogItems, loading } = useAboutMe('blog');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
 
-    const entradas = [
-        {
-            id: 1,
-            titulo: "TRIPLE BOMBA DE CARNE",
-            contenido: "Hola, hola, hola amigos… bienvenidos a mi nueva aventura en mi segmento La Sazón del Taxista. En esta ocasión viajé con mi amigo Iván gracias a Cuenca Taxi, quien me llevó a yçuna hueca en Cuenca y probé los Asados del Jasho.",
-            url: "https://www.youtube.com/embed/GCEP1FBMPGg"
-        },
-        {
-            id: 2,
-            titulo: "Experiencias gastronómicas en Ecuador",
-            contenido: "La cocina ecuatoriana es una de las más diversas de América Latina. En este video exploramos las delicias culinarias de la costa, sierra y amazonía, descubriendo sabores únicos y tradiciones ancestrales que han perdurado hasta nuestros días.",
-            url: "https://www.youtube.com/embed/QaL6cG4LCNU"
-        },
-        {
-            id: 3,
-            titulo: "CEVICHE DE CONCHA EN CEVICHERIA 7 PALOS",
-            contenido: "Hola Hola amigos… Les comento que la cocina ecuatoriana es una de las más diversas de Latinoamerica, así, que en esta ocasión visité la Cevichería 7 Palos para probar un delicioso ceviche de concha hecho por las manos de la gran Yajaira. ",
-            url: "https://www.youtube.com/embed/xbWuUMTadeI"
-        },
-        {
-            id: 4,
-            titulo: "ME SALVARON LA VIDA",
-            contenido: "Visité en el mercado 27 de febrero a mi amiga Rosita, quien me preparó la bebida levanta muertos, pero NO HUBO LUZ y se complicó la preparación. Entonces, gracias a mi BYD pudimos conseguir energía y disfrutar de este delicioso batido. ",
-            url: "https://www.youtube.com/embed/qBhclJfk6n4"
-        }
-    ];
+    const activeEntradas = blogItems
+        .filter(item => item.isActive)
+        .sort((a, b) => a.orderIndex - b.orderIndex)
+        .map(item => ({
+            id: item.id,
+            title: item.title,
+            description: item.description,
+            url: item.url,
+        }));
+
     const handleVideoClick = (index) => {
         setCurrentVideoIndex(index);
         setIsModalOpen(true);
     };
 
+    if (loading) {
+        return <div className="text-center py-8">Cargando entradas...</div>;
+    }
+
+    if (activeEntradas.length === 0) {
+        return (
+            <div className="text-center py-8 text-gray-500">
+                No hay entradas disponibles en este momento
+            </div>
+        );
+    }
+
     return (
-        <div className='w-full '>
-            <Slider {...settings} className="blog-slider ">
-                {entradas.map((entrada, index) => (
+        <div className='w-full'>
+            <Slider {...settings} className="blog-slider">
+                {activeEntradas.map((entrada, index) => (
                     <VideoCard
                         key={entrada.id}
                         entrada={entrada}
@@ -147,7 +145,7 @@ const Entradas = () => {
 
             {isModalOpen && (
                 <VideoModal
-                    videos={entradas}
+                    videos={activeEntradas}
                     initialIndex={currentVideoIndex}
                     onClose={() => setIsModalOpen(false)}
                 />
