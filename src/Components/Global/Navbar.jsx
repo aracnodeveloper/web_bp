@@ -10,11 +10,11 @@ const Navbar = ({ activo }) => {
 
     const rutas = [
         "/",
-        "/ve",
         "/sobre-mi",
         "/redes-sociales",
         "/proyectos",
-        "/contacto"
+        "/contacto",
+        "/ve"
 
     ];
     const navigation = useNavigate();
@@ -59,13 +59,13 @@ const Navbar = ({ activo }) => {
                 {/* Desktop Navigation */}
                 <div className='hidden md:flex gap-4 lg:gap-10 justify-end font-bold text-base lg:text-lg'>
                     <div className={`${activo == 0 ? "text-white" : ""} border border-transparent rounded-full px-3 cursor-pointer`} onClick={() => hanldeClick(0)}>Inicio</div>
-                    <div className={`${activo == 1 ? "text-white" : ""} border border-transparent rounded-full px-3 cursor-pointer`} onClick={() => hanldeClick(1)}>VisitaEcuador</div>
+
 
                     <div
                         onMouseEnter={() => setSubSobreMi(true)}
                         onMouseLeave={() => setSubSobreMi(false)}
-                        className={`${activo == 2 ? "text-white" : ""} border border-transparent rounded-full px-3 cursor-pointer relative`}
-                        onClick={() => hanldeClick(2)}
+                        className={`${activo == 1 ? "text-white" : ""} border border-transparent rounded-full px-3 cursor-pointer relative`}
+                        onClick={() => hanldeClick(1)}
                     >
                         Sobre Mí
                         {subSobremi && (
@@ -94,8 +94,8 @@ const Navbar = ({ activo }) => {
                     <div
                         onMouseEnter={() => setSubSocial(true)}
                         onMouseLeave={() => setSubSocial(false)}
-                        className={`${activo == 3 ? "text-white" : ""} border border-transparent rounded-full px-3 cursor-pointer relative`}
-                        onClick={() => hanldeClick(3)}
+                        className={`${activo == 2 ? "text-white" : ""} border border-transparent rounded-full px-3 cursor-pointer relative`}
+                        onClick={() => hanldeClick(2)}
                     >
                         Redes Sociales
                         {subSocial && (
@@ -116,8 +116,8 @@ const Navbar = ({ activo }) => {
                     <div
                         onMouseEnter={() => setSubProyectos(true)}
                         onMouseLeave={() => setSubProyectos(false)}
-                        className={`${activo == 4 ? "text-white" : ""} border border-transparent rounded-full px-3 cursor-pointer relative`}
-                        onClick={() => hanldeClick(4)}
+                        className={`${activo == 3 ? "text-white" : ""} border border-transparent rounded-full px-3 cursor-pointer relative`}
+                        onClick={() => hanldeClick(3)}
                     >
                         Proyectos
                         {subProyectos && (
@@ -135,7 +135,8 @@ const Navbar = ({ activo }) => {
                             </div>
                         )}
                     </div>
-                    <div className={`${activo == 5 ? "text-white" : ""} border border-transparent rounded-full px-3 cursor-pointer`} onClick={() => hanldeClick(5)}>Contacto</div>
+                    <div className={`${activo == 4 ? "text-white" : ""} border border-transparent rounded-full px-3 cursor-pointer`} onClick={() => hanldeClick(4)}>Contacto</div>
+                    <div className={`${activo == 5 ? "text-white" : ""} border border-transparent rounded-full px-3 cursor-pointer`} onClick={() => hanldeClick(5)}>VisitaEcuador</div>
                 </div>
             </div>
 

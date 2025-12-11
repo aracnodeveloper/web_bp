@@ -9,6 +9,7 @@ import imgP5 from '../../imagenes/Influencers/img_3.webp';
 import imgP6 from '../../imagenes/Influencers/img_4.webp';
 import imgP7 from '../../imagenes/Influencers/img_8.webp';
 import imgP8 from '../../imagenes/Influencers/img_9.webp';
+
 import imgP9 from '../../imagenes/Influencers/img_10.png';
 import imgP10 from '../../imagenes/Influencers/img_11.webp';
 import imgP11 from '../../imagenes/Influencers/img_12.webp';
