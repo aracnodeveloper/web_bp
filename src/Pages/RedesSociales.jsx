@@ -32,7 +32,7 @@ const RedesSociales = () => {
 
     return (
         <div>
-            <Navbar activo={3}/>
+            <Navbar activo={2}/>
             <div className="pt-16">
                 <div ref={contenidoRef}>
                     <Contenido/>

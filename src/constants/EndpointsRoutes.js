@@ -5,6 +5,12 @@ export const registerStudentApi = "/auth/register"
 //ABOUTME
 export const aboutmeApi = "/aboutme"
 
+//METRICS
+export const socialsApi = "/socials"
+export const genderApi = "/gender"
+export const ageApi = "/age"
+export const locationApi = "/location"
+
 //CONTENT (REDES SOCIALES)
 export const contentApi = "/content"
 

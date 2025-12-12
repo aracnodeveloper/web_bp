@@ -31,7 +31,7 @@ const Proyectos = () => {
 
     return (
         <div className="min-h-screen flex flex-col">
-            <Navbar activo={4} />
+            <Navbar activo={3} />
             <main className="flex-grow pt-16">
                 <div ref={socialRef} className="w-full">
                     <ImpactoSocial />

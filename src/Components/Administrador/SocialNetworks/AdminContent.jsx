@@ -211,7 +211,7 @@ const AdminContent = () => {
                                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                         }`}
                     >
-                        <span className={`${platform.icon} inline-block h-4 w-4 mr-1 ${filterType === platform.value ? 'text-white' : platform.color}`}></span>
+                        <span className={`${platform.icon} inline-block h-4 w-4 mr-1  ${filterType === platform.value ? 'text-white' : platform.color}`}></span>
                         {platform.label} ({items.filter(i => i.type === platform.value).length})
                     </button>
                 ))}
@@ -320,8 +320,8 @@ const AdminContent = () => {
                                             required
                                         >
                                             {platforms.map((platform) => (
-                                                <option key={platform.value} value={platform.value}>
-                                                    {platform.label}
+                                                <option  key={platform.value} value={platform.value}>
+                                                   {platform.label}
                                                 </option>
                                             ))}
                                         </select>
@@ -452,15 +452,7 @@ const AdminContent = () => {
                                     )}
                                 </div>
 
-                                <div className="flex items-center">
-                                    <input
-                                        type="checkbox"
-                                        checked={formData.isActive}
-                                        onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
-                                        className="mr-2"
-                                    />
-                                    <label className="text-sm font-medium text-gray-700">Publicación Activa</label>
-                                </div>
+
 
                                 <div className="flex gap-4 pt-4">
                                     <button

@@ -1,25 +1,33 @@
 import React, { useState } from 'react';
 import AdminContent from '../Components/Administrador/SocialNetworks/AdminContent';
+import AdminSocials from '../Components/Administrador/SocialNetworks/AdminSocials';
+import AdminGender from '../Components/Administrador/SocialNetworks/AdminGender';
+import AdminAge from '../Components/Administrador/SocialNetworks/AdminAge';
+import AdminLocation from '../Components/Administrador/SocialNetworks/AdminLocation';
 
 const AdminSocialNetwork = () => {
     const [activeTab, setActiveTab] = useState('content');
 
     const tabs = [
         { id: 'content', label: 'Contenido & Publicaciones', icon: 'icon-[material-symbols--grid-view]' },
-        { id: 'metrics', label: 'Métricas', icon: 'icon-[material-symbols--analytics]' },
+        { id: 'socials', label: 'Seguidores por Red', icon: 'icon-[material-symbols--group]' },
+        { id: 'gender', label: 'Género', icon: 'icon-[material-symbols--wc]' },
+        { id: 'age', label: 'Edad', icon: 'icon-[material-symbols--calendar-today]' },
+        { id: 'location', label: 'Ubicación', icon: 'icon-[material-symbols--location-on]' },
     ];
 
     const renderContent = () => {
         switch (activeTab) {
             case 'content':
                 return <AdminContent />;
-            case 'metrics':
-                return (
-                    <div className="text-center py-12 text-gray-500">
-                        <span className="icon-[material-symbols--analytics] h-16 w-16 mx-auto mb-4 opacity-50"></span>
-                        <p>Módulo de métricas próximamente</p>
-                    </div>
-                );
+            case 'socials':
+                return <AdminSocials />;
+            case 'gender':
+                return <AdminGender />;
+            case 'age':
+                return <AdminAge />;
+            case 'location':
+                return <AdminLocation />;
             default:
                 return null;
         }

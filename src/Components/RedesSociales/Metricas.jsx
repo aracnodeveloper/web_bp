@@ -4,8 +4,62 @@ import SeguidoresRed from './SeguidoresRed';
 import SegmentacionGenero from './SegmentacionGenero';
 import SegmentacionEdad from './SegmentacionEdad';
 import SegmentacionGeografica from './SegmentacionGeografica';
+import { useSocials } from '../../hooks/useMetrics';
 
 const Metricas = () => {
+    const { items: socials, loading } = useSocials();
+
+    // Mapear tipos de la BD a iconos
+    const getSocialIcon = (type) => {
+        const icons = {
+            'instagram_fanpage': './images/instagram_icon.webp',
+            'instagram_personal': './images/instagram_icon.webp',
+            'facebook_fanpage': './images/facebook_icon.webp',
+            'facebook_personal': './images/facebook_icon.webp',
+            'tiktok': './images/tiktok_icon.webp',
+            'youtube': './images/youtube_icon.webp',
+            'twitter': './images/twitter_icon.webp',
+            'linkedin': './images/linkedin_icon.webp',
+        };
+        return icons[type] || './images/instagram_icon.webp';
+    };
+
+    // Mapear tipos de la BD a colores
+    const getSocialColor = (type) => {
+        const colors = {
+            'instagram_fanpage': '#db5781',
+            'instagram_personal': '#e33f72',
+            'facebook_fanpage': '#3e8ba4',
+            'facebook_personal': '#35758a',
+            'tiktok': '#60605f',
+            'youtube': '#e6231c',
+            'twitter': '#000000',
+            'linkedin': '#0e76a8',
+        };
+        return colors[type] || '#db5781';
+    };
+
+    // Formatear número de seguidores
+    const formatFollowers = (num) => {
+        if (num >= 1000) return `${num.toFixed(1)} k`;
+        if (num >= 1) return `${num.toFixed(2)} K`;
+        return num.toString();
+    };
+
+    const activeSocials = socials
+        .filter(s => s.isActive)
+        .sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0));
+
+    if (loading) {
+        return (
+            <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl shadow-lg">
+                <div className="flex justify-center items-center py-12">
+                    <div className="text-gray-500">Cargando métricas...</div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl shadow-lg">
             <div id='metricas' className='flex flex-col gap-6 mx-auto max-w-6xl py-8 sm:px-6 lg:px-8 w-full'>
@@ -21,43 +75,24 @@ const Metricas = () => {
                 <Medidor />
 
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6'>
-                    <SeguidoresRed
-                        red={"INST/FANPAGE"}
-                        color={"#db5781"}
-                        icono={"./images/instagram_icon.webp"}
-                        seguidores={"135 K"}
-                    />
-                    <SeguidoresRed
-                        red={"FK/FANPAGE"}
-                        color={"#3e8ba4"}
-                        icono={"./images/facebook_icon.webp"}
-                        seguidores={"205 K"}
-                    />
-                    <SeguidoresRed
-                        red={"TIK TOK"}
-                        color={"#60605f"}
-                        icono={"./images/tiktok_icon.webp"}
-                        seguidores={"312.5 k"}
-                    />
-                    <SeguidoresRed
-                        red={"YOUTUBE"}
-                        color={"#e6231c"}
-                        icono={"./images/youtube_icon.webp"}
-                        seguidores={"1,88 k"}
-                    />
-                    <SeguidoresRed
-                        red={"INST/PERSONAL"}
-                        color={"#e33f72"}
-                        icono={"./images/instagram_icon.webp"}
-                        seguidores={"44.7 K"}
-                    />
-                    <SeguidoresRed
-                        red={"FK/PERSONAL"}
-                        color={"#35758a"}
-                        icono={"./images/facebook_icon.webp"}
-                        seguidores={"6.6 K"}
-                    />
+                    {activeSocials.map((social) => (
+                        <SeguidoresRed
+                            key={social.id}
+                            red={social.title}
+                            color={getSocialColor(social.type)}
+                            icono={getSocialIcon(social.type)}
+                            seguidores={formatFollowers(social.followers)}
+                            rise={social.rise}
+                            url={social.url}
+                        />
+                    ))}
                 </div>
+
+                {activeSocials.length === 0 && (
+                    <div className="text-center py-8 text-gray-500">
+                        No hay redes sociales activas para mostrar
+                    </div>
+                )}
 
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-2'>
                     <SegmentacionGenero />

@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 
-const SeguidoresRed = ({red, seguidores, color, icono}) => {
+const SeguidoresRed = ({red, seguidores, color, icono, rise, url}) => {
     const [isHovered, setIsHovered] = useState(false);
+
+    const handleClick = () => {
+        if (url) {
+            window.open(url, '_blank');
+        }
+    };
 
     return (
         <div
-            className="relative overflow-hidden rounded-xl shadow-md transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+            className="relative overflow-hidden rounded-xl shadow-md transition-all duration-300 transform hover:scale-105 hover:shadow-xl cursor-pointer"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            onClick={handleClick}
             style={{
                 backgroundColor: color,
                 borderBottom: `4px solid ${color}`
@@ -25,7 +32,7 @@ const SeguidoresRed = ({red, seguidores, color, icono}) => {
 
                 <div className="flex flex-col items-center">
                     <span className="icon-[ph--arrow-up] h-8 w-8 animate-bounce"></span>
-                    <span className="text-xs font-semibold">+5.2%</span>
+                    <span className="text-xs font-semibold">+{rise || 0}%</span>
                 </div>
             </div>
 
