@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useCallback, memo } from 'react';
-import { influencersData, socialIconMap } from './creadores/creators-data';
+import { useProjects } from '../../hooks/useProjects';
+import { PROJECT_TYPES } from '../../types/projectTypes';
+import { socialIconMap } from './creadores/creators-data'; // Mantener el mapa de iconos
 import { getVisibleInfluencers, getResponsiveDisplayCount } from './creadores/creators-utils';
 
 const SocialLink = memo(({ link }) => {
-    const platformInfo = socialIconMap[link.platform.toLowerCase()] || socialIconMap['default'];
+    const platformInfo = socialIconMap[link.type.toLowerCase()] || socialIconMap['default'];
     return (
         <a
             href={link.url}
@@ -32,14 +34,14 @@ const InfluencerCard = memo(({ influencer, onClick }) => (
     >
         <div className="relative">
             <img
-                src={influencer.imageUrl}
+                src={influencer.image}
                 alt={influencer.name}
                 className="w-full h-64 object-cover"
                 loading="lazy"
             />
             <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-4 text-white">
                 <h3 className="text-xl font-bold">{influencer.name}</h3>
-                <p className="text-sm opacity-80">{influencer.role.split('\n')[0]}</p>
+                <p className="text-sm opacity-80">{influencer.description.split('\n')[0]}</p>
             </div>
         </div>
     </div>
@@ -47,15 +49,15 @@ const InfluencerCard = memo(({ influencer, onClick }) => (
 
 const VideoThumbnail = memo(({ video }) => (
     <a
-        href={video.videoUrl}
+        href={video.url}
         target="_blank"
         rel="noopener noreferrer"
         className="block hover:bg-gray-200 rounded-lg transition-colors"
     >
         <div className="relative overflow-hidden rounded-lg">
             <img
-                src={video.thumbnailUrl}
-                alt={video.title}
+                src={video.image}
+                alt={video.name}
                 className="w-full h-64 mb-5 object-cover transform hover:scale-110 transition-transform"
                 loading="lazy"
             />
@@ -67,11 +69,15 @@ const VideoThumbnail = memo(({ video }) => (
 ));
 
 const CreatorsNetworking = () => {
+    const { projects: influencersData, loading, getProjectWithRelations } = useProjects(PROJECT_TYPES.CREADORES_NETWORKING);
+
     const [selectedInfluencer, setSelectedInfluencer] = useState(null);
+    const [influencerDetails, setInfluencerDetails] = useState(null);
     const [currentCarouselIndex, setCurrentCarouselIndex] = useState(0);
     const [displayCount, setDisplayCount] = useState(4);
     const [activeModalTab, setActiveModalTab] = useState('biography');
     const [selectedInfluencerIndex, setSelectedInfluencerIndex] = useState(null);
+    const [loadingDetails, setLoadingDetails] = useState(false);
 
     const modalTabs = [
         { id: 'biography', label: 'Biografía' },
@@ -83,47 +89,81 @@ const CreatorsNetworking = () => {
         setCurrentCarouselIndex((prevIndex) =>
             prevIndex === 0 ? influencersData.length - 1 : prevIndex - 1
         );
-    }, []);
+    }, [influencersData.length]);
 
     const handleNext = useCallback(() => {
         setCurrentCarouselIndex((prevIndex) =>
             prevIndex === influencersData.length - 1 ? 0 : prevIndex + 1
         );
-    }, []);
+    }, [influencersData.length]);
 
-    const openModal = useCallback((influencer) => {
+    const openModal = useCallback(async (influencer) => {
         const index = influencersData.findIndex(item => item.id === influencer.id);
         setSelectedInfluencer(influencer);
         setSelectedInfluencerIndex(index);
         setActiveModalTab('biography');
-    }, []);
+
+        // Cargar detalles con relaciones (social links y videos)
+        setLoadingDetails(true);
+        try {
+            const details = await getProjectWithRelations(influencer.id);
+            setInfluencerDetails(details);
+        } catch (error) {
+            console.error('Error loading influencer details:', error);
+        } finally {
+            setLoadingDetails(false);
+        }
+    }, [influencersData, getProjectWithRelations]);
 
     const closeModal = useCallback(() => {
         setSelectedInfluencer(null);
         setSelectedInfluencerIndex(null);
+        setInfluencerDetails(null);
     }, []);
 
-    const navigateToPreviousInfluencer = useCallback(() => {
+    const navigateToPreviousInfluencer = useCallback(async () => {
         if (selectedInfluencerIndex === null) return;
 
         const newIndex = selectedInfluencerIndex === 0
             ? influencersData.length - 1
             : selectedInfluencerIndex - 1;
 
-        setSelectedInfluencer(influencersData[newIndex]);
+        const newInfluencer = influencersData[newIndex];
+        setSelectedInfluencer(newInfluencer);
         setSelectedInfluencerIndex(newIndex);
-    }, [selectedInfluencerIndex]);
 
-    const navigateToNextInfluencer = useCallback(() => {
+        setLoadingDetails(true);
+        try {
+            const details = await getProjectWithRelations(newInfluencer.id);
+            setInfluencerDetails(details);
+        } catch (error) {
+            console.error('Error loading influencer details:', error);
+        } finally {
+            setLoadingDetails(false);
+        }
+    }, [selectedInfluencerIndex, influencersData, getProjectWithRelations]);
+
+    const navigateToNextInfluencer = useCallback(async () => {
         if (selectedInfluencerIndex === null) return;
 
         const newIndex = selectedInfluencerIndex === influencersData.length - 1
             ? 0
             : selectedInfluencerIndex + 1;
 
-        setSelectedInfluencer(influencersData[newIndex]);
+        const newInfluencer = influencersData[newIndex];
+        setSelectedInfluencer(newInfluencer);
         setSelectedInfluencerIndex(newIndex);
-    }, [selectedInfluencerIndex]);
+
+        setLoadingDetails(true);
+        try {
+            const details = await getProjectWithRelations(newInfluencer.id);
+            setInfluencerDetails(details);
+        } catch (error) {
+            console.error('Error loading influencer details:', error);
+        } finally {
+            setLoadingDetails(false);
+        }
+    }, [selectedInfluencerIndex, influencersData, getProjectWithRelations]);
 
     useEffect(() => {
         const handleResize = () => {
@@ -154,29 +194,46 @@ const CreatorsNetworking = () => {
     }, [selectedInfluencer, closeModal, navigateToPreviousInfluencer, navigateToNextInfluencer]);
 
     const renderModalContent = () => {
+        if (loadingDetails) {
+            return (
+                <div className="text-center py-8">
+                    <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#96c121]"></div>
+                    <p className="mt-2 text-gray-600">Cargando...</p>
+                </div>
+            );
+        }
+
         switch (activeModalTab) {
             case 'biography':
                 return (
                     <div className="mb-6 border-l-4 border-[#96c121] pl-4">
                         <p className="text-gray-700 italic text-xl">
-                            "{selectedInfluencer.bio}"
+                            "{selectedInfluencer.bio || selectedInfluencer.description}"
                         </p>
                     </div>
                 );
             case 'socialMedia':
                 return (
                     <div className="flex justify-center space-x-6 mb-6">
-                        {selectedInfluencer.socialLinks.map((link) => (
-                            <SocialLink key={link.platform} link={link} />
-                        ))}
+                        {influencerDetails?.social && influencerDetails.social.length > 0 ? (
+                            influencerDetails.social
+                                .filter(link => link.isActive)
+                                .map((link) => (
+                                    <SocialLink key={link.id} link={link} />
+                                ))
+                        ) : (
+                            <p className="text-center text-gray-500">No hay redes sociales disponibles</p>
+                        )}
                     </div>
                 );
             case 'videos':
-                return selectedInfluencer.videos ? (
+                return influencerDetails?.videos && influencerDetails.videos.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {selectedInfluencer.videos.map((video) => (
-                            <VideoThumbnail key={video.id} video={video} />
-                        ))}
+                        {influencerDetails.videos
+                            .filter(video => video.isActive)
+                            .map((video) => (
+                                <VideoThumbnail key={video.id} video={video} />
+                            ))}
                     </div>
                 ) : (
                     <p className="text-center text-gray-500">No hay videos disponibles</p>
@@ -185,6 +242,27 @@ const CreatorsNetworking = () => {
                 return null;
         }
     };
+
+    if (loading) {
+        return (
+            <div className="w-full py-8 min-h-screen">
+                <div className="text-center py-12">
+                    <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#96c121]"></div>
+                    <p className="mt-4 text-gray-600">Cargando creadores...</p>
+                </div>
+            </div>
+        );
+    }
+
+    if (!influencersData || influencersData.length === 0) {
+        return (
+            <div className="w-full py-8 min-h-screen">
+                <div className="text-center py-12">
+                    <p className="text-gray-600">No hay creadores disponibles</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="w-full py-8 -mb-60 min-h-screen">
@@ -199,7 +277,7 @@ const CreatorsNetworking = () => {
                     <button
                         onClick={handlePrevious}
                         aria-label="Previous Influencers"
-                        className="rounded-full bg-gradient-to-r from-[#96c121] to-[#005F6B] text-white p-1 hover:opacity-80 transition-all  h-8 w-8"
+                        className="rounded-full bg-gradient-to-r from-[#96c121] to-[#005F6B] text-white p-1 hover:opacity-80 transition-all h-8 w-8"
                     >
                         <span className="icon-[material-symbols--arrow-back-ios-new] h-6 w-6"></span>
                     </button>
@@ -235,7 +313,6 @@ const CreatorsNetworking = () => {
                             className="bg-white rounded-2xl w-full max-w-3xl mx-auto overflow-hidden shadow-2xl transform transition-all duration-300 hover:scale-[1.02] max-h-[95vh] flex flex-col relative"
                             onClick={(e) => e.stopPropagation()}
                         >
-                            {/* Botones de navegación del modal */}
                             <button
                                 onClick={navigateToPreviousInfluencer}
                                 aria-label="Perfil anterior"
@@ -254,17 +331,16 @@ const CreatorsNetworking = () => {
 
                             <div className="relative h-[300px] flex-shrink-0">
                                 <img
-                                    src={selectedInfluencer.imageUrl}
+                                    src={selectedInfluencer.image}
                                     alt={selectedInfluencer.name}
                                     className="w-full h-full object-cover"
                                     loading="lazy"
                                 />
-                                <div
-                                    className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6 text-white">
+                                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6 text-white">
                                     <h2 id="influencer-modal-title" className="text-4xl font-bold mb-2">
                                         {selectedInfluencer.name}
                                     </h2>
-                                    <p className="text-lg opacity-80">{selectedInfluencer.role}</p>
+                                    <p className="text-lg opacity-80">{selectedInfluencer.description}</p>
                                 </div>
                                 <button
                                     onClick={closeModal}
@@ -281,13 +357,13 @@ const CreatorsNetworking = () => {
                                         key={tab.id}
                                         onClick={() => setActiveModalTab(tab.id)}
                                         className={`
-                                        px-4 py-2 
-                                        text-sm font-medium 
-                                        transition-colors duration-300
-                                        ${activeModalTab === tab.id
+                                            px-4 py-2 
+                                            text-sm font-medium 
+                                            transition-colors duration-300
+                                            ${activeModalTab === tab.id
                                             ? 'border-b-2 border-[#96c121] text-[#96c121]'
                                             : 'text-gray-500 hover:text-gray-700'}
-                                    `}
+                                        `}
                                     >
                                         {tab.label}
                                     </button>

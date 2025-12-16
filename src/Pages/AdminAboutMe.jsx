@@ -4,11 +4,15 @@ import AdminRecognitions from '../Components/Administrador/AboutMe/AdminRecognit
 import AdminPhotos from '../Components/Administrador/AboutMe/AdminPhotos';
 import AdminBlog from '../Components/Administrador/AboutMe/AdminBlog';
 import AdminGallery from '../Components/Administrador/AboutMe/AdminGallery';
+import AdminPortada from '../Components/Administrador/AboutMe/AdminPortada';
+import AdminSobreMi from '../Components/Administrador/AboutMe/AdminSobreMi';
 
 const AdminAboutMe = () => {
-    const [activeTab, setActiveTab] = useState('goals');
+    const [activeTab, setActiveTab] = useState('portada');
 
     const tabs = [
+        { id: 'portada', label: 'Textos Portada', icon: 'icon-[material-symbols--home]' },
+        { id: 'sobre-mi', label: 'Textos Sobre Mí', icon: 'icon-[material-symbols--person]' },
         { id: 'goals', label: 'Historia & Logros', icon: 'icon-[material-symbols--history]' },
         { id: 'recognitions', label: 'Reconocimientos', icon: 'icon-[material-symbols--award-star-rounded]' },
         { id: 'photo', label: 'Galería Fotográfica', icon: 'icon-[material-symbols--photo-camera]' },
@@ -18,6 +22,10 @@ const AdminAboutMe = () => {
 
     const renderContent = () => {
         switch (activeTab) {
+            case 'portada':
+                return <AdminPortada />;
+            case 'sobre-mi':
+                return <AdminSobreMi />;
             case 'goals':
                 return <AdminGoals />;
             case 'recognitions':
@@ -49,19 +57,19 @@ const AdminAboutMe = () => {
                 {/* Tabs */}
                 <div className="bg-white rounded-lg shadow-sm mb-6">
                     <div className="border-b border-gray-200">
-                        <nav className="flex -mb-px space-x-8 px-6" aria-label="Tabs">
+                        <nav className="flex -mb-px space-x-8 px-6 overflow-x-auto" aria-label="Tabs">
                             {tabs.map((tab) => (
                                 <button
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab.id)}
                                     className={`
-                    whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center gap-2
-                    ${
+                                        whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center gap-2
+                                        ${
                                         activeTab === tab.id
                                             ? 'border-[#96c121] text-[#96c121]'
                                             : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                                     }
-                  `}
+                                    `}
                                 >
                                     <span className={`${tab.icon} h-5 w-5`}></span>
                                     {tab.label}

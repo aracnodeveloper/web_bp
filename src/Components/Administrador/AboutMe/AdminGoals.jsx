@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAboutMe } from '../../../hooks/useAboutMe';
+import { IconSelector } from '../../Global/iconSelector'; // Importar el componente
 
 const AdminGoals = () => {
     const { items, loading, createItem, updateItem, deleteItem, uploadImage } = useAboutMe('goals');
@@ -240,17 +241,18 @@ const AdminGoals = () => {
                                     </div>
                                 </div>
 
+                                {/* IconSelector reemplaza el input de texto */}
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                                        Icono (clase CSS)
+                                        Icono
                                     </label>
-                                    <input
-                                        type="text"
+                                    <IconSelector
                                         value={formData.icon}
-                                        onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
-                                        placeholder="icon-[material-symbols--award-star-rounded]"
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#96c121] focus:border-transparent"
+                                        onChange={(value) => setFormData({ ...formData, icon: value })}
                                     />
+                                    <p className="text-xs text-gray-500 mt-1">
+                                        Selecciona un icono para representar este logro
+                                    </p>
                                 </div>
 
                                 <div>

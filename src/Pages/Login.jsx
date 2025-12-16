@@ -39,7 +39,7 @@ export const Login = () => {
             if (response && response.success) {
                 const token = Cookies.get("accessToken"); //localStorage.getItem('accessToken');
                 if (token) {
-                    navigate("/administracion", { replace: true });
+                    navigate("/admin/sobre-mi", { replace: true });
                 } else {
                     setError("Login failed. No token found.");
                 }

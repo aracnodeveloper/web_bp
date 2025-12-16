@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { Award, Globe, Target, Info, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import {useText} from "../../hooks/useText";
 
 
 const Introduccion = () => {
+    const { items, loading } = useText( 'sobre-mi')
     const [isDetailOpen, setIsDetailOpen] = useState(false);
     const [isPortalesModalOpen, setIsPortalesModalOpen] = useState(false);
     const navigate = useNavigate();
+    const activeItems = items.filter(item => item.isActive).sort((a, b) => a.orderIndex - b.orderIndex);
 
     const achievements = [
         "Creador del primer sistema de reservas sin intermediación mundial",
@@ -57,6 +60,7 @@ const Introduccion = () => {
 
     return (
         <div id='biografia' className='flex flex-col md:flex-row mx-auto max-w-6xl py-12 sm:px-6 lg:px-8 w-full rounded-2xl'>
+
             <div className='w-full md:w-1/2  flex flex-col gap-4 justify-center px-4 md:px-6'>
                 <div className='relative group'>
                     <img
@@ -109,17 +113,13 @@ const Introduccion = () => {
                         </div>
                     </div>
                 )}
+
                 <blockquote className='text-xl italic text-[#769842] border-l-4 border-[#769842] pl-4'>
                     "Se cuenta una historia, que debe ser interesante, atractiva y que perdure con los años."
                 </blockquote>
-                <p className='text-justify text-gray-700'>
-                    Bernardo Polo Andrade empresario cuencano de 56 años. Hombre visionario.
-                    Ingeniero comercial de la Universidad del Azuay, pionero en tecnologías turísticas y digitales en
-                    Ecuador. Con más de 26 años de experiencia, ha revolucionado la industria del turismo mediante
-                    innovaciones tecnológicas y plataformas digitales disruptivas.
-                    Conocido como el "Hacker del Turismo", al ser creador de contenidos de valor, comprometido con hacer visibles a los emprendimientos para impactar positivamente en la micro-economía del país, y al mismo tiempo, ofrecer información útil y relevante para los turistas que quieren conocer el país de los cuatro rios.
-                </p>
-
+                {activeItems.map((item) =>(          <p key={item.id} className='text-justify text-gray-700'>
+                        {item.description}  </p>
+))}
                 <div className='grid grid-cols-3 gap-4 mt-4'>
                     <div
                         onClick={handlePortalesModal}

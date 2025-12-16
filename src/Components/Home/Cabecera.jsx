@@ -1,8 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import {useText} from "../../hooks/useText";
 
 const Cabecera = () => {
+    const { items, loading } = useText( 'portada')
     const navigate = useNavigate();
+    const activeItems = items.filter(item => item.isActive).sort((a, b) => a.orderIndex - b.orderIndex);
 
     const navigateToSection = (section) => {
         navigate('/sobre-mi', { state: { scrollTo: section } });
@@ -21,7 +24,9 @@ const Cabecera = () => {
                     <label className='text-xl sm:text-2xl font-light text-gray-700'>Emprendedor disruptivo</label>
                     <label className='text-xl sm:text-2xl font-light text-gray-700'>Bloguero</label>
                     <div className='h-6 sm:h-10'/>
-                    <p className='text-center md:text-justify text-sm text-gray-600 max-w-md'>Bernardo Polo Andrade empresario cuencano de 56 años. Hombre visionario, con más de 26 años de experiencia en la promoción de la hotelería, turismo y negociación en el Ecuador y Latinoamérica.</p>
+                    {activeItems.map((item) =>(
+                        <p key={item.id} className='text-center md:text-justify text-sm text-gray-600 max-w-md'>  {item.description}</p>
+                    ))}
                     <div
                         className='flex mt-3 items-center w-full max-w-md cursor-pointer'
                         onClick={() => navigateToSection('logros')}
