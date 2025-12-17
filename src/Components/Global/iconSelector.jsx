@@ -41,6 +41,8 @@ export const ICON_LIST = [
             { value: 'icon-[material-symbols--calendar-today]', label: 'Calendario' },
             { value: 'icon-[material-symbols--flag]', label: 'Bandera' },
             { value: 'icon-[material-symbols--location-on]', label: 'Lugar' },
+            { value: 'icon-[material-symbols--language]', label: 'World' },
+            { value: 'icon-[material-symbols--captive-portal]', label: 'Search' },
         ]
     },
     {
@@ -51,6 +53,7 @@ export const ICON_LIST = [
             { value: 'icon-[material-symbols--campaign]', label: 'Campaña' },
             { value: 'icon-[material-symbols--mic]', label: 'Micrófono' },
             { value: 'icon-[material-symbols--forum]', label: 'Foro' },
+            { value: 'icon-[material-symbols--newspaper]', label: 'Noticia' },
         ]
     },
     {
@@ -61,6 +64,9 @@ export const ICON_LIST = [
             { value: 'icon-[material-symbols--check-circle]', label: 'Check' },
             { value: 'icon-[material-symbols--lightbulb]', label: 'Idea' },
             { value: 'icon-[material-symbols--verified]', label: 'Verificado' },
+            { value: 'icon-[material-symbols--emoji-food-beverage]', label: 'Sabe'},
+            { value: 'icon-[material-symbols--location-city]', label: 'City'},
+            { value: 'icon-[material-symbols--id-card]', label: 'Reconocimiento' },
         ]
     }
 ];

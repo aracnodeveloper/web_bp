@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:8006"; // ensure protocol is included
+const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:8005"; // ensure protocol is included
 
 const api = axios.create({
     baseURL: BASE_URL, // ajusta según sea necesario

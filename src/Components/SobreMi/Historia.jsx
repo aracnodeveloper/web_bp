@@ -168,15 +168,33 @@ Fecha de logro: ${selectedItem.date ? new Date(selectedItem.date).toLocaleDateSt
         const blob = new Blob([downloadContent], { type: 'text/plain;charset=utf-8' });
         saveAs(blob, `LogroVistaEcuador_${selectedItem.title.replace(/\s+/g, '_')}.txt`);
     }, [selectedItem]);
+    const convertToEmbedUrl = (url) => {
+        if (!url) return null;
 
+        // Para URLs de youtube.com/watch?v=VIDEO_ID
+        if (url.includes('youtube.com/watch')) {
+            const videoId = url.split('v=')[1]?.split('&')[0];
+            return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+        }
+
+        // Para URLs de youtu.be/VIDEO_ID
+        if (url.includes('youtu.be/')) {
+            const videoId = url.split('youtu.be/')[1]?.split('?')[0];
+            return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+        }
+
+        // Si ya es una URL embed, la devuelve tal cual
+        return url;
+    };
     const renderModalContent = (item) => {
         if (item.url && (item.url.includes('youtube.com') || item.url.includes('youtu.be'))) {
+            const embedUrl = convertToEmbedUrl(item.url);
             return (
                 <div className="w-full h-full">
                     <iframe
                         width="100%"
                         height="100%"
-                        src={item.url}
+                        src={embedUrl}
                         title={item.title}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen

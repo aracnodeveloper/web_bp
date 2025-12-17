@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import apiService from '../service/apiService';
 import { contentApi, uploadImageApi } from '../constants/EndpointsRoutes';
+import api from "../service/api";
 
 export const useContent = (type = null) => {
     const [items, setItems] = useState([]);
@@ -80,15 +81,16 @@ export const useContent = (type = null) => {
             const formData = new FormData();
             formData.append('image', file);
 
-            const response = await fetch(uploadImageApi, {
-                method: 'POST',
-                body: formData,
+            const response = await api.post(uploadImageApi, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
             });
+
 
             if (!response.ok) throw new Error('Error al subir la imagen');
 
-            const data = await response.json();
-            return data.data.url;
+            return response.data.data.url;
         } catch (err) {
             console.error('Error uploading image:', err);
             throw err;
