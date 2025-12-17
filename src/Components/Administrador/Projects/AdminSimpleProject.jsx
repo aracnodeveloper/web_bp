@@ -64,12 +64,29 @@ const AdminSimpleProject = ({ projectType, title }) => {
         const file = e.target.files[0];
         if (!file) return;
 
+        // Client-side validation
+        const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+        if (!validTypes.includes(file.type)) {
+            alert('Tipo de archivo no válido. Solo se permiten imágenes (JPEG, PNG, GIF, WebP)');
+            e.target.value = ''; // Clear input
+            return;
+        }
+
+        const maxSize = 5 * 1024 * 1024; // 5MB
+        if (file.size > maxSize) {
+            alert('El archivo es demasiado grande. Tamaño máximo: 5MB');
+            e.target.value = ''; // Clear input
+            return;
+        }
+
         try {
             setUploadingImage(true);
             const imageUrl = await uploadImage(file);
             setFormData(prev => ({ ...prev, image: imageUrl }));
         } catch (error) {
-            alert('Error al subir la imagen');
+            console.error('Error uploading image:', error);
+            alert(error.message || 'Error al subir la imagen');
+            e.target.value = ''; // Clear input on error
         } finally {
             setUploadingImage(false);
         }
@@ -77,6 +94,17 @@ const AdminSimpleProject = ({ projectType, title }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Validate required fields
+        if (!formData.name || !formData.description || !formData.location || !formData.url) {
+            alert('Por favor completa todos los campos obligatorios');
+            return;
+        }
+
+        if (!formData.image) {
+            alert('Por favor sube una imagen para el proyecto');
+            return;
+        }
 
         try {
             const dataToSend = {
@@ -86,22 +114,27 @@ const AdminSimpleProject = ({ projectType, title }) => {
 
             if (editingItem) {
                 await updateProject(editingItem.id, dataToSend);
+                alert('Proyecto actualizado exitosamente');
             } else {
                 await createProject(dataToSend);
+                alert('Proyecto creado exitosamente');
             }
 
             handleCloseModal();
         } catch (error) {
-            alert('Error al guardar');
+            console.error('Error saving project:', error);
+            alert(error.message || 'Error al guardar el proyecto');
         }
     };
 
     const handleDelete = async (id) => {
-        if (window.confirm('¿Estás seguro de eliminar este proyecto?')) {
+        if (window.confirm('¿Estás seguro de eliminar este proyecto? Esta acción no se puede deshacer.')) {
             try {
                 await deleteProject(id);
+                alert('Proyecto eliminado exitosamente');
             } catch (error) {
-                alert('Error al eliminar');
+                console.error('Error deleting project:', error);
+                alert(error.message || 'Error al eliminar el proyecto');
             }
         }
     };

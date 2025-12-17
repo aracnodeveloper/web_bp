@@ -88,12 +88,29 @@ const AdminCreadoresNetworking = () => {
         const file = e.target.files[0];
         if (!file) return;
 
+        // Client-side validation
+        const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+        if (!validTypes.includes(file.type)) {
+            alert('Tipo de archivo no válido. Solo se permiten imágenes (JPEG, PNG, GIF, WebP)');
+            e.target.value = '';
+            return;
+        }
+
+        const maxSize = 5 * 1024 * 1024; // 5MB
+        if (file.size > maxSize) {
+            alert('El archivo es demasiado grande. Tamaño máximo: 5MB');
+            e.target.value = '';
+            return;
+        }
+
         try {
             setUploadingImage(true);
             const imageUrl = await uploadImage(file);
             setFormData(prev => ({ ...prev, image: imageUrl }));
         } catch (error) {
-            alert('Error al subir la imagen');
+            console.error('Error uploading image:', error);
+            alert(error.message || 'Error al subir la imagen');
+            e.target.value = '';
         } finally {
             setUploadingImage(false);
         }
@@ -101,6 +118,17 @@ const AdminCreadoresNetworking = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Validate required fields
+        if (!formData.name || !formData.description) {
+            alert('Por favor completa el nombre y la descripción');
+            return;
+        }
+
+        if (!formData.image) {
+            alert('Por favor sube una imagen de perfil');
+            return;
+        }
 
         try {
             const dataToSend = {
@@ -110,12 +138,16 @@ const AdminCreadoresNetworking = () => {
 
             if (editingItem) {
                 await updateProject(editingItem.id, dataToSend);
+                alert('Creador actualizado exitosamente');
             } else {
                 const newProject = await createProject(dataToSend);
                 setEditingItem(newProject);
+                setActiveTab('social');
+                alert('Creador creado exitosamente. Ahora puedes agregar redes sociales y videos.');
             }
         } catch (error) {
-            alert('Error al guardar');
+            console.error('Error saving creator:', error);
+            alert(error.message || 'Error al guardar el creador');
         }
     };
 
@@ -132,7 +164,24 @@ const AdminCreadoresNetworking = () => {
     // Social Links handlers
     const handleSocialSubmit = async (e) => {
         e.preventDefault();
-        if (!editingItem) return;
+        if (!editingItem) {
+            alert('Primero debes crear el creador antes de agregar redes sociales');
+            return;
+        }
+
+        // Validate fields
+        if (!socialFormData.type || !socialFormData.url) {
+            alert('Por favor completa todos los campos de la red social');
+            return;
+        }
+
+        // Validate URL format
+        try {
+            new URL(socialFormData.url);
+        } catch (err) {
+            alert('Por favor ingresa una URL válida');
+            return;
+        }
 
         try {
             const data = {
@@ -145,14 +194,17 @@ const AdminCreadoresNetworking = () => {
 
             if (editingSocial) {
                 await updateSocialLink(editingSocial.id, data);
+                alert('Red social actualizada exitosamente');
             } else {
                 await createSocialLink(data);
+                alert('Red social agregada exitosamente');
             }
 
             setSocialFormData({ type: '', url: '' });
             setEditingSocial(null);
         } catch (error) {
-            alert('Error al guardar red social');
+            console.error('Error saving social link:', error);
+            alert(error.message || 'Error al guardar la red social');
         }
     };
 
@@ -176,12 +228,29 @@ const AdminCreadoresNetworking = () => {
         const file = e.target.files[0];
         if (!file) return;
 
+        // Client-side validation
+        const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+        if (!validTypes.includes(file.type)) {
+            alert('Tipo de archivo no válido. Solo se permiten imágenes (JPEG, PNG, GIF, WebP)');
+            e.target.value = '';
+            return;
+        }
+
+        const maxSize = 5 * 1024 * 1024; // 5MB
+        if (file.size > maxSize) {
+            alert('El archivo es demasiado grande. Tamaño máximo: 5MB');
+            e.target.value = '';
+            return;
+        }
+
         try {
             setUploadingVideoImage(true);
             const imageUrl = await uploadVideoImage(file);
             setVideoFormData(prev => ({ ...prev, image: imageUrl }));
         } catch (error) {
-            alert('Error al subir la imagen');
+            console.error('Error uploading video image:', error);
+            alert(error.message || 'Error al subir la miniatura del video');
+            e.target.value = '';
         } finally {
             setUploadingVideoImage(false);
         }

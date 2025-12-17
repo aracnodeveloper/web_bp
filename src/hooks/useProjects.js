@@ -68,19 +68,94 @@ export const useProjects = (projectType = null) => {
 
     const uploadImage = async (file, projectId = null) => {
         try {
-            const formData = new FormData();
-            formData.append('image', file);
+            console.log("=== UPLOADING PROJECT IMAGE ===");
+            console.log("File details:", {
+                name: file.name,
+                type: file.type,
+                size: file.size,
+                lastModified: file.lastModified
+            });
+            console.log("Project ID:", projectId);
 
-            let url = uploadImageApi;
-            if (projectId) {
-                url = `${uploadImageInfluencerApi}/${projectId}`;
+            // Validate file
+            if (!file || !(file instanceof File)) {
+                throw new Error('Archivo no válido');
             }
 
-            const response = await apiService.create(url, formData);
+            // Validate file type
+            const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+            if (!validTypes.includes(file.type)) {
+                throw new Error('Tipo de archivo no válido. Solo se permiten imágenes (JPEG, PNG, GIF, WebP)');
+            }
+
+            // Validate file size (max 5MB)
+            const maxSize = 5 * 1024 * 1024; // 5MB
+            if (file.size > maxSize) {
+                throw new Error('El archivo es demasiado grande. Tamaño máximo: 5MB');
+            }
+
+            // Validate projectId if provided
+            if (projectId && typeof projectId !== 'string') {
+                throw new Error('ID de proyecto no válido');
+            }
+
+            // Create FormData
+            const formData = new FormData();
+            formData.append('image', file, file.name);
+
+            // Log FormData contents
+            console.log("FormData entries:");
+            for (const [key, value] of formData.entries()) {
+                console.log(`${key}:`, value);
+                if (value instanceof File) {
+                    console.log(`  File details: ${value.name}, ${value.type}, ${value.size} bytes`);
+                }
+            }
+
+            // Determine endpoint
+            const endpoint = projectId
+                ? `${uploadImageInfluencerApi}/${projectId}`
+                : uploadImageApi;
+
+            console.log("API endpoint:", endpoint);
+
+            // Upload image
+            const response = await apiService.create(endpoint, formData);
+
+            console.log("Image upload response:", response);
+
+            // Validate response
+            if (!response) {
+                throw new Error('No se recibió respuesta del servidor');
+            }
+
+            if (!response.success) {
+                throw new Error(response.message || 'Error al subir la imagen');
+            }
+
+            if (!response.data?.url) {
+                throw new Error('URL de imagen no recibida del servidor');
+            }
+
+            console.log("Image upload successful. URL:", response.data.url);
             return response.data.url;
+
         } catch (err) {
-            console.error('Error uploading image:', err);
-            throw err;
+            console.error("=== PROJECT IMAGE UPLOAD ERROR ===");
+            console.error("Error object:", err);
+            console.error("Error message:", err?.message);
+            console.error("Error response:", err?.response);
+            console.error("Error response data:", err?.response?.data);
+
+            // Extract appropriate error message
+            let errorMessage = 'Error al subir la imagen';
+            if (err?.response?.data?.message) {
+                errorMessage = err.response.data.message;
+            } else if (err?.message) {
+                errorMessage = err.message;
+            }
+
+            throw new Error(errorMessage);
         }
     };
 

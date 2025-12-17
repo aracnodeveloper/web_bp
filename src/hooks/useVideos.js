@@ -65,18 +65,94 @@ export const useVideos = (influencerId = null) => {
 
     const uploadVideoImage = async (file, videoId = null) => {
         try {
-            const formData = new FormData();
-            formData.append('image', file);
+            console.log("=== UPLOADING VIDEO IMAGE ===");
+            console.log("File details:", {
+                name: file.name,
+                type: file.type,
+                size: file.size,
+                lastModified: file.lastModified
+            });
+            console.log("Video ID:", videoId); 
 
-            const url = videoId
+            // Validate file
+            if (!file || !(file instanceof File)) {
+                throw new Error('Archivo no válido');
+            }
+
+            // Validate file type
+            const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+            if (!validTypes.includes(file.type)) {
+                throw new Error('Tipo de archivo no válido. Solo se permiten imágenes (JPEG, PNG, GIF, WebP)');
+            }
+
+            // Validate file size (max 5MB)
+            const maxSize = 5 * 1024 * 1024; // 5MB
+            if (file.size > maxSize) {
+                throw new Error('El archivo es demasiado grande. Tamaño máximo: 5MB');
+            }
+
+            // Validate videoId if provided
+            if (videoId && typeof videoId !== 'string') {
+                throw new Error('ID de video no válido');
+            }
+
+            // Create FormData
+            const formData = new FormData();
+            formData.append('image', file, file.name);
+
+            // Log FormData contents
+            console.log("FormData entries:");
+            for (const [key, value] of formData.entries()) {
+                console.log(`${key}:`, value);
+                if (value instanceof File) {
+                    console.log(`  File details: ${value.name}, ${value.type}, ${value.size} bytes`);
+                }
+            }
+
+            // Determine endpoint
+            const endpoint = videoId
                 ? `${uploadImageVideoApi}/${videoId}`
                 : uploadImageVideoApi;
 
-            const response = await apiService.create(url, formData);
+            console.log("API endpoint:", endpoint);
+
+            // Upload image
+            const response = await apiService.create(endpoint, formData);
+
+            console.log("Video image upload response:", response);
+
+            // Validate response
+            if (!response) {
+                throw new Error('No se recibió respuesta del servidor');
+            }
+
+            if (!response.success) {
+                throw new Error(response.message || 'Error al subir la miniatura del video');
+            }
+
+            if (!response.data?.url) {
+                throw new Error('URL de imagen no recibida del servidor');
+            }
+
+            console.log("Video image upload successful. URL:", response.data.url);
             return response.data.url;
+
         } catch (err) {
-            console.error('Error uploading video image:', err);
-            throw err;
+            console.error("=== VIDEO IMAGE UPLOAD ERROR ===");
+            console.error("Error object:", err);
+            console.error("Error message:", err?.message);
+            console.error("Error response:", err?.response);
+            console.error("Error response data:", err?.response?.data);
+
+            // Extract appropriate error message
+            let errorMessage = 'Error al subir la miniatura del video';
+            if (err?.response?.data?.message) {
+                errorMessage = err.response.data.message;
+            } else if (err?.message) {
+                errorMessage = err.message;
+            }
+
+            throw new Error(errorMessage);
         }
     };
 
