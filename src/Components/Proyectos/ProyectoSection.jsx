@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ProyectoItem from './ProyectoItem';
 
 const ProyectoSection = ({ titulo, proyectos }) => {
@@ -17,18 +17,6 @@ const ProyectoSection = ({ titulo, proyectos }) => {
     const itemsPerPage = getItemsPerPage();
     const totalPages = Math.ceil(proyectos.length / itemsPerPage);
 
-    const nextSlide = useCallback(() => {
-        setCurrentIndex((prevIndex) =>
-            prevIndex >= totalPages - 1 ? 0 : prevIndex + 1
-        );
-    }, [totalPages]);
-
-    const prevSlide = useCallback(() => {
-        setCurrentIndex((prevIndex) =>
-            prevIndex === 0 ? totalPages - 1 : prevIndex - 1
-        );
-    }, [totalPages]);
-
     useEffect(() => {
         const handleResize = () => {
             setWindowWidth(window.innerWidth);
@@ -45,7 +33,19 @@ const ProyectoSection = ({ titulo, proyectos }) => {
         }, 5000);
 
         return () => clearInterval(interval);
-    }, [nextSlide]);
+    }, [currentIndex, proyectos.length, windowWidth]);
+
+    const nextSlide = () => {
+        setCurrentIndex((prevIndex) =>
+            prevIndex >= totalPages - 1 ? 0 : prevIndex + 1
+        );
+    };
+
+    const prevSlide = () => {
+        setCurrentIndex((prevIndex) =>
+            prevIndex === 0 ? totalPages - 1 : prevIndex - 1
+        );
+    };
 
     const handleTouchStart = (e) => {
         setTouchStart(e.targetTouches[0].clientX);

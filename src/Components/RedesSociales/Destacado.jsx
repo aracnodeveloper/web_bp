@@ -1,5 +1,7 @@
+import React, { useState } from 'react';
 
 const Destacado = ({ fecha, linkPost, imagePost, mensajePost, linkPerfil, iconoRed, colorRed }) => {
+    const [isHovered, setIsHovered] = useState(false);
 
     const handleVisitProfile = (e) => {
         e.stopPropagation();
@@ -31,7 +33,9 @@ const Destacado = ({ fecha, linkPost, imagePost, mensajePost, linkPerfil, iconoR
 
             <div
                 className='relative cursor-pointer'
-                onClick={handleVisitPost}       
+                onClick={handleVisitPost}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
             >
                 <img
                     className='w-full h-96 object-cover'
