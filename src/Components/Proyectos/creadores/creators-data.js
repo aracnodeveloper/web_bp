@@ -116,7 +116,8 @@ export const influencersData = [
   {
     id: 2,
     name: "yankicaldas",
-    role: "🎬Creador de contenido \n🎭Actor\n🏊‍♂️ profesor de natación\n",
+    role:
+      "🎬Creador de contenido \n" + "🎭Actor\n" + "🏊‍♂️ profesor de natación\n",
     imageUrl: imgP1,
     bio:
       "🎬Creador de contenido 👌🏽\n" +
@@ -178,7 +179,7 @@ export const influencersData = [
   {
     id: 4,
     name: "Cristy Ortega",
-    role: "REINA DE CUENCA 2018-2019 👑\nCreadora de @cookris.ec 💜🍪",
+    role: "REINA DE CUENCA 2018-2019 👑\n" + "Creadora de @cookris.ec 💜🍪",
     imageUrl: imgP3,
     bio:
       "REINA DE CUENCA 2018-2019👑\n" +
@@ -256,7 +257,7 @@ export const influencersData = [
   {
     id: 6,
     name: "Victor Leon",
-    role: "TIKTOK victor.leon93 (+300K)\n#PulgarArriba\n#LargaVida",
+    role: "TIKTOK victor.leon93 (+300K)\n" + "#PulgarArriba\n" + "#LargaVida",
     imageUrl: imgP5,
     bio: "Apasionada creadora de contenido de Cuenca, Ecuador. Comparto mi vida y experiencias con autenticidad.",
     socialLinks: [
@@ -327,7 +328,8 @@ export const influencersData = [
   {
     id: 8,
     name: "Bernardo Polito",
-    role: "Hacker del Turismo🏝️\nEmprendedor disruptivo 🇪🇨\nBloguero 🤳",
+    role:
+      "Hacker del Turismo🏝️\n" + "Emprendedor disruptivo 🇪🇨\n" + "Bloguero 🤳",
     imageUrl: imgP7,
     bio: "Apasionada creadora de contenido de Cuenca, Ecuador. Comparto mi vida y experiencias con autenticidad.",
     socialLinks: [
@@ -558,7 +560,7 @@ export const influencersData = [
   {
     id: 14,
     name: "Aaron Soplete",
-    role: "Figura pública\n📍/Orlando🇪🇨✈️🇺🇸",
+    role: "Figura pública\n" + "📍/Orlando🇪🇨✈️🇺🇸",
     imageUrl: imgP13,
     bio: "Apasionada creadora de contenido de Cuenca, Ecuador. Comparto mi vida y experiencias con autenticidad.",
     socialLinks: [

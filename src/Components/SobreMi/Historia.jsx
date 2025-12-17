@@ -1,6 +1,6 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import {useEffect, useState, useCallback} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import Slider from "react-slick";
 import { saveAs } from 'file-saver';
 import { motion, AnimatePresence } from "framer-motion";
