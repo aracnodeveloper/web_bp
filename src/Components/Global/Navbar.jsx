@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router';
+import React, { useState } from "react";
+import { useNavigate } from "react-router";
 
 const Navbar = ({ activo }) => {
-    const [subVE, setSubVE] = useState(false);
-    const [subSobremi, setSubSobreMi] = useState(false);
-    const [subSocial, setSubSocial] = useState(false);
-    const [subProyectos, setSubProyectos] = useState(false);
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [subVE, setSubVE] = useState(false);
+  const [subSobremi, setSubSobreMi] = useState(false);
+  const [subSocial, setSubSocial] = useState(false);
+  const [subProyectos, setSubProyectos] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const rutas = [
         "/",
@@ -15,7 +15,6 @@ const Navbar = ({ activo }) => {
         "/proyectos",
         "/contacto",
         "/ve"
-
     ];
     const navigation = useNavigate();
 
@@ -26,35 +25,63 @@ const Navbar = ({ activo }) => {
         setMobileMenuOpen(false);
     }
 
-    const handleC = () => {
-        navigation("/");
-        setMobileMenuOpen(false);
-    }
+  const handleC = () => {
+    navigation("/");
+    setMobileMenuOpen(false);
+  };
 
-    const handleSectionClick = (route, section) => {
-        navigation(`${route}`, { state: { scrollTo: section } });
-        setMobileMenuOpen(false);
-    }
+  const handleSectionClick = (route, section) => {
+    navigation(`${route}`, { state: { scrollTo: section } });
+    setMobileMenuOpen(false);
+  };
 
-    return (
-        <div className='fixed top-0 left-0 right-0 z-50 flex bg-[#92B509] h-16 items-center shadow-md'>
-            <div className='flex flex-row justify-between mx-auto max-w-6xl py-2 px-4 sm:px-6 lg:px-8 w-full items-center'>
-                <img src='./images/logo_horizontal.webp' onClick={handleC} className="cursor-pointer h-10 md:h-auto" alt="Logo" />
+  return (
+    <div className="fixed top-0 left-0 right-0 z-50 flex bg-[#92B509] h-16 items-center shadow-md">
+      <div className="flex flex-row justify-between mx-auto max-w-6xl py-2 px-4 sm:px-6 lg:px-8 w-full items-center">
+        <img
+          src="./images/logo_horizontal.webp"
+          onClick={handleC}
+          className="cursor-pointer h-10 md:h-auto"
+          alt="Logo"
+        />
 
-                {/* Mobile Menu Button */}
-                <button
-                    className="md:hidden text-white focus:outline-none"
-                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                >
-                    {mobileMenuOpen ?
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg> :
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    }
-                </button>
+        {/* Mobile Menu Button */}
+        <button
+          className="md:hidden text-white focus:outline-none"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          {mobileMenuOpen ? (
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          ) : (
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          )}
+        </button>
 
                 {/* Desktop Navigation */}
                 <div className='hidden md:flex gap-4 lg:gap-10 justify-end font-bold text-base lg:text-lg'>
