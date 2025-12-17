@@ -342,15 +342,7 @@ const AdminGallery = () => {
                                     </div>
                                 </div>
 
-                                <div className="flex items-center">
-                                    <input
-                                        type="checkbox"
-                                        checked={formData.isActive}
-                                        onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
-                                        className="mr-2"
-                                    />
-                                    <label className="text-sm font-medium text-gray-700">Activo</label>
-                                </div>
+
 
                                 <div className="flex gap-4 pt-4">
                                     <button

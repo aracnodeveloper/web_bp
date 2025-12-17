@@ -86,10 +86,6 @@ export const useContent = (type = null) => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-
-
-            if (!response.ok) throw new Error('Error al subir la imagen');
-
             return response.data.data.url;
         } catch (err) {
             console.error('Error uploading image:', err);
