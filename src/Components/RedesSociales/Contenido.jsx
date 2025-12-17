@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect, useMemo } from 'react';
 import Destacado from './Destacado';
 import { useContent } from '../../hooks/useContent';
 
