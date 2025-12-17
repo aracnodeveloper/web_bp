@@ -1,4 +1,3 @@
-import React from 'react';
 
 const Footer = () => {
     return (
@@ -21,7 +20,7 @@ const Footer = () => {
                             <h3 className='font-semibold text-lg mb-4 border-b border-blue-500 pb-2'>Navegación</h3>
                             <ul className='space-y-2 grid grid-cols-1 md:grid-cols-2 gap-0'>
                                 <li className='hover:text-blue-300 transition-colors duration-300'>
-                                    <a href="#" className='text-sm flex items-center'>
+                                    <a href="/" className='text-sm flex items-center'>
                                         <span className="icon-[heroicons--home-solid] w-4 h-4 mr-2"></span>
                                         Inicio
                                     </a>
@@ -149,11 +148,11 @@ const Footer = () => {
                         Copyright © {new Date().getFullYear()} · Bernardo Polo Andrade · Todos los derechos reservados
                     </p>
                     <div className="flex space-x-4">
-                        <a href="#" className="text-xs opacity-70 hover:opacity-100 transition-opacity duration-300">Política
-                            de Privacidad</a>
-                        <a href="#" className="text-xs opacity-70 hover:opacity-100 transition-opacity duration-300">Términos
-                            y Condiciones</a>
-                        <a href="#"
+                        <button className="text-xs opacity-70 hover:opacity-100 transition-opacity duration-300 bg-transparent border-none cursor-pointer">Política
+                            de Privacidad</button>
+                        <button className="text-xs opacity-70 hover:opacity-100 transition-opacity duration-300 bg-transparent border-none cursor-pointer">Términos
+                            y Condiciones</button>
+                        <a href="/#/contacto"
                            className="text-xs opacity-70 hover:opacity-100 transition-opacity duration-300">Contacto</a>
                     </div>
                 </div>
