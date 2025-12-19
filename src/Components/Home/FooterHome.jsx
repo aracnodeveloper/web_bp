@@ -84,7 +84,7 @@ const FooterHome = () => {
                     </p>
                 </div>
 
-                <div className="flex flex-col gap-6">
+                <div className="flex flex-wrap gap-6 w-[749px]">
                     {columnOrder.map((type) => {
                         const socialGroup = groupedSocials[type];
                         if (!socialGroup || socialGroup.accounts.length === 0) return null;

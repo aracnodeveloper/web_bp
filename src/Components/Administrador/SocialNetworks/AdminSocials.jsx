@@ -160,7 +160,7 @@ const AdminSocials = () => {
                                             @{item.title}
                                         </div>
                                         <div className="text-3xl font-bold">
-                                            {formatNumber(item.followers)}K
+                                            {formatNumber(item.followers)}
                                         </div>
                                     </div>
 

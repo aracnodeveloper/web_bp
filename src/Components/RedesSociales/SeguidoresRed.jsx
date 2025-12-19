@@ -8,6 +8,11 @@ const SeguidoresRed = ({red, seguidores, color, icono, rise, url}) => {
             window.open(url, '_blank');
         }
     };
+    const formatNumber = (num) => {
+        if (num >= 1000000) return `${(num / 1000000).toFixed(2)}M`;
+        if (num >= 1000) return `${(num / 1000).toFixed(1)}K`;
+        return num.toString();
+    };
 
     return (
         <div
@@ -27,7 +32,7 @@ const SeguidoresRed = ({red, seguidores, color, icono, rise, url}) => {
 
                 <div className="flex flex-col items-center justify-center gap-2">
                     <div className="text-xs font-bold tracking-widest opacity-80">@{red}</div>
-                    <div className="text-3xl font-bold">{seguidores}</div>
+                    <div className="text-3xl font-bold">{formatNumber(seguidores)}</div>
                 </div>
 
                 <div className="flex flex-col items-center">
