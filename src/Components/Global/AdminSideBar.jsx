@@ -90,7 +90,7 @@ const AdminSidebar = ({ children }) => {
                             )}
                             <button
                                 onClick={() => setIsCollapsed(!isCollapsed)}
-                                className=" lg:block text-black hover:text-gray-700  p-3 rounded transition-colors flex-shrink-0"
+                                className=" lg:block sr-only md:not-sr-only  text-black hover:text-gray-700  p-3 rounded transition-colors flex-shrink-0"
                                 title={isCollapsed ? "Expandir" : "Contraer"}
                             >
                                 <span className={`icon-[material-symbols--menu] h-5 w-5 text-black`}></span>

@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import apiService from "../service/apiService";
-import {textApi} from "../constants/EndpointsRoutes";
+import {textApi, uploadImageApi} from "../constants/EndpointsRoutes";
+import api from "../service/api";
 
 export const useText = (type = null) => {
     const [items, setItems] = useState( []);
@@ -75,6 +76,23 @@ export const useText = (type = null) => {
         }
     };
 
+    const uploadImage = async (file) => {
+        try {
+            const formData = new FormData();
+            formData.append('image', file);
+
+            const response = await api.post(uploadImageApi, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            return response.data.data.url;
+        } catch (err) {
+            console.error('Error uploading image:', err);
+            throw err;
+        }
+    };
+
     useEffect(() => {
         fetchItems();
     }, [type]);
@@ -84,6 +102,7 @@ export const useText = (type = null) => {
         loading,
         error,
         fetchItems,
+        uploadImage,
         createItem,
         updateItem,
         deleteItem,

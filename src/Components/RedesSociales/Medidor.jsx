@@ -41,6 +41,7 @@ const Medidor = () => {
         { type: 'instagram_personal', color: '#e33f72', label: 'Inst/Personal' },
         { type: 'facebook_fanpage', color: '#3e8ba4', label: 'FK/Fanpage' },
         { type: 'facebook_personal', color: '#35758a', label: 'FK/Personal' },
+        { type: 'x/twitter', color: '#000000', label: 'X'},
         { type: 'tiktok', color: '#60605f', label: 'TikTok' },
         { type: 'youtube', color: '#e6231c', label: 'Youtube' },
     ];
@@ -59,7 +60,7 @@ const Medidor = () => {
                     <div className="flex items-end gap-2">
                         <div className="relative">
                             <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#005F6B] to-[#96c121]">
-                                {formatNumber(totalFollowers)}
+                                {formatNumber(totalFollowers)}k
                             </span>
                             <div className="absolute -top-4 right-0 bg-yellow-400 text-xs font-bold px-2 py-1 rounded-full text-gray-800 transform rotate-12">
                                 ¡Récord!
@@ -68,7 +69,7 @@ const Medidor = () => {
                         <div className="flex flex-col items-center">
                             <span className="icon-[ph--arrow-up] h-8 w-8 text-green-500"></span>
                             <span className="text-sm font-semibold text-green-500">
-                                +{(totalFollowers * (averageGrowth / 100)).toFixed(1)}K
+                                +{(totalFollowers * (averageGrowth / 100)).toFixed(1)}k
                             </span>
                         </div>
                     </div>

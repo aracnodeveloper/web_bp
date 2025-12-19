@@ -1,5 +1,5 @@
 
-const Destacado = ({ fecha, linkPost, imagePost, mensajePost, linkPerfil, iconoRed, colorRed }) => {
+const Destacado = ({ fecha,tittle ,linkPost, imagePost, mensajePost, linkPerfil, iconoRed, colorRed }) => {
 
     const handleVisitProfile = (e) => {
         e.stopPropagation();
@@ -21,7 +21,7 @@ const Destacado = ({ fecha, linkPost, imagePost, mensajePost, linkPerfil, iconoR
 
             <div className='flex justify-between items-center p-4 border-l-4' style={{ borderLeftColor: colorRed }}>
                 <div className='flex flex-col'>
-                    <div className='font-semibold'>Bernardo Polo Polito</div>
+                    <div className='font-semibold'>{tittle}</div>
                     <div className='text-xs text-gray-500'>{fecha}</div>
                 </div>
                 <div className='flex items-center justify-center' onClick={handleVisitProfile}>

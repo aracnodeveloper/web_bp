@@ -11,15 +11,13 @@ const AdminSocials = () => {
         url: '',
         orderIndex: 0,
         rise: 0,
-        type: 'instagram_fanpage',
+        type: 'instagram',
         isActive: true,
     });
 
     const socialTypes = [
-        { value: 'instagram_fanpage', label: 'Instagram Fanpage', color: '#db5781', icon: 'icon-[mdi--instagram]' },
-        { value: 'instagram_personal', label: 'Instagram Personal', color: '#e33f72', icon: 'icon-[mdi--instagram]' },
-        { value: 'facebook_fanpage', label: 'Facebook Fanpage', color: '#3e8ba4', icon: 'icon-[ri--facebook-fill]' },
-        { value: 'facebook_personal', label: 'Facebook Personal', color: '#35758a', icon: 'icon-[ri--facebook-fill]' },
+        { value: 'instagram', label: 'Instagram', color: '#e33f72', icon: 'icon-[mdi--instagram]' },
+        { value: 'facebook', label: 'Facebook', color: '#35758a', icon: 'icon-[ri--facebook-fill]' },
         { value: 'tiktok', label: 'TikTok', color: '#60605f', icon: 'icon-[mingcute--tiktok-fill]' },
         { value: 'youtube', label: 'YouTube', color: '#e6231c', icon: 'icon-[mdi--youtube]' },
         { value: 'twitter', label: 'Twitter/X', color: '#000000', icon: 'icon-[ph--x-logo-bold]' },
@@ -46,7 +44,7 @@ const AdminSocials = () => {
                 url: '',
                 orderIndex: items.length,
                 rise: 0,
-                type: 'instagram_fanpage',
+                type: 'instagram',
                 isActive: true,
             });
         }
@@ -155,14 +153,14 @@ const AdminSocials = () => {
                                 style={{ backgroundColor: socialInfo.color }}
                             >
                                 <div className="flex justify-between items-center p-4 text-white">
-                                    <div className="text-3xl">{socialInfo.icon}</div>
+                                    <span  className={`${socialInfo.icon} text-3xl`}></span>
 
                                     <div className="flex flex-col items-center justify-center flex-1">
                                         <div className="text-xs font-bold tracking-widest opacity-80 mb-1">
-                                            {item.title}
+                                            @{item.title}
                                         </div>
                                         <div className="text-3xl font-bold">
-                                            {formatNumber(item.followers)}
+                                            {formatNumber(item.followers)}K
                                         </div>
                                     </div>
 
@@ -173,14 +171,14 @@ const AdminSocials = () => {
                                 </div>
 
                                 {/* Estado */}
-                                <div className="absolute top-2 left-2">
-                  <span className={`text-xs px-2 py-1 rounded ${
-                      item.isActive
-                          ? 'bg-green-500 text-white'
-                          : 'bg-gray-500 text-white'
-                  }`}>
-                    {item.isActive ? 'Activo' : 'Inactivo'}
-                  </span>
+                                <div className="absolute top-0 left-0">
+                                  <span className={`text-xs px-2 py-1 rounded ${
+                                      item.isActive
+                                          ? 'bg-green-500 text-white'
+                                          : 'bg-gray-500 text-white'
+                                  }`}>
+                                        {item.isActive ? 'Activo' : 'Inactivo'}
+                                    </span>
                                 </div>
 
                                 {/* Botones de acción */}

@@ -12,13 +12,11 @@ const Metricas = () => {
     // Mapear tipos de la BD a iconos
     const getSocialIcon = (type) => {
         const icons = {
-            'instagram_fanpage': './images/instagram_icon.webp',
-            'instagram_personal': './images/instagram_icon.webp',
-            'facebook_fanpage': './images/facebook_icon.webp',
-            'facebook_personal': './images/facebook_icon.webp',
+            'instagram': './images/instagram_icon.webp',
+            'facebook': './images/facebook_icon.webp',
             'tiktok': './images/tiktok_icon.webp',
             'youtube': './images/youtube_icon.webp',
-            'twitter': './images/twitter_icon.webp',
+            'twitter': './images/x_icon.webp',
             'linkedin': './images/linkedin_icon.webp',
         };
         return icons[type] || './images/instagram_icon.webp';
@@ -27,10 +25,8 @@ const Metricas = () => {
     // Mapear tipos de la BD a colores
     const getSocialColor = (type) => {
         const colors = {
-            'instagram_fanpage': '#db5781',
-            'instagram_personal': '#e33f72',
-            'facebook_fanpage': '#3e8ba4',
-            'facebook_personal': '#35758a',
+            'instagram': '#db5781',
+            'facebook': '#35758a',
             'tiktok': '#60605f',
             'youtube': '#e6231c',
             'twitter': '#000000',

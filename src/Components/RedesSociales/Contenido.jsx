@@ -18,6 +18,7 @@ const Contenido = () => {
                 month: 'long',
                 year: 'numeric'
             }) : '',
+            title:item.title,
             iconoRed: getIconByPlatform(item.type),
             colorRed: getColorByPlatform(item.type),
             linkPost: item.url,
@@ -112,6 +113,7 @@ const Contenido = () => {
                         {visiblePosts.map(post => (
                             <Destacado
                                 key={post.id}
+                                tittle={post.title}
                                 fecha={post.fecha}
                                 iconoRed={post.iconoRed}
                                 colorRed={post.colorRed}

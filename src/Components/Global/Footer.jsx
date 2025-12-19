@@ -1,5 +1,6 @@
 
 const Footer = () => {
+
     return (
         <div className='relative bg-gradient-to-b from-[#00182b] to-[#002d4d] pt-8 pb-6'>
             <div className="absolute top-0 left-0 w-full overflow-hidden">

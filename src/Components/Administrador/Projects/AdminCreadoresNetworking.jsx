@@ -213,6 +213,11 @@ const AdminCreadoresNetworking = () => {
         setSocialFormData({ type: social.type, url: social.url });
     };
 
+    const handleCancelSocial = (social) => {
+        setEditingSocial(null);
+        setSocialFormData({type: '', url: ''});
+    }
+
     const handleDeleteSocial = async (id) => {
         if (window.confirm('¿Eliminar esta red social?')) {
             try {
@@ -288,6 +293,10 @@ const AdminCreadoresNetworking = () => {
         setVideoFormData({ name: video.name, url: video.url, image: video.image });
     };
 
+    const handleCancelVideo = () => {
+        setEditingVideo(null);
+        setVideoFormData({ name: '', url: '', image: '' });
+    };
     const handleDeleteVideo = async (id) => {
         if (window.confirm('¿Eliminar este video?')) {
             try {
@@ -364,10 +373,17 @@ const AdminCreadoresNetworking = () => {
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
                     <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
                         <div className="p-6">
-                            <h3 className="text-xl font-semibold mb-4">
-                                {editingItem ? 'Editar Creador' : 'Nuevo Creador'}
-                            </h3>
-
+                            <div className='flex justify-between'>
+                                <h3 className="text-xl font-semibold mb-4">
+                                    {editingItem ? 'Editar Creador' : 'Nuevo Creador'}
+                                </h3>
+                                <button
+                                    onClick={handleCloseModal}
+                                    className=" text-[#96c121] px-1 rounded-lg hover:text-[#7fa519] transition-colors flex items-center "
+                                >
+                                    <span className="icon-[material-symbols--close-small] h-5 w-5"></span>
+                                </button>
+                            </div>
                             {/* Tabs */}
                             <div className="border-b border-gray-200 mb-4">
                                 <nav className="flex space-x-4">
@@ -512,12 +528,21 @@ const AdminCreadoresNetworking = () => {
                                                 />
                                             </div>
                                         </div>
-                                        <button
-                                            type="submit"
-                                            className="w-full bg-[#96c121] text-white px-4 py-2 rounded-lg hover:bg-[#7fa519]"
-                                        >
-                                            {editingSocial ? 'Actualizar' : 'Agregar Red Social'}
-                                        </button>
+                                        <div className={`${editingSocial ? 'flex flex-wrap justify-between gap-4': 'flex '}`}>
+                                            <button
+                                                type="submit"
+                                                className={`${editingSocial ? 'w-2/5 ': 'w-full '}  bg-[#96c121] text-white px-4 py-2 rounded-lg hover:bg-[#7fa519]`}
+                                            >
+                                                {editingSocial ? 'Actualizar' : 'Agregar Red Social'}
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={handleCancelSocial}
+                                                className={`${editingSocial ? 'w-2/5' : 'hidden w-full'} bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400`}
+                                            >
+                                                Cancelar
+                                            </button>
+                                        </div>
                                     </form>
 
                                     <div className="space-y-2">
@@ -593,12 +618,21 @@ const AdminCreadoresNetworking = () => {
                                                 <img src={videoFormData.image} alt="Preview" className="mt-2 w-full h-32 object-cover rounded-lg" />
                                             )}
                                         </div>
-                                        <button
-                                            type="submit"
-                                            className="w-full bg-[#96c121] text-white px-4 py-2 rounded-lg hover:bg-[#7fa519]"
-                                        >
-                                            {editingVideo ? 'Actualizar' : 'Agregar Video'}
-                                        </button>
+                                        <div className={`${editingVideo ? 'flex flex-wrap justify-between gap-4 ': 'flex '}`}>
+                                            <button
+                                                type="submit"
+                                                className={`${editingVideo ? 'w-2/5 ': 'w-full '}   bg-[#96c121] text-white px-4 py-2 rounded-lg hover:bg-[#7fa519]`}
+                                            >
+                                                {editingVideo ? 'Actualizar' : 'Agregar Video'}
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={handleCancelVideo}
+                                                className={`${editingVideo ? 'w-2/5' : 'hidden w-full'}  bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400`}
+                                            >
+                                                Cancelar
+                                            </button>
+                                        </div>
                                     </form>
 
                                     <div className="grid grid-cols-3 gap-4">

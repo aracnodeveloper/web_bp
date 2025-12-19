@@ -21,12 +21,12 @@ const SeguidoresRed = ({red, seguidores, color, icono, rise, url}) => {
             }}
         >
             <div className="flex justify-between items-center p-4 text-white">
-                <div className="p-2 rounded-full bg-white/20 backdrop-blur-sm">
+                <div className="p-2 rounded-full h-14 w-14 bg-white/20 backdrop-blur-sm">
                     <img className="h-10 w-10 object-contain" src={icono} alt={`${red} icon`} />
                 </div>
 
                 <div className="flex flex-col items-center justify-center gap-2">
-                    <div className="text-xs font-bold tracking-widest opacity-80">{red}</div>
+                    <div className="text-xs font-bold tracking-widest opacity-80">@{red}</div>
                     <div className="text-3xl font-bold">{seguidores}</div>
                 </div>
 
