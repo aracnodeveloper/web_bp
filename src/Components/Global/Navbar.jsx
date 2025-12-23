@@ -172,11 +172,9 @@ const Navbar = ({ activo }) => {
                 <div className="md:hidden absolute top-16 left-0 right-0 bg-[#92B509] shadow-lg">
                     <div className="flex flex-col px-4 py-2 space-y-2 font-bold">
                         <div className={`${activo == 0 ? "text-white" : ""} py-2 px-3 cursor-pointer`} onClick={() => hanldeClick(0)}>Inicio</div>
-                        <div className={` py-2 px-3 cursor-pointer`} onClick={() => window.open('https://visitaecuador.com/marcablanca/PSPL1', '_blank')}>VisitaEcuador</div>
-                        <div className={`${activo == 1 ? "text-white" : ""} border border-transparent rounded-full px-3 cursor-pointer`} onClick={() => hanldeClick(1)}>VisitaEcuador</div>
 
-                        <div className={`${activo == 2 ? "text-white" : ""} py-2 px-3`}>
-                            <div className="cursor-pointer" onClick={() => hanldeClick(2)}>Sobre Mí</div>
+                        <div className={`${activo == 1 ? "text-white" : ""} py-2 px-3`}>
+                            <div className="cursor-pointer" onClick={() => hanldeClick(1)}>Sobre Mí</div>
                             <div className="pl-4 mt-1 space-y-1 text-sm">
                                 <div onClick={() => handleSectionClick("/sobre-mi", "introduccion")} className="py-1 cursor-pointer">Biografía</div>
                                 <div onClick={() => handleSectionClick("/sobre-mi", "logros")} className="py-1 cursor-pointer">Logros</div>
@@ -185,23 +183,25 @@ const Navbar = ({ activo }) => {
                             </div>
                         </div>
 
-                        <div className={`${activo == 3 ? "text-white" : ""} py-2 px-3`}>
-                            <div className="cursor-pointer" onClick={() => hanldeClick(3)}>Redes Sociales</div>
+                        <div className={`${activo == 2 ? "text-white" : ""} py-2 px-3`}>
+                            <div className="cursor-pointer" onClick={() => hanldeClick(2)}>Redes Sociales</div>
                             <div className="pl-4 mt-1 space-y-1 text-sm">
                                 <div onClick={() => handleSectionClick("/redes-sociales", "contenido")} className="py-1 cursor-pointer">Explora</div>
                                 <div onClick={() => handleSectionClick("/redes-sociales", "metricas")} className="py-1 cursor-pointer">Metricas</div>
                             </div>
                         </div>
 
-                        <div className={`${activo == 4 ? "text-white" : ""} py-2 px-3`}>
-                            <div className="cursor-pointer" onClick={() => hanldeClick(4)}>Proyectos</div>
+                        <div className={`${activo == 3 ? "text-white" : ""} py-2 px-3`}>
+                            <div className="cursor-pointer" onClick={() => hanldeClick(3)}>Proyectos</div>
                             <div className="pl-4 mt-1 space-y-1 text-sm">
                                 <div onClick={() => handleSectionClick("/proyectos", "Social")} className="py-1 cursor-pointer">Impacto Social</div>
                                 <div onClick={() => handleSectionClick("/proyectos", "Influencers")} className="py-1 cursor-pointer">Influencers</div>
                             </div>
                         </div>
 
-                        <div className={`${activo == 5 ? "text-white" : ""} py-2 px-3 cursor-pointer`} onClick={() => hanldeClick(5)}>Contacto</div>
+                        <div className={`${activo == 4 ? "text-white" : ""} py-2 px-3 cursor-pointer`} onClick={() => hanldeClick(4)}>Contacto</div>
+                        <div className={`${activo == 5 ? "text-white" : ""} border border-transparent rounded-full px-3 cursor-pointer`} onClick={() => hanldeClick(5)}>VisitaEcuador</div>
+
                     </div>
                 </div>
             )}

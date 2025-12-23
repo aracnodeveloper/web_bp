@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useText } from "../../hooks/useText";
+import {ChevronLeft, ChevronRight} from "lucide-react";
 
 const Cabecera = () => {
     const { items, loading } = useText('portada');
@@ -11,16 +12,8 @@ const Cabecera = () => {
         .filter(item => item.isActive)
         .sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0));
 
-    // Auto-rotate slides every 5 seconds
-    useEffect(() => {
-        if (activeItems.length <= 1) return;
 
-        const interval = setInterval(() => {
-            setCurrentSlide((prev) => (prev + 1) % activeItems.length);
-        }, 5000);
 
-        return () => clearInterval(interval);
-    }, [activeItems.length]);
 
     const navigateToSection = (section) => {
         navigate('/sobre-mi', { state: { scrollTo: section } });
@@ -28,6 +21,14 @@ const Cabecera = () => {
 
     const goToSlide = (index) => {
         setCurrentSlide(index);
+    };
+
+    const nextSlide = () => {
+        setCurrentSlide((prev) => (prev + 1) % activeItems.length);
+    };
+
+    const prevSlide = () => {
+        setCurrentSlide((prev) => (prev - 1 + activeItems.length) % activeItems.length);
     };
 
     const currentItem = activeItems[currentSlide];
@@ -51,6 +52,29 @@ const Cabecera = () => {
     return (
         <div className='flex flex-col mx-auto max-w-6xl py-6 px-4 sm:px-6 lg:px-8 w-full mt-7'>
             <div className='flex flex-col md:flex-row relative'>
+                {/* Navigation Arrows */}
+                {activeItems.length > 1 && (
+                    <>
+                        {/* Left Arrow */}
+                        <button
+                            onClick={prevSlide}
+                            className='absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white p-2  transition-all duration-300 hover:scale-110'
+                            aria-label="Slide anterior"
+                        >
+                            <ChevronLeft className='w-6 h-6 text-[#769842]' />
+                        </button>
+
+                        {/* Right Arrow */}
+                        <button
+                            onClick={nextSlide}
+                            className='absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white p-2   transition-all duration-300 hover:scale-110'
+                            aria-label="Slide siguiente"
+                        >
+                            <ChevronRight className='w-6 h-6 text-[#769842]' />
+                        </button>
+                    </>
+                )}
+
                 {/* Left column / Top on mobile */}
                 <div className='flex flex-col w-full md:w-1/2 items-center justify-center mb-8 md:mb-0'>
                     <div>
@@ -101,11 +125,11 @@ const Cabecera = () => {
                 {/* Right column / Bottom on mobile */}
                 <div className='flex flex-col justify-center items-center w-full md:w-1/2'>
                     {currentItem.image && (
-                    <img
-                        className='h-[250px] sm:h-[300px] md:h-[370px] object-contain'
-                        src={currentItem.image}
-                        alt="Foto de inicio"
-                    />
+                        <img
+                            className='h-[250px] sm:h-[300px] md:h-[370px] object-contain rounded-full'
+                            src={currentItem.image}
+                            alt="Foto de inicio"
+                        />
                     )}
                     {/* Phrase */}
                     {currentItem.phrase && (

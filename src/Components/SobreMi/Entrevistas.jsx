@@ -2,7 +2,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import React, { useState } from 'react';
 import Slider from "react-slick";
-import { X, ExternalLink, Share2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, ExternalLink, Share2, ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
 import { useGallery } from "../../hooks/useGallery";
 
 const CustomNextArrow = (props) => {
@@ -25,7 +25,90 @@ const CustomPrevArrow = (props) => {
     );
 };
 
+const formatDate = (dateString) => {
+    if (!dateString) return null;
+    const date = new Date(dateString);
+    return date.toLocaleDateString('es-EC', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+};
+
+// Función para detectar la plataforma de la URL
+const detectSocialPlatform = (url) => {
+    if (!url) return null;
+
+    const urlLower = url.toLowerCase();
+
+    if (urlLower.includes('youtube.com') || urlLower.includes('youtu.be')) {
+        return {
+            name: 'YouTube',
+            icon: 'icon-[mdi--youtube]',
+            color: 'bg-red-600',
+            textColor: 'text-red-600'
+        };
+    }
+    if (urlLower.includes('facebook.com') || urlLower.includes('fb.com')) {
+        return {
+            name: 'Facebook',
+            icon: 'icon-[mdi--facebook]',
+            color: 'bg-blue-600',
+            textColor: 'text-blue-600'
+        };
+    }
+    if (urlLower.includes('instagram.com')) {
+        return {
+            name: 'Instagram',
+            icon: 'icon-[mdi--instagram]',
+            color: 'bg-gradient-to-r from-purple-600 to-pink-600',
+            textColor: 'text-pink-600'
+        };
+    }
+    if (urlLower.includes('tiktok.com')) {
+        return {
+            name: 'TikTok',
+            icon: 'icon-[ic--baseline-tiktok]',
+            color: 'bg-black',
+            textColor: 'text-black'
+        };
+    }
+    if (urlLower.includes('twitter.com') || urlLower.includes('x.com')) {
+        return {
+            name: 'X',
+            icon: 'icon-[ri--twitter-x-fill]',
+            color: 'bg-gray-900',
+            textColor: 'text-gray-900'
+        };
+    }
+    if (urlLower.includes('vimeo.com')) {
+        return {
+            name: 'Vimeo',
+            icon: 'icon-[mdi--vimeo]',
+            color: 'bg-blue-500',
+            textColor: 'text-blue-500'
+        };
+    }
+    if (urlLower.includes('dailymotion.com')) {
+        return {
+            name: 'Dailymotion',
+            icon: 'icon-[simple-icons--dailymotion]',
+            color: 'bg-blue-700',
+            textColor: 'text-blue-700'
+        };
+    }
+
+    return {
+        name: 'Video',
+        icon: 'icon-[heroicons--play-circle]',
+        color: 'bg-gray-600',
+        textColor: 'text-gray-600'
+    };
+};
+
 const VideoModal = ({ video, onClose, onNext, onPrev, hasNext, hasPrev }) => {
+    const platform = detectSocialPlatform(video.url);
+
     const handleShare = () => {
         if (navigator.share) {
             navigator.share({
@@ -82,27 +165,43 @@ const VideoModal = ({ video, onClose, onNext, onPrev, hasNext, hasPrev }) => {
                     ></iframe>
                 </div>
 
-                <div className="p-6 flex justify-between items-center">
-                    <div>
-                        <h3 className="text-xl font-bold text-gray-800">{video.title}</h3>
-                        <p className="text-gray-600 text-sm">Medio: {video.mediaType}</p>
+                <div className="p-6 flex justify-between items-start">
+                    <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                            <h3 className="text-xl font-bold text-gray-800">{video.title}</h3>
+                            {platform && (
+                                <span className={`${platform.color} text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1`}>
+                                    <span className={`${platform.icon} h-4 w-4`}></span>
+                                    {platform.name}
+                                </span>
+                            )}
+                        </div>
+                        <div className="flex items-center gap-4 mt-2">
+                            <p className="text-gray-600 text-sm">Medio: {video.mediaType}</p>
+                            {video.date && (
+                                <div className="flex items-center gap-1 text-gray-500 text-sm">
+                                    <Calendar className="h-4 w-4" />
+                                    <span>{video.date}</span>
+                                </div>
+                            )}
+                        </div>
                         {video.description && (
                             <p className="text-gray-500 text-sm mt-2">{video.description}</p>
                         )}
                     </div>
-                    <div className="flex space-x-3">
+                    <div className="flex flex-col sm:flex-row gap-2 ml-4">
                         <button
                             onClick={openOriginalVideo}
-                            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full flex items-center space-x-2"
+                            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full flex items-center space-x-2 text-sm"
                         >
-                            <ExternalLink className="h-5 w-5" />
+                            <ExternalLink className="h-4 w-4" />
                             <span>Ver en plataforma</span>
                         </button>
                         <button
                             onClick={handleShare}
-                            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full flex items-center space-x-2"
+                            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full flex items-center space-x-2 text-sm"
                         >
-                            <Share2 className="h-5 w-5" />
+                            <Share2 className="h-4 w-4" />
                             <span>Compartir</span>
                         </button>
                     </div>
@@ -112,8 +211,9 @@ const VideoModal = ({ video, onClose, onNext, onPrev, hasNext, hasPrev }) => {
     );
 };
 
-const VideoCard = ({ embedUrl, title, mediaType, description, onClick }) => {
+const VideoCard = ({ embedUrl, title, mediaType, description, date, onClick }) => {
     const [isHovered, setIsHovered] = useState(false);
+    const platform = detectSocialPlatform(embedUrl);
 
     return (
         <div
@@ -143,12 +243,23 @@ const VideoCard = ({ embedUrl, title, mediaType, description, onClick }) => {
                         <div className="absolute top-2 right-2 bg-gradient-to-r from-[#96c121] to-[#005F6B] text-white text-xs px-2 py-1 rounded-full">
                             {mediaType}
                         </div>
+                        {platform && (
+                            <div className={`absolute top-2 left-2 ${platform.color} text-white rounded-full p-1 shadow-lg`} title={platform.name}>
+                                <span className={`${platform.icon} h-5 w-5`}></span>
+                            </div>
+                        )}
                     </div>
                     <div className="p-3 cursor-pointer">
                         <h3 className="font-medium text-gray-800 truncate">{title}</h3>
-                        <p className="text-xs text-gray-500 mt-1">
+                        <p className="text-xs text-gray-500 mt-1 line-clamp-2">
                             {description || 'Medio de comunicación destacado'}
                         </p>
+                        {date && (
+                            <div className="flex items-center gap-1 text-xs text-gray-400 mt-2">
+                                <Calendar className="h-3 w-3" />
+                                <span>{date}</span>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
@@ -180,6 +291,7 @@ const Entrevistas = () => {
             description: item.description,
             mediaType: typeLabels[item.type] || item.type,
             mediaTypeKey: item.type,
+            date: formatDate(item.date),
         }));
 
     const filteredVideos = activeFilter === "todos"
@@ -305,6 +417,7 @@ const Entrevistas = () => {
                                     title={video.title}
                                     description={video.description}
                                     mediaType={video.mediaType}
+                                    date={video.date}
                                     onClick={() => handleVideoSelect(video)}
                                 />
                             </div>

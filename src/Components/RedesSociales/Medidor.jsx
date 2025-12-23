@@ -14,15 +14,23 @@ const Medidor = () => {
         .filter(s => s.isActive)
         .reduce((sum, social) => sum + social.followers, 0);
 
-    // Calcular porcentajes por tipo
+    // Agrupar seguidores por tipo de plataforma (suma todas las cuentas del mismo tipo)
+    const getFollowersByType = (type) => {
+        return socials
+            .filter(s => s.type === type && s.isActive)
+            .reduce((sum, social) => sum + social.followers, 0);
+    };
+
+    // Calcular porcentajes por tipo (agrupando todas las cuentas del mismo tipo)
     const getSocialPercentage = (type) => {
-        const social = socials.find(s => s.type === type && s.isActive);
-        if (!social || totalFollowers === 0) return 0;
-        return ((social.followers / totalFollowers) * 100).toFixed(2);
+        const followersOfType = getFollowersByType(type);
+        if (followersOfType === 0 || totalFollowers === 0) return 0;
+        return ((followersOfType / totalFollowers) * 100).toFixed(2);
     };
 
     // Formatear número
     const formatNumber = (num) => {
+        if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`;
         if (num >= 1000) return `${(num / 1000).toFixed(1)}K`;
         return num.toString();
     };
@@ -37,11 +45,12 @@ const Medidor = () => {
     }
 
     const socialTypes = [
-        { type: 'instagram', color: '#e33f72', label: 'Inst/Personal' },
-        { type: 'facebook', color: '#35758a', label: 'FK/Personal' },
+        { type: 'instagram', color: '#e33f72', label: 'Instagram' },
+        { type: 'facebook', color: '#35758a', label: 'Facebook' },
         { type: 'twitter', color: '#000000', label: 'X'},
         { type: 'tiktok', color: '#60605f', label: 'TikTok' },
         { type: 'youtube', color: '#e6231c', label: 'Youtube' },
+        { type: 'linkedin', color: '#0e76a8', label: 'LinkedIn' },
     ];
 
     return (
@@ -86,6 +95,7 @@ const Medidor = () => {
                                             backgroundColor: social.color,
                                             transitionDelay: `${index * 100}ms`
                                         }}
+                                        title={`${social.label}: ${formatNumber(getFollowersByType(social.type))} (${percentage}%)`}
                                     >
                                         {percentage > 5 && `${percentage}%`}
                                     </div>
@@ -96,7 +106,13 @@ const Medidor = () => {
                             {socialTypes.map(social => {
                                 const percentage = getSocialPercentage(social.type);
                                 return percentage > 0 ? (
-                                    <div key={social.type}>{social.label}</div>
+                                    <div key={social.type} className="flex items-center gap-1">
+                                        <div
+                                            className="w-2 h-2 rounded-full"
+                                            style={{ backgroundColor: social.color }}
+                                        ></div>
+                                        {social.label}
+                                    </div>
                                 ) : null;
                             })}
                         </div>

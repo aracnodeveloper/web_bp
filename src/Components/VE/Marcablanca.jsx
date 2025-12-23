@@ -1,12 +1,13 @@
 import React from "react";
 import Navbar from "../Global/Navbar";
 import Footer from "../Global/Footer";
+import FooterHome from "../Home/FooterHome";
 
 const Ve=()=>{
 
     return (
         <div className='overflow-y-hidden'>
-            <Navbar activo={1}/>
+            <Navbar activo={5}/>
 
                 <iframe
                     src="https://visitaecuador.com/marcablanca/PSPL1"
@@ -15,7 +16,7 @@ const Ve=()=>{
                     className='mt-8 '
                 >
                 </iframe>
-            <Footer/>
+            <FooterHome/>
 
         </div>
     );

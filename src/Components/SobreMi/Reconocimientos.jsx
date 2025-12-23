@@ -86,7 +86,7 @@ const ReconocimientoModal = ({ isOpen, onClose, reconocimiento, reconocimientosD
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
-            <div ref={modalContentRef} className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div ref={modalContentRef} className="bg-white rounded-lg w-[700px] h-[800px] overflow-y-auto">
                 {/* Botones de navegación */}
                 <div className="absolute top-1/2 left-4 z-50 transform -translate-y-1/2">
                     <button
@@ -106,7 +106,7 @@ const ReconocimientoModal = ({ isOpen, onClose, reconocimiento, reconocimientosD
                 </div>
 
                 {/* Header con título y botones */}
-                <div className="flex justify-between items-center p-4 border-b">
+                <div className="flex justify-between items-center p-4 border-b  ">
                     <h3 className="text-xl font-semibold text-gray-800">{reconocimiento.title}</h3>
                     <div className="flex items-center space-x-4">
                         <button
@@ -136,7 +136,7 @@ const ReconocimientoModal = ({ isOpen, onClose, reconocimiento, reconocimientosD
                 </div>
 
                 {/* Contenido */}
-                <div className="p-4">
+                <div className="p-4 ">
                     {/* Imagen */}
                     {reconocimiento.image && (
                         <div className="relative mb-6">
@@ -144,7 +144,7 @@ const ReconocimientoModal = ({ isOpen, onClose, reconocimiento, reconocimientosD
                                 <img
                                     src={reconocimiento.image}
                                     alt={reconocimiento.title}
-                                    className="w-full h-[50vh] object-contain mx-auto"
+                                    className="w-full h-[350px] object-contain mx-auto"
                                 />
                             </div>
                         </div>

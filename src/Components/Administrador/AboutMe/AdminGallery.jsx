@@ -10,6 +10,7 @@ const AdminGallery = () => {
         title: '',
         description: '',
         url: '',
+        date: '',
         orderIndex: 0,
         type: 'television',
         isActive: true,
@@ -50,6 +51,16 @@ const AdminGallery = () => {
         return url;
     };
 
+    const formatDate = (dateString) => {
+        if (!dateString) return '';
+        const date = new Date(dateString);
+        return date.toLocaleDateString('es-EC', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    };
+
     const handleOpenModal = (item = null) => {
         if (item) {
             setEditingItem(item);
@@ -57,6 +68,7 @@ const AdminGallery = () => {
                 title: item.title,
                 description: item.description,
                 url: item.url,
+                date: item.date ? new Date(item.date).toISOString().split('T')[0] : '',
                 orderIndex: item.orderIndex,
                 type: item.type,
                 isActive: item.isActive,
@@ -67,6 +79,7 @@ const AdminGallery = () => {
                 title: '',
                 description: '',
                 url: '',
+                date: '',
                 orderIndex: items.length,
                 type: 'television',
                 isActive: true,
@@ -87,6 +100,7 @@ const AdminGallery = () => {
             const dataToSend = {
                 ...formData,
                 url: convertToEmbedUrl(formData.url),
+                date: formData.date ? new Date(formData.date).toISOString() : null,
             };
 
             if (editingItem) {
@@ -210,8 +224,14 @@ const AdminGallery = () => {
                                     {item.description}
                                 </p>
 
-                                <div className="flex items-center justify-between text-xs text-gray-500">
+                                <div className="flex items-center justify-between text-xs text-gray-500 mb-2">
                                     <span>Orden: {item.orderIndex}</span>
+                                    {item.date && (
+                                        <span className="flex items-center gap-1">
+                                            <span className="icon-[heroicons--calendar] h-3 w-3"></span>
+                                            {formatDate(item.date)}
+                                        </span>
+                                    )}
                                 </div>
 
                                 <div className="flex gap-2 mt-4 pt-4 border-t">
@@ -282,6 +302,18 @@ const AdminGallery = () => {
 
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        Fecha de la Entrevista
+                                    </label>
+                                    <input
+                                        type="date"
+                                        value={formData.date}
+                                        onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#96c121] focus:border-transparent"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">
                                         URL del Video *
                                     </label>
                                     <input
@@ -341,8 +373,6 @@ const AdminGallery = () => {
                                         />
                                     </div>
                                 </div>
-
-
 
                                 <div className="flex gap-4 pt-4">
                                     <button

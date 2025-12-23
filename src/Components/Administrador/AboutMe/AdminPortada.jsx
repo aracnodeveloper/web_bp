@@ -159,50 +159,7 @@ const AdminPortada = () => {
                 </button>
             </div>
 
-            {/* Vista previa del slider */}
-            {activeSlides.length > 0 && (
-                <div className="mb-6 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg">
-                    <h3 className="text-sm font-semibold text-blue-800 mb-4 flex items-center gap-2">
-                        <span className="icon-[material-symbols--visibility] h-5 w-5"></span>
-                        Vista Previa del Slider ({activeSlides.length} slides activos)
-                    </h3>
-                    <div className="bg-white rounded-lg p-4 shadow-md">
-                        <div className="grid md:grid-cols-2 gap-4">
-                            {activeSlides.slice(0, 1).map((slide) => (
-                                <React.Fragment key={slide.id}>
-                                    <div className="space-y-3">
-                                        {slide.image && (
-                                            <img
-                                                src={slide.image}
-                                                alt={slide.title}
-                                                className="h-32 object-contain mx-auto"
-                                            />
-                                        )}
-                                        <div className="text-center space-y-1">
-                                            {slide.title && slide.title.split('\n').map((line, i) => (
-                                                <p key={i} className="text-lg font-light text-gray-700">{line}</p>
-                                            ))}
-                                        </div>
-                                        {slide.description && (
-                                            <p className="text-sm text-gray-600 text-center">{slide.description}</p>
-                                        )}
-                                    </div>
-                                    <div className="flex items-center justify-center">
-                                        {slide.phrase && (
-                                            <p className="text-xs text-gray-500 text-center italic max-w-sm">"{slide.phrase}"</p>
-                                        )}
-                                    </div>
-                                </React.Fragment>
-                            ))}
-                        </div>
-                        {activeSlides.length > 1 && (
-                            <p className="text-xs text-gray-500 text-center mt-3">
-                                + {activeSlides.length - 1} slides más en rotación
-                            </p>
-                        )}
-                    </div>
-                </div>
-            )}
+
 
             {/* Lista de slides */}
             <div className="space-y-4">

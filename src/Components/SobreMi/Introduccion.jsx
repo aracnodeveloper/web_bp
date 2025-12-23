@@ -44,16 +44,6 @@ const Introduccion = () => {
         }
     ];
 
-    // Auto-rotate slides every 8 seconds
-    useEffect(() => {
-        if (activeItems.length <= 1) return;
-
-        const interval = setInterval(() => {
-            setCurrentSlide((prev) => (prev + 1) % activeItems.length);
-        }, 8000);
-
-        return () => clearInterval(interval);
-    }, [activeItems.length]);
 
     const handlePortalesModal = () => {
         setIsPortalesModalOpen(true);
@@ -127,14 +117,14 @@ const Introduccion = () => {
                         <div className='flex justify-center gap-4 md:hidden'>
                             <button
                                 onClick={prevSlide}
-                                className='bg-white/90 hover:bg-white p-2 rounded-full shadow-lg transition-all'
+                                className='bg-white hover:bg-white p-2 transition-all'
                                 aria-label="Slide anterior"
                             >
                                 <ChevronLeft className='w-6 h-6 text-[#769842]' />
                             </button>
                             <button
                                 onClick={nextSlide}
-                                className='bg-white/90 hover:bg-white p-2 rounded-full shadow-lg transition-all'
+                                className='bg-white hover:bg-white p-2 transition-all'
                                 aria-label="Siguiente slide"
                             >
                                 <ChevronRight className='w-6 h-6 text-[#769842]' />
@@ -302,14 +292,14 @@ const Introduccion = () => {
                 <>
                     <button
                         onClick={prevSlide}
-                        className='hidden md:block absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-r-lg shadow-lg transition-all z-10'
+                        className='hidden md:block absolute left-0 top-1/2 -translate-y-1/2  hover:bg-white p-3 rounded-l-lg  transition-all z-10'
                         aria-label="Slide anterior"
                     >
                         <ChevronLeft className='w-6 h-6 text-[#769842]' />
                     </button>
                     <button
                         onClick={nextSlide}
-                        className='hidden md:block absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-l-lg shadow-lg transition-all z-10'
+                        className='hidden md:block absolute right-0 top-1/2 -translate-y-1/2 bg-white hover:bg-white p-3 rounded-r-lg  transition-all z-10'
                         aria-label="Siguiente slide"
                     >
                         <ChevronRight className='w-6 h-6 text-[#769842]' />

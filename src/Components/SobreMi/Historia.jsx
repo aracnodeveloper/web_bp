@@ -324,7 +324,7 @@ Fecha de logro: ${selectedItem.date ? new Date(selectedItem.date).toLocaleDateSt
                                         <span className={`${selectedItem.icon} text-3xl text-[#96C121] mr-3`}></span>
                                     )}
                                     <h2 className="text-3xl font-bold text-[#96C121]">
-                                        {selectedItem.date ? new Date(selectedItem.date).toLocaleDateString() : ""}
+                                        {selectedItem.date ? new Date(selectedItem.date).toLocaleDateString('es-ES', { month: 'short', year: 'numeric' }) :""}
                                     </h2>
                                 </div>
 

@@ -4,6 +4,7 @@ import Navbar from '../Components/Global/Navbar';
 import Footer from '../Components/Global/Footer';
 import ImpactoSocial from '../Components/Proyectos/ImpactoSocial';
 import Influencers from "../Components/Proyectos/Influencers";
+import FooterHome from "../Components/Home/FooterHome";
 
 const Proyectos = () => {
     const location = useLocation();
@@ -40,7 +41,7 @@ const Proyectos = () => {
                     <Influencers />
                 </div>
             </main>
-            <Footer />
+            <FooterHome/>
         </div>
     );
 };
