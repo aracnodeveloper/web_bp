@@ -4,6 +4,7 @@ import Navbar from '../Components/Global/Navbar';
 import Footer from '../Components/Global/Footer';
 import Contenido from '../Components/RedesSociales/Contenido';
 import Metricas from '../Components/RedesSociales/Metricas';
+import FooterHome from "../Components/Home/FooterHome";
 
 const RedesSociales = () => {
     const location = useLocation();
@@ -32,7 +33,7 @@ const RedesSociales = () => {
 
     return (
         <div>
-            <Navbar activo={3}/>
+            <Navbar activo={2}/>
             <div className="pt-16">
                 <div ref={contenidoRef}>
                     <Contenido/>
@@ -40,7 +41,7 @@ const RedesSociales = () => {
                 <div ref={metricasRef}>
                     <Metricas/>
                 </div>
-                <Footer/>
+                <FooterHome/>
             </div>
             </div>
             );

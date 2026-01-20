@@ -1,7 +1,9 @@
 import { DonutChart } from '@tremor/react';
 import React, { useState, useEffect } from 'react';
+import { useLocation } from '../../hooks/useMetrics';
 
 const SegmentacionGeografica = () => {
+    const { items: locations, loading } = useLocation();
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -9,69 +11,76 @@ const SegmentacionGeografica = () => {
         return () => clearTimeout(timer);
     }, []);
 
-    const datosPaises = [
-        { name: 'Ecuador', percent: 85.8, icon: "🇪🇨" },
-        { name: 'Estados Unidos', percent: 9.43, icon: "🇺🇸" },
-        { name: 'España', percent: 1.66, icon: "🇪🇸" },
-        { name: 'Italia', percent: 0.56, icon: "🇮🇹" },
-        { name: 'Colombia', percent: 0.37, icon: "🇨🇴" },
-        { name: 'Canadá', percent: 0.27, icon: "🇨🇦" },
-        { name: 'Chile', percent: 0.27, icon: "🇨🇱" },
-        { name: 'México', percent: 0.24, icon: "🇲🇽" },
-        { name: 'Perú', percent: 0.18, icon: "🇵🇪" },
-        { name: 'Alemania', percent: 0.15, icon: "🇩🇪" },
-        { name: 'República Dominicana', percent: 0.12, icon: "🇩🇴" }
-    ];
-
-    const datosCiudades = [
-        { name: 'Cuenca', percent: 30.6, icon: "🏙️" },
-        { name: 'Guayaquil', percent: 18.6, icon: "🌆" },
-        { name: 'Quito', percent: 16.2, icon: "🏛️" },
-        { name: 'Nueva York', percent: 4.2, icon: "🗽" },
-        { name: 'Riobamba', percent: 1.9, icon: "🌇" },
-        { name: 'Santo Domingo (Ecuador)', percent: 2.6, icon: "🌄" },
-        { name: 'Manta', percent: 2.0, icon: "⚓" },
-        { name: 'Ambato', percent: 2.0, icon: "🌁" },
-        { name: 'Machala', percent: 2.0, icon: "🌃" },
-        { name: 'Portoviejo', percent: 1.8, icon: "🏘️" },
-        { name: 'Durán', percent: 1.6, icon: "🌉" },
-    ];
-
-    const colorMapPaises = {
-        'Ecuador': '#3b82f6',
-        'Estados Unidos': '#10b981',
-        'España': '#ef4444',
-        'Italia': '#f59e0b',
-        'Colombia': '#8b5cf6',
-        'Canadá': '#06b6d4',
-        'Chile': '#ec4899',
-        'México': '#84cc16',
-        'Perú': '#6b7280',
-        'Alemania': '#1e293b',
-        'República Dominicana': 'rgba(84,96,88,0.08)'
+    // Emojis por país/ciudad
+    const locationEmojis = {
+        // Países
+        'Ecuador': '🇪🇨',
+        'Estados Unidos': '🇺🇸',
+        'España': '🇪🇸',
+        'Italia': '🇮🇹',
+        'Colombia': '🇨🇴',
+        'Canadá': '🇨🇦',
+        'Chile': '🇨🇱',
+        'México': '🇲🇽',
+        'Perú': '🇵🇪',
+        'Alemania': '🇩🇪',
+        'República Dominicana': '🇩🇴',
+        // Ciudades
+        'Cuenca': '🏙️',
+        'Guayaquil': '🌆',
+        'Quito': '🏛️',
+        'Nueva York': '🗽',
+        'Riobamba': '🌇',
+        'Santo Domingo': '🌄',
+        'Manta': '⚓',
+        'Ambato': '🌁',
+        'Machala': '🌃',
+        'Portoviejo': '🏘️',
+        'Durán': '🌉',
     };
 
-    const colorMapCiudades = {
-        'Cuenca': '#3b82f6',
-        'Guayaquil': '#10b981',
-        'Quito': '#ef4444',
-        'Nueva York': '#f59e0b',
-        'Riobamba': '#8b5cf6',
-        'Machala': '#06b6d4',
-        'Loja': '#ec4899',
-        'Azogues': '#84cc16',
-        'Manta': '#374151',
-        'Ambato': '#4b5563',
-        'Latacunga': '#64748b',
-        'Samborondón': '#94a3b8',
-        'Gualaceo': '#cbd5e1',
-        'Sígsig': '#e2e8f0',
-        'Milagros': '#f1f5f9'
+    // Colores predefinidos
+    const defaultColors = [
+        '#3b82f6', '#10b981', '#ef4444', '#f59e0b', '#8b5cf6',
+        '#06b6d4', '#ec4899', '#84cc16', '#6b7280', '#1e293b'
+    ];
+
+    // Filtrar y preparar datos
+    const countries = locations
+        .filter(loc => loc.type === 'country' && loc.isActive)
+        .sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0))
+        .map((loc, index) => ({
+            name: loc.title,
+            percent: loc.rise || 0,
+            icon: locationEmojis[loc.title] || '🌍',
+            color: loc.colors || defaultColors[index % defaultColors.length]
+        }));
+
+    const cities = locations
+        .filter(loc => loc.type === 'city' && loc.isActive)
+        .sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0))
+        .map((loc, index) => ({
+            name: loc.title,
+            percent: loc.rise || 0,
+            icon: locationEmojis[loc.title] || '🏙️',
+            color: loc.colors || defaultColors[index % defaultColors.length]
+        }));
+
+    // Crear mapa de colores dinámicamente
+    const createColorMap = (items) => {
+        const map = {};
+        items.forEach(item => {
+            map[item.name] = item.color;
+        });
+        return map;
     };
+
+    const colorMapPaises = createColorMap(countries);
+    const colorMapCiudades = createColorMap(cities);
 
     const valueFormatter = (number) => `${Intl.NumberFormat('es-MX').format(number).toString()} %`;
 
-    const DonutSection = ({ title, data, colorMap, totalLabel, totalValue }) => {
+    const DonutSection = ({ title, data, colorMap }) => {
         const topData = data.slice(0, 8);
         const otrosData = data.slice(8);
 
@@ -96,7 +105,7 @@ const SegmentacionGeografica = () => {
                                 index="name"
                                 valueFormatter={valueFormatter}
                                 showAnimation={true}
-                                colors={['blue', 'emerald','red' , 'amber','purple','cyan','pink','green','gray']}
+                                colors={['blue', 'emerald','red', 'amber','purple','cyan','pink','green','gray']}
                                 className="h-48"
                             />
                         </div>
@@ -123,7 +132,6 @@ const SegmentacionGeografica = () => {
                                     </div>
                                 ))}
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -131,27 +139,46 @@ const SegmentacionGeografica = () => {
         );
     };
 
+    if (loading) {
+        return (
+            <div className="bg-white rounded-xl shadow-md p-6">
+                <div className="text-center py-8">Cargando datos geográficos...</div>
+            </div>
+        );
+    }
+
+    if (countries.length === 0 && cities.length === 0) {
+        return (
+            <div className="bg-white rounded-xl shadow-md p-6">
+                <div className="text-center py-8 text-gray-500">
+                    No hay datos geográficos disponibles
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="space-y-6">
             <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
                 Seguidores por País y Ciudad
             </h2>
-<div className="grid grid-cols-2 gap-4">
-            <DonutSection
-                title="Seguidores por País"
-                data={datosPaises}
-                colorMap={colorMapPaises}
-                totalLabel="Total seguidores"
-                totalValue="253.832K personas"
-            />
+            <div className="grid grid-cols-2 gap-4">
+                {countries.length > 0 && (
+                    <DonutSection
+                        title="Seguidores por País"
+                        data={countries}
+                        colorMap={colorMapPaises}
+                    />
+                )}
 
-            <DonutSection
-                title="Seguidores por Ciudad"
-                data={datosCiudades}
-                colorMap={colorMapCiudades}
-                totalLabel="Total por ubicación"
-                totalValue="253.832K personas"
-            /></div>
+                {cities.length > 0 && (
+                    <DonutSection
+                        title="Seguidores por Ciudad"
+                        data={cities}
+                        colorMap={colorMapCiudades}
+                    />
+                )}
+            </div>
         </div>
     );
 };

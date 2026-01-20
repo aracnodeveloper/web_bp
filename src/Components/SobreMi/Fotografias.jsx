@@ -2,6 +2,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import React, { useState, useRef, useEffect } from 'react';
 import Slider from "react-slick";
+import { useAboutMe } from "../../hooks/useAboutMe";
 
 const CustomNextArrow = (props) => {
   return (
@@ -23,15 +24,8 @@ const CustomPrevArrow = (props) => {
   );
 };
 
-const ImageModal = ({ src, isOpen, onClose, onNext, onPrev, images }) => {
+const ImageModal = ({ image, isOpen, onClose, onNext, onPrev }) => {
   const modalContentRef = useRef(null);
-
-  const descriptions = {
-    "./images/foto01.webp": "Bernardo Polo Andrade durante una conferencia empresarial en Ciudad de México, compartiendo su visión sobre liderazgo sostenible y estrategias innovadoras para el crecimiento empresarial en Latinoamérica.",
-    "./images/foto02.webp": "Entrevista exclusiva con medios locales donde Bernardo habla sobre sus proyectos recientes, futuras iniciativas y su perspectiva sobre los desafíos económicos actuales.",
-    "./images/foto03.webp": "Bernardo en un evento benéfico, demostrando su compromiso con causas sociales importantes en la comunidad y su filosofía de retribuir a la sociedad a través del emprendimiento consciente.",
-    "./images/foto04.webp": "Reunión estratégica con emprendedores jóvenes donde comparte consejos basados en su experiencia profesional y mentora a la próxima generación de líderes empresariales.",
-  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -64,7 +58,7 @@ const ImageModal = ({ src, isOpen, onClose, onNext, onPrev, images }) => {
     printWindow.document.write(`
       <html>
         <head>
-          <title>Bernardo Polo Andrade - Imagen</title>
+          <title>Bernardo Polo Andrade - ${image?.title}</title>
           <style>
             body { text-align: center; font-family: Arial, sans-serif; }
             img { max-width: 100%; height: auto; }
@@ -72,8 +66,8 @@ const ImageModal = ({ src, isOpen, onClose, onNext, onPrev, images }) => {
         </head>
         <body>
           <h1>Bernardo Polo Andrade</h1>
-          <img src="${src}" alt="Imagen de Bernardo Polo Andrade" />
-          <p>${descriptions[src] || "Imagen de la galería fotográfica de Bernardo Polo Andrade."}</p>
+          <img src="${image?.image}" alt="${image?.title}" />
+          <p>${image?.description}</p>
         </body>
       </html>
     `);
@@ -84,19 +78,18 @@ const ImageModal = ({ src, isOpen, onClose, onNext, onPrev, images }) => {
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
-        title: 'Bernardo Polo Andrade - Galería',
-        text: descriptions[src] || 'Imagen de Bernardo Polo Andrade',
+        title: `Bernardo Polo Andrade - ${image?.title}`,
+        text: image?.description,
         url: window.location.href
       }).catch(console.error);
     } else {
-      // Fallback for browsers that don't support Web Share API
       navigator.clipboard.writeText(window.location.href).then(() => {
         alert('Enlace copiado al portapapeles');
       });
     }
   };
 
-  if (!isOpen) return null;
+  if (!isOpen || !image) return null;
 
   return (
       <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 backdrop-blur-sm animate-fadeIn">
@@ -104,7 +97,6 @@ const ImageModal = ({ src, isOpen, onClose, onNext, onPrev, images }) => {
             ref={modalContentRef}
             className="bg-white rounded-xl max-w-5xl flex flex-col md:flex-row items-stretch overflow-hidden shadow-2xl transform transition-all duration-500 scale-100 animate-modalEnter relative"
         >
-
           <div
               className="absolute top-1/2 left-4 transform -translate-y-1/2 z-20 cursor-pointer"
               onClick={onPrev}
@@ -117,7 +109,6 @@ const ImageModal = ({ src, isOpen, onClose, onNext, onPrev, images }) => {
           >
             <span className="text-black text-4xl font-bold">&gt;</span>
           </div>
-
 
           <button
               onClick={onClose}
@@ -144,7 +135,7 @@ const ImageModal = ({ src, isOpen, onClose, onNext, onPrev, images }) => {
           </div>
 
           <div className="w-full md:w-3/6 relative">
-            <img src={src} alt="Expanded" className="w-full h-full object-cover" />
+            <img src={image.image} alt={image.title} className="w-full h-full object-cover" />
             <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-black/70 to-transparent"></div>
           </div>
           <div className="w-full md:w-2/5 p-8 flex flex-col justify-center bg-gradient-to-br from-white to-gray-50">
@@ -154,7 +145,7 @@ const ImageModal = ({ src, isOpen, onClose, onNext, onPrev, images }) => {
             </div>
             <div className="h-1 w-32 bg-gradient-to-r from-[#96c121] to-[#005F6B] mb-6 rounded-full"></div>
             <p className="text-gray-700 leading-relaxed mb-6 italic border-l-4 border-[#96c121] pl-4">
-              {descriptions[src] || "Imagen de la galería fotográfica de Bernardo Polo Andrade."}
+              {image.description}
             </p>
           </div>
         </div>
@@ -163,22 +154,11 @@ const ImageModal = ({ src, isOpen, onClose, onNext, onPrev, images }) => {
 };
 
 const Fotografias = () => {
+  const { items: photos, loading } = useAboutMe('photo');
   const [modalImage, setModalImage] = useState(null);
   const [activeSlide, setActiveSlide] = useState(0);
 
-  const images = [
-    "./images/foto01.webp",
-    "./images/foto02.webp",
-    "./images/foto03.webp",
-    "./images/foto04.webp"
-  ];
-
-  const descriptions = {
-    "./images/foto01.webp": "Conferencia empresarial",
-    "./images/foto02.webp": "Entrevista con medios",
-    "./images/foto03.webp": "Evento benéfico",
-    "./images/foto04.webp": "Reunión con emprendedores",
-  };
+  const activePhotos = photos.filter(photo => photo.isActive).sort((a, b) => a.orderIndex - b.orderIndex);
 
   const settings = {
     dots: true,
@@ -208,9 +188,9 @@ const Fotografias = () => {
     ]
   };
 
-  const openModal = (src) => {
-    const index = images.indexOf(src);
-    setModalImage(src);
+  const openModal = (photo) => {
+    const index = activePhotos.findIndex(p => p.id === photo.id);
+    setModalImage(photo);
     setActiveSlide(index);
   };
 
@@ -219,18 +199,22 @@ const Fotografias = () => {
   };
 
   const nextImage = () => {
-    const currentIndex = images.indexOf(modalImage);
-    const nextIndex = (currentIndex + 1) % images.length;
-    setModalImage(images[nextIndex]);
+    const currentIndex = activePhotos.findIndex(p => p.id === modalImage.id);
+    const nextIndex = (currentIndex + 1) % activePhotos.length;
+    setModalImage(activePhotos[nextIndex]);
     setActiveSlide(nextIndex);
   };
 
   const prevImage = () => {
-    const currentIndex = images.indexOf(modalImage);
-    const prevIndex = (currentIndex - 1 + images.length) % images.length;
-    setModalImage(images[prevIndex]);
+    const currentIndex = activePhotos.findIndex(p => p.id === modalImage.id);
+    const prevIndex = (currentIndex - 1 + activePhotos.length) % activePhotos.length;
+    setModalImage(activePhotos[prevIndex]);
     setActiveSlide(prevIndex);
   };
+
+  if (loading) {
+    return <div className="text-center py-8">Cargando galería...</div>;
+  }
 
   return (
       <div id="galeria" className="py-8">
@@ -246,20 +230,20 @@ const Fotografias = () => {
 
         <div className="relative pb-10">
           <Slider {...settings}>
-            {images.map((src, index) => (
-                <div key={index} className="px-3 py-2">
+            {activePhotos.map((photo, index) => (
+                <div key={photo.id} className="px-3 py-2">
                   <div
                       className={`relative overflow-hidden rounded-xl transition-all duration-500 transform ${activeSlide === index ? 'scale-105 shadow-2xl z-10' : 'scale-95 shadow-lg'}`}
                   >
-                    <div className="relative group cursor-pointer" onClick={() => openModal(src)}>
+                    <div className="relative group cursor-pointer" onClick={() => openModal(photo)}>
                       <img
-                          src={src}
-                          alt={`Foto ${index + 1}`}
+                          src={photo.image}
+                          alt={photo.title}
                           className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70"></div>
                       <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform transition-transform duration-300 group-hover:-translate-y-1">
-                        <h3 className="text-lg font-bold mb-1">{descriptions[src]}</h3>
+                        <h3 className="text-lg font-bold mb-1">{photo.title}</h3>
                         <p className="text-sm opacity-90">Haz clic para ver más detalles</p>
                       </div>
                       <div className="absolute inset-0 border-4 border-transparent group-hover:border-[#005F6B] transition-all duration-300 rounded-xl"></div>
@@ -271,12 +255,11 @@ const Fotografias = () => {
         </div>
 
         <ImageModal
-            src={modalImage}
+            image={modalImage}
             isOpen={modalImage !== null}
             onClose={closeModal}
             onNext={nextImage}
             onPrev={prevImage}
-            images={images}
         />
       </div>
   );

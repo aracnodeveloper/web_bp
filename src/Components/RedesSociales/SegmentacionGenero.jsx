@@ -1,27 +1,29 @@
 import { DonutChart } from '@tremor/react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useGender } from '../../hooks/useMetrics';
 
 const SegmentacionDashboard = () => {
+    const { data: genderData, loading } = useGender();
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        // Trigger animation after component mounts
         const timer = setTimeout(() => setIsVisible(true), 300);
         return () => clearTimeout(timer);
     }, []);
-    const datosGenero = [
+
+    // Preparar datos para el gráfico
+    const datosGenero = genderData ? [
         {
             name: 'Hombre',
-            percent: 64.2,
+            percent: genderData.male,
             icon: "👨",
         },
         {
             name: 'Mujer',
-            percent: 35.8,
+            percent: genderData.female,
             icon: "👩",
         },
-    ];
-
+    ] : [];
 
     const colorMapGenero = {
         'Hombre': '#3b82f6',
@@ -29,17 +31,16 @@ const SegmentacionDashboard = () => {
         'Desconocido': '#9ca3af'
     };
 
-
     const valueFormatter = (number) => `${Intl.NumberFormat('es-MX').format(number).toString()} %`;
 
-    const DonutSection = ({ title, data, colorMap, totalLabel }) => (
+    const DonutSection = ({ title, data, colorMap }) => (
         <div className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg mb-6">
             <div className="p-6">
                 <h3 className="text-xl font-bold text-gray-800 text-center mb-4">
                     {title}
                 </h3>
 
-                <div className={`flex flex-col  items-center justify-between gap-6 transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+                <div className={`flex flex-col items-center justify-between gap-6 transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
                     <div className="w-full md:w-1/2 max-w-xs mx-auto">
                         <DonutChart
                             data={data}
@@ -47,7 +48,7 @@ const SegmentacionDashboard = () => {
                             index="name"
                             valueFormatter={valueFormatter}
                             showAnimation={true}
-                            colors={['blue', 'pink', 'gray' ]}
+                            colors={['blue', 'pink', 'gray']}
                             className="h-48"
                         />
                     </div>
@@ -72,12 +73,29 @@ const SegmentacionDashboard = () => {
                                 </div>
                             </div>
                         ))}
-
                     </div>
                 </div>
             </div>
         </div>
     );
+
+    if (loading) {
+        return (
+            <div className="bg-white rounded-xl shadow-md p-6">
+                <div className="text-center py-8">Cargando datos de género...</div>
+            </div>
+        );
+    }
+
+    if (!genderData) {
+        return (
+            <div className="bg-white rounded-xl shadow-md p-6">
+                <div className="text-center py-8 text-gray-500">
+                    No hay datos de género disponibles
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="space-y-6">
@@ -85,7 +103,6 @@ const SegmentacionDashboard = () => {
                 title="Distribución por Género"
                 data={datosGenero}
                 colorMap={colorMapGenero}
-                totalLabel="Total analizados"
             />
         </div>
     );

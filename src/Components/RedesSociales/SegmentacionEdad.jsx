@@ -1,70 +1,76 @@
 import { BarChart } from '@tremor/react';
-import  { useState, useEffect, useMemo } from 'react';
-
-const segmentos = [
-        {
-            range: '18-24',
-            porcentaje: 2.5,
-            audienciaEstimada: '325,000',
-            emoji: "🧑",
-            color: "#60a5fa"
-        },
-        {
-            range: '25-34',
-            porcentaje: 15.2,
-            audienciaEstimada: '1,976,000',
-            emoji: "👨",
-            color: "#3b82f6"
-        },
-        {
-            range: '35-44',
-            porcentaje: 33.4,
-            audienciaEstimada: '4,340,400',
-            emoji: "👨‍💼",
-            color: "#2563eb"
-        },
-        {
-            range: '45-54',
-            porcentaje: 24.8,
-            audienciaEstimada: '3,224,800',
-            emoji: "👨‍🦱",
-            color: "#1d4ed8"
-        },
-        {
-            range: '55-64',
-            porcentaje: 15.6,
-            audienciaEstimada: '2,028,000',
-            emoji: "👴",
-            color: "#1e40af"
-        },
-        {
-            range: '65+',
-            porcentaje: 8.5,
-            audienciaEstimada: '1,105,000',
-            emoji: "🧓",
-            color: "#1e3a8a"
-        },
-];
+import React, { useState, useEffect, useMemo } from 'react';
+import { useAge } from '../../hooks/useMetrics';
 
 const SegmentacionEdad = () => {
+    const { data: ageData, loading } = useAge();
     const [activeRange, setActiveRange] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
     const [hoverRange, setHoverRange] = useState(null);
 
     useEffect(() => {
-        // Trigger animation after component mounts
         const timer = setTimeout(() => setIsVisible(true), 300);
         return () => clearTimeout(timer);
     }, []);
 
-    const maxPorcentaje = useMemo(() => Math.max(...segmentos.map(item => item.porcentaje)), []);
+    // Mapear datos de la API al formato del componente
+    const segmentos = useMemo(() => {
+        if (!ageData) return [];
+
+        return [
+            {
+                range: '18-24',
+                porcentaje: ageData.youngs,
+                audienciaEstimada: ((ageData.youngs / 100) * 13000000).toFixed(0),
+                emoji: "🧑",
+                color: "#60a5fa"
+            },
+            {
+                range: '25-34',
+                porcentaje: ageData.youngAdl || 0,
+                audienciaEstimada: (((ageData.youngAdl || 0) / 100) * 13000000).toFixed(0),
+                emoji: "👨",
+                color: "#3b82f6"
+            },
+            {
+                range: '35-44',
+                porcentaje: ageData.adults,
+                audienciaEstimada: ((ageData.adults / 100) * 13000000).toFixed(0),
+                emoji: "👨‍💼",
+                color: "#2563eb"
+            },
+            {
+                range: '45-54',
+                porcentaje: ageData.adultsOld,
+                audienciaEstimada: ((ageData.adultsOld / 100) * 13000000).toFixed(0),
+                emoji: "👨‍🦱",
+                color: "#1d4ed8"
+            },
+            {
+                range: '55-64',
+                porcentaje: ageData.olds,
+                audienciaEstimada: ((ageData.olds / 100) * 13000000).toFixed(0),
+                emoji: "👴",
+                color: "#1e40af"
+            },
+            {
+                range: '65+',
+                porcentaje: ageData.elders,
+                audienciaEstimada: ((ageData.elders / 100) * 13000000).toFixed(0),
+                emoji: "🧓",
+                color: "#1e3a8a"
+            },
+        ];
+    }, [ageData]);
+
+    const maxPorcentaje = useMemo(() => Math.max(...segmentos.map(item => item.porcentaje)), [segmentos]);
 
     const audienciaTotal = useMemo(() => {
         return segmentos.reduce((sum, item) => {
             const numero = parseFloat(item.audienciaEstimada.replace(/,/g, ''));
             return sum + numero;
         }, 0);
-    }, []);
+    }, [segmentos]);
 
     const formattedAudienciaTotal = useMemo(() => {
         return new Intl.NumberFormat('es-MX').format(audienciaTotal);
@@ -82,7 +88,25 @@ const SegmentacionEdad = () => {
 
     const activeSegment = useMemo(() => {
         return segmentos.find(s => s.range === activeRange);
-    }, [activeRange]);
+    }, [activeRange, segmentos]);
+
+    if (loading) {
+        return (
+            <div className="bg-white rounded-xl shadow-md p-6">
+                <div className="text-center py-8">Cargando datos de edad...</div>
+            </div>
+        );
+    }
+
+    if (!ageData) {
+        return (
+            <div className="bg-white rounded-xl shadow-md p-6">
+                <div className="text-center py-8 text-gray-500">
+                    No hay datos de edad disponibles
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
@@ -210,8 +234,6 @@ const SegmentacionEdad = () => {
                             );
                         })}
                     </div>
-
-
                 </div>
             </div>
         </div>

@@ -1,31 +1,43 @@
 import React, { useState } from 'react';
 
-const SeguidoresRed = ({red, seguidores, color, icono}) => {
+const SeguidoresRed = ({red, seguidores, color, icono, rise, url}) => {
     const [isHovered, setIsHovered] = useState(false);
+
+    const handleClick = () => {
+        if (url) {
+            window.open(url, '_blank');
+        }
+    };
+    const formatNumber = (num) => {
+        if (num >= 1000000) return `${(num / 1000000).toFixed(2)}M`;
+        if (num >= 1000) return `${(num / 1000).toFixed(1)}K`;
+        return num.toString();
+    };
 
     return (
         <div
-            className="relative overflow-hidden rounded-xl shadow-md transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+            className="relative overflow-hidden rounded-xl shadow-md transition-all duration-300 transform hover:scale-105 hover:shadow-xl cursor-pointer"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            onClick={handleClick}
             style={{
                 backgroundColor: color,
                 borderBottom: `4px solid ${color}`
             }}
         >
             <div className="flex justify-between items-center p-4 text-white">
-                <div className="p-2 rounded-full bg-white/20 backdrop-blur-sm">
+                <div className="p-2 rounded-full h-14 w-14 bg-white/20 backdrop-blur-sm">
                     <img className="h-10 w-10 object-contain" src={icono} alt={`${red} icon`} />
                 </div>
 
                 <div className="flex flex-col items-center justify-center gap-2">
-                    <div className="text-xs font-bold tracking-widest opacity-80">{red}</div>
-                    <div className="text-3xl font-bold">{seguidores}</div>
+                    <div className="text-xs font-bold tracking-widest opacity-80">@{red}</div>
+                    <div className="text-3xl font-bold">{formatNumber(seguidores)}</div>
                 </div>
 
                 <div className="flex flex-col items-center">
                     <span className="icon-[ph--arrow-up] h-8 w-8 animate-bounce"></span>
-                    <span className="text-xs font-semibold">+5.2%</span>
+                    <span className="text-xs font-semibold">+{rise || 0}%</span>
                 </div>
             </div>
 

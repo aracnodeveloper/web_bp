@@ -10,10 +10,10 @@ const Navbar = ({ activo }) => {
 
   const rutas = [
     "/",
-    "/ve",
     "/sobre-mi",
     "/redes-sociales",
     "/proyectos",
+    "/ve",
     "/contacto",
   ];
   const navigation = useNavigate();
@@ -86,29 +86,17 @@ const Navbar = ({ activo }) => {
         {/* Desktop Navigation */}
         <div className="hidden md:flex gap-4 lg:gap-10 justify-end font-bold text-base lg:text-lg">
           <div
-            className={`${
-              activo == 0 ? "text-white" : ""
-            } border border-transparent rounded-full px-3 cursor-pointer`}
+            className={`${activo == 0 ? "text-white" : ""} border border-transparent rounded-full px-3 cursor-pointer`}
             onClick={() => hanldeClick(0)}
           >
             Inicio
-          </div>
-          <div
-            className={`${
-              activo == 1 ? "text-white" : ""
-            } border border-transparent rounded-full px-3 cursor-pointer`}
-            onClick={() => hanldeClick(1)}
-          >
-            VisitaEcuador
           </div>
 
           <div
             onMouseEnter={() => setSubSobreMi(true)}
             onMouseLeave={() => setSubSobreMi(false)}
-            className={`${
-              activo == 2 ? "text-white" : ""
-            } border border-transparent rounded-full px-3 cursor-pointer relative`}
-            onClick={() => hanldeClick(2)}
+            className={`${activo == 1 ? "text-white" : ""} border border-transparent rounded-full px-3 cursor-pointer relative`}
+            onClick={() => hanldeClick(1)}
           >
             Sobre Mí
             {subSobremi && (
@@ -161,10 +149,8 @@ const Navbar = ({ activo }) => {
           <div
             onMouseEnter={() => setSubSocial(true)}
             onMouseLeave={() => setSubSocial(false)}
-            className={`${
-              activo == 3 ? "text-white" : ""
-            } border border-transparent rounded-full px-3 cursor-pointer relative`}
-            onClick={() => hanldeClick(3)}
+            className={`${activo == 2 ? "text-white" : ""} border border-transparent rounded-full px-3 cursor-pointer relative`}
+            onClick={() => hanldeClick(2)}
           >
             Redes Sociales
             {subSocial && (
@@ -197,10 +183,8 @@ const Navbar = ({ activo }) => {
           <div
             onMouseEnter={() => setSubProyectos(true)}
             onMouseLeave={() => setSubProyectos(false)}
-            className={`${
-              activo == 4 ? "text-white" : ""
-            } border border-transparent rounded-full px-3 cursor-pointer relative`}
-            onClick={() => hanldeClick(4)}
+            className={`${activo == 3 ? "text-white" : ""} border border-transparent rounded-full px-3 cursor-pointer relative`}
+            onClick={() => hanldeClick(3)}
           >
             Proyectos
             {subProyectos && (
@@ -230,10 +214,15 @@ const Navbar = ({ activo }) => {
               </div>
             )}
           </div>
+
           <div
-            className={`${
-              activo == 5 ? "text-white" : ""
-            } border border-transparent rounded-full px-3 cursor-pointer`}
+            className={`${activo == 4 ? "text-white" : ""} border border-transparent rounded-full px-3 cursor-pointer`}
+            onClick={() => hanldeClick(4)}
+          >
+            VisitaEcuador
+          </div>
+          <div
+            className={`${activo == 5 ? "text-white" : ""} border border-transparent rounded-full px-3 cursor-pointer`}
             onClick={() => hanldeClick(5)}
           >
             Contacto
@@ -246,35 +235,14 @@ const Navbar = ({ activo }) => {
         <div className="md:hidden absolute top-16 left-0 right-0 bg-[#92B509] shadow-lg">
           <div className="flex flex-col px-4 py-2 space-y-2 font-bold">
             <div
-              className={`${
-                activo == 0 ? "text-white" : ""
-              } py-2 px-3 cursor-pointer`}
+              className={`${activo == 0 ? "text-white" : ""} py-2 px-3 cursor-pointer`}
               onClick={() => hanldeClick(0)}
             >
               Inicio
             </div>
-            <div
-              className={` py-2 px-3 cursor-pointer`}
-              onClick={() =>
-                window.open(
-                  "https://visitaecuador.com/marcablanca/PSPL1",
-                  "_blank"
-                )
-              }
-            >
-              VisitaEcuador
-            </div>
-            <div
-              className={`${
-                activo == 1 ? "text-white" : ""
-              } border border-transparent rounded-full px-3 cursor-pointer`}
-              onClick={() => hanldeClick(1)}
-            >
-              VisitaEcuador
-            </div>
 
-            <div className={`${activo == 2 ? "text-white" : ""} py-2 px-3`}>
-              <div className="cursor-pointer" onClick={() => hanldeClick(2)}>
+            <div className={`${activo == 1 ? "text-white" : ""} py-2 px-3`}>
+              <div className="cursor-pointer" onClick={() => hanldeClick(1)}>
                 Sobre Mí
               </div>
               <div className="pl-4 mt-1 space-y-1 text-sm">
@@ -307,8 +275,8 @@ const Navbar = ({ activo }) => {
               </div>
             </div>
 
-            <div className={`${activo == 3 ? "text-white" : ""} py-2 px-3`}>
-              <div className="cursor-pointer" onClick={() => hanldeClick(3)}>
+            <div className={`${activo == 2 ? "text-white" : ""} py-2 px-3`}>
+              <div className="cursor-pointer" onClick={() => hanldeClick(2)}>
                 Redes Sociales
               </div>
               <div className="pl-4 mt-1 space-y-1 text-sm">
@@ -331,8 +299,8 @@ const Navbar = ({ activo }) => {
               </div>
             </div>
 
-            <div className={`${activo == 4 ? "text-white" : ""} py-2 px-3`}>
-              <div className="cursor-pointer" onClick={() => hanldeClick(4)}>
+            <div className={`${activo == 3 ? "text-white" : ""} py-2 px-3`}>
+              <div className="cursor-pointer" onClick={() => hanldeClick(3)}>
                 Proyectos
               </div>
               <div className="pl-4 mt-1 space-y-1 text-sm">
@@ -354,9 +322,13 @@ const Navbar = ({ activo }) => {
             </div>
 
             <div
-              className={`${
-                activo == 5 ? "text-white" : ""
-              } py-2 px-3 cursor-pointer`}
+              className={`${activo == 4 ? "text-white" : ""} border border-transparent rounded-full px-3 cursor-pointer`}
+              onClick={() => hanldeClick(4)}
+            >
+              VisitaEcuador
+            </div>
+            <div
+              className={`${activo == 5 ? "text-white" : ""} py-2 px-3 cursor-pointer`}
               onClick={() => hanldeClick(5)}
             >
               Contacto

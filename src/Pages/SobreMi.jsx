@@ -6,6 +6,7 @@ import Logros from '../Components/SobreMi/Logros';
 import Galeria from '../Components/SobreMi/Galeria';
 import Blog from '../Components/SobreMi/Blog';
 import Footer from '../Components/Global/Footer';
+import FooterHome from "../Components/Home/FooterHome";
 
 const SobreMi = () => {
     const location = useLocation();
@@ -46,7 +47,7 @@ const SobreMi = () => {
 
     return (
         <>
-            <Navbar activo={2}/>
+            <Navbar activo={1}/>
             <div className="pt-16">
                 <div ref={introduccionRef}>
                     <Introduccion/>
@@ -60,7 +61,7 @@ const SobreMi = () => {
                 <div ref={blogRef}>
                     <Blog/>
                 </div>
-                <Footer/>
+                <FooterHome/>
             </div>
             </>
             );
