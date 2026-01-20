@@ -79,7 +79,7 @@ export const useProjects = (projectType = null) => {
                 },
             });
 
-            return response.data.url;
+            return response.data.data.url;
         } catch (err) {
             console.error('Error uploading image:', err);
             throw err;
