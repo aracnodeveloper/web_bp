@@ -10,6 +10,7 @@ const api = axios.create({
     },
 });
 
+
 api.interceptors.request.use(
     (config) => {
         const token = Cookies.get("accessToken"); // localStorage.getItem('accessToken');
