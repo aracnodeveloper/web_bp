@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const BASE_URL = "https://181.198.122.14/8006"; // ensure protocol is included
+const BASE_URL = "http://181.198.122.14/8006"; // ensure protocol is included
 
 const api = axios.create({
     baseURL: BASE_URL, // ajusta según sea necesario
