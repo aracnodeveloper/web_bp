@@ -1,19 +1,20 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const BASE_URL = "http://181.198.122.14/8006"; // ensure protocol is included
+// ✅ URL CORREGIDA: Apache en puerto 80 (HTTP estándar)
+// SSH está en puerto 4022
+const BASE_URL = "http://181.198.122.14/bp_api";
 
 const api = axios.create({
-    baseURL: BASE_URL, // ajusta según sea necesario
+    baseURL: BASE_URL,
     headers: {
         "Content-Type": "application/json",
     },
 });
 
-
 api.interceptors.request.use(
     (config) => {
-        const token = Cookies.get("accessToken"); // localStorage.getItem('accessToken');
+        const token = Cookies.get("accessToken");
         if (token) {
             config.headers = config.headers || {};
             config.headers["Authorization"] = `Bearer ${token}`;
