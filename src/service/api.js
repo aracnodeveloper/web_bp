@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 // ✅ URL CORREGIDA: Apache en puerto 80 (HTTP estándar)
 // SSH está en puerto 4022
-const BASE_URL = "http://181.198.122.14/bp_api";
+const BASE_URL = "http://181.198.122.14:8006";
 
 const api = axios.create({
     baseURL: BASE_URL,
