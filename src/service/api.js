@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const BASE_URL = "https://web.bernardopolo.com/bp_api";
+const BASE_URL = "https://visitaecuador.com/bp_api";
 
 const api = axios.create({
     baseURL: BASE_URL,
