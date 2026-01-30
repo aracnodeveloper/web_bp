@@ -29,17 +29,43 @@ const AdminGallery = () => {
         return (match && match[7].length === 11) ? match[7] : null;
     };
 
+    // Extraer el ID de video de Facebook de diferentes formatos de URL
+    const extractFacebookVideoId = (url) => {
+        // Formato: /videos/880822674680269
+        const videosMatch = url.match(/\/videos\/(\d+)/);
+        if (videosMatch) return videosMatch[1];
+
+        // Formato: ?v=880822674680269 o &v=880822674680269
+        const vParamMatch = url.match(/[?&]v=(\d+)/);
+        if (vParamMatch) return vParamMatch[1];
+
+        // Formato: fb.watch/xxx/ - necesita resolverse diferente
+        // Para fb.watch, intentamos extraer cualquier número largo que parezca un ID
+        const fbWatchMatch = url.match(/fb\.watch\/([A-Za-z0-9]+)/);
+        if (fbWatchMatch) {
+            // fb.watch URLs son acortadas, no podemos extraer el ID directamente
+            // Retornamos null para manejar de forma diferente
+            return null;
+        }
+
+        return null;
+    };
+
     const convertToEmbedUrl = (url) => {
         if (!url) return '';
 
-        // Si ya es embed, retornar
-        if (url.includes('/embed/')) return url;
+        // Si ya es embed de YouTube, retornar
+        if (url.includes('youtube.com/embed/')) return url;
+
+        // Si ya es plugin de Facebook, retornar
+        if (url.includes('plugins/video.php')) return url;
 
         // Si es Facebook
-        if (url.includes('facebook.com')) {
-            // Si ya es plugin, retornar
-            if (url.includes('plugins/video.php')) return url;
-            return url;
+        if (url.includes('facebook.com') || url.includes('fb.watch')) {
+            // Para URLs de fb.watch, usamos la URL original codificada
+            // ya que son redirecciones y el plugin de Facebook las maneja
+            const videoUrl = encodeURIComponent(url);
+            return `https://www.facebook.com/plugins/video.php?href=${videoUrl}&show_text=false&width=560`;
         }
 
         // Si es YouTube, convertir a embed
@@ -49,6 +75,11 @@ const AdminGallery = () => {
         }
 
         return url;
+    };
+
+    // Detectar si es un video de Facebook
+    const isFacebookVideo = (url) => {
+        return url && (url.includes('facebook.com') || url.includes('fb.watch'));
     };
 
     const formatDate = (dateString) => {
@@ -164,75 +195,65 @@ const AdminGallery = () => {
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                     }`}
                 >
-                    <span className="icon-[heroicons--squares-2x2] inline-block h-4 w-4 mr-1"></span>
                     Todos ({items.length})
                 </button>
-                {mediaTypes.map((type) => (
-                    <button
-                        key={type.value}
-                        onClick={() => setFilterType(type.value)}
-                        className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${
-                            filterType === type.value
-                                ? 'bg-gradient-to-r from-[#96c121] to-[#005F6B] text-white'
-                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                        }`}
-                    >
-                        <span className={`${type.icon} inline-block h-4 w-4 mr-1`}></span>
-                        {type.label} ({items.filter(i => i.type === type.value).length})
-                    </button>
-                ))}
+                {mediaTypes.map((type) => {
+                    const count = items.filter(item => item.type === type.value).length;
+                    return (
+                        <button
+                            key={type.value}
+                            onClick={() => setFilterType(type.value)}
+                            className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap flex items-center gap-2 ${
+                                filterType === type.value
+                                    ? 'bg-gradient-to-r from-[#96c121] to-[#005F6B] text-white'
+                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                            }`}
+                        >
+                            <span className={`${type.icon} h-4 w-4`}></span>
+                            {type.label} ({count})
+                        </button>
+                    );
+                })}
             </div>
 
-            {/* Lista de entrevistas */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Grid de items */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {sortedItems.map((item) => {
-                    const typeInfo = mediaTypes.find(t => t.value === item.type);
+                    const mediaType = mediaTypes.find(t => t.value === item.type);
                     return (
-                        <div
-                            key={item.id}
-                            className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
-                        >
-                            {/* Preview del video */}
-                            <div className="relative aspect-video bg-gray-100">
+                        <div key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                            {/* Video Preview */}
+                            <div className="aspect-video bg-gray-100">
                                 <iframe
-                                    src={item.url}
+                                    src={convertToEmbedUrl(item.url)}
                                     title={item.title}
                                     className="w-full h-full"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowFullScreen
                                 ></iframe>
-                                <div className={`absolute top-2 right-2 px-3 py-1 rounded-full text-xs font-medium ${typeInfo?.color}`}>
-                                    <span className={`${typeInfo?.icon} inline-block h-3 w-3 mr-1`}></span>
-                                    {typeInfo?.label}
-                                </div>
                             </div>
 
-                            {/* Contenido */}
+                            {/* Content */}
                             <div className="p-4">
                                 <div className="flex items-start justify-between mb-2">
-                                    <h3 className="font-semibold text-base flex-1">{item.title}</h3>
-                                    <span className={`ml-2 px-2 py-1 rounded text-xs ${
-                                        item.isActive
-                                            ? 'bg-green-100 text-green-700'
-                                            : 'bg-gray-100 text-gray-700'
-                                    }`}>
-                    {item.isActive ? 'Activo' : 'Inactivo'}
-                  </span>
-                                </div>
-
-                                <p className="text-gray-600 text-sm mb-3 line-clamp-2">
-                                    {item.description}
-                                </p>
-
-                                <div className="flex items-center justify-between text-xs text-gray-500 mb-2">
-                                    <span>Orden: {item.orderIndex}</span>
-                                    {item.date && (
-                                        <span className="flex items-center gap-1">
-                                            <span className="icon-[heroicons--calendar] h-3 w-3"></span>
-                                            {formatDate(item.date)}
+                                    <h3 className="font-semibold text-gray-800 line-clamp-2">{item.title}</h3>
+                                    {mediaType && (
+                                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${mediaType.color} flex items-center gap-1 ml-2 whitespace-nowrap`}>
+                                            <span className={`${mediaType.icon} h-3 w-3`}></span>
+                                            {mediaType.label}
                                         </span>
                                     )}
                                 </div>
+
+                                {item.description && (
+                                    <p className="text-sm text-gray-600 line-clamp-2 mb-2">{item.description}</p>
+                                )}
+
+                                {item.date && (
+                                    <p className="text-xs text-gray-500">
+                                        {formatDate(item.date)}
+                                    </p>
+                                )}
 
                                 <div className="flex gap-2 mt-4 pt-4 border-t">
                                     <button
@@ -328,15 +349,25 @@ const AdminGallery = () => {
                                         Acepta URLs de YouTube y Facebook. Se convertirá automáticamente al formato embed.
                                     </p>
 
+                                    {/* Preview del video */}
                                     {formData.url && (
-                                        <div className="mt-2 aspect-video bg-gray-100 rounded-lg overflow-hidden">
-                                            <iframe
-                                                src={convertToEmbedUrl(formData.url)}
-                                                title="Preview"
-                                                className="w-full h-full"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                allowFullScreen
-                                            ></iframe>
+                                        <div className="mt-3">
+                                            <p className="text-xs text-gray-600 mb-2">Vista previa:</p>
+                                            <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden">
+                                                <iframe
+                                                    src={convertToEmbedUrl(formData.url)}
+                                                    title="Preview"
+                                                    className="w-full h-full"
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                    allowFullScreen
+                                                ></iframe>
+                                            </div>
+                                            {isFacebookVideo(formData.url) && (
+                                                <p className="text-xs text-amber-600 mt-2 flex items-center gap-1">
+                                                    <span className="icon-[heroicons--information-circle] h-4 w-4"></span>
+                                                    Nota: La vista previa de Facebook puede no mostrarse aquí, pero funcionará en la página pública.
+                                                </p>
+                                            )}
                                         </div>
                                     )}
                                 </div>
