@@ -36,14 +36,14 @@ const ContactoForm = () => {
         e.preventDefault();
         setIsSubmitting(true);
 
-        const serviceId = 'service_your_service_id';
-        const templateId = 'template_your_template_id';
-        const publicKey = 'c6Snu0vAQUzkoJWQW';
+        const serviceId = 'service_ufrmo5o';
+        const templateId = 'template_naf21gn';
+        const publicKey = 'b8FnJzq7CCpSd02Jx';
 
         const templateParams = {
             from_name: formData.name,
             from_email: formData.email,
-            to_email: 'polobernardo@hotmail.com',
+            to_email: 'polobernardo@gmail.com',
             message: formData.message
         };
 
@@ -109,7 +109,7 @@ const ContactoForm = () => {
                                               d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                                     </svg>
                                 </div>
-                                <span className="text-gray-700">polobernardo@hotmail.com</span>
+                                <span className="text-gray-700">polobernardo@gmail.com</span>
                             </div>
                             <div className="flex items-center gap-3">
                                 <a
