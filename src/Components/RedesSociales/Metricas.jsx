@@ -18,6 +18,7 @@ const Metricas = () => {
             'youtube': './images/youtube_icon.webp',
             'twitter': './images/x_icon.webp',
             'linkedin': './images/linkedin_icon.webp',
+            'threads': './images/img_2.png',
         };
         return icons[type] || './images/instagram_icon.webp';
     };
@@ -31,6 +32,7 @@ const Metricas = () => {
             'youtube': '#e6231c',
             'twitter': '#000000',
             'linkedin': '#0e76a8',
+            'threads': '#000000',
         };
         return colors[type] || '#db5781';
     };

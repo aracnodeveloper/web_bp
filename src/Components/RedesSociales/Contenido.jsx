@@ -35,7 +35,8 @@ const Contenido = () => {
             tiktok: <span className="icon-[mingcute--tiktok-fill] h-5 w-5 text-black"></span>,
             youtube: <span className="icon-[mdi--youtube] h-5 w-5 text-[#c4302b]"></span>,
             linkedin: <span className="icon-[akar-icons--linkedinv2-fill] h-5 w-5 text-[#0e76a8]"></span>,
-            twitter: <span className="icon-[ph--x-logo-bold] h-5 w-5 text-black"></span>
+            twitter: <span className="icon-[ph--x-logo-bold] h-5 w-5 text-black"></span>,
+            threads: <span className="icon-[ph--threads-logo-bold] h-5 w-5 text-black"></span>,
         };
         return icons[platform] || icons.instagram;
     }
@@ -47,7 +48,8 @@ const Contenido = () => {
             tiktok: '#000000',
             youtube: '#c4302b',
             linkedin: '#0e76a8',
-            twitter: '#000000'
+            twitter: '#000000',
+            threads: '#000000',
         };
         return colors[platform] || '#000000';
     }
@@ -81,7 +83,7 @@ const Contenido = () => {
     };
 
     const groupedAccounts = getUniqueAccounts();
-    const platformOrder = ['facebook', 'instagram', 'youtube', 'tiktok', 'twitter', 'linkedin'];
+    const platformOrder = ['facebook', 'instagram', 'youtube', 'tiktok', 'twitter', 'linkedin', 'threads'];
 
     useEffect(() => {
         if (selectedFilter === 'all') {
@@ -137,8 +139,8 @@ const Contenido = () => {
                         </div>
 
                         {/* Grupos por tipo de red social */}
-                        <div className="grid lg:grid-cols-2 grid-cols-1  gap-4">
-                            {platformOrder.map((platformType) => {
+                        <div className="grid lg:grid-cols-2 grid-cols-1 gap-4">
+                            {platformOrder.map((platformType, index) => {
                                 const accounts = groupedAccounts[platformType];
                                 if (!accounts || accounts.length === 0) return null;
 
@@ -147,7 +149,9 @@ const Contenido = () => {
                                 return (
                                     <div
                                         key={platformType}
-                                        className="group bg-white/80 backdrop-blur-sm rounded-xl p-2 border-2 border-gray-200/60 hover:border-gray-300 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
+                                        className={`group bg-white/80 backdrop-blur-sm rounded-xl p-2 border-2 border-gray-200/60 hover:border-gray-300 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 ${
+                                            index === 0 ? 'lg:col-span-2' : ''
+                                        }`}
                                     >
                                         {/* Header de la plataforma */}
                                         <div className="flex items-center gap-3 mb-4  border-b-2 border-gray-100">

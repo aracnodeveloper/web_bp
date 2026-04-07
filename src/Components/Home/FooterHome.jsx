@@ -36,9 +36,14 @@ const FooterHome = () => {
             name: 'LinkedIn',
             normalizedType: 'linkedin'
         },
+        'threads': {
+            icon: './images/img_11.png',
+            name: 'Threads',
+            normalizedType: 'threads'
+        }
     };
 
-    const columnOrder = ['facebook', 'instagram', 'youtube', 'tiktok', 'twitter', 'linkedin'];
+    const columnOrder = ['facebook', 'instagram', 'youtube', 'tiktok', 'twitter', 'linkedin', 'threads'];
 
     const groupedSocials = socials
         .filter(s => s.isActive)
@@ -99,8 +104,12 @@ const FooterHome = () => {
                                 if (!socialGroup || socialGroup.accounts.length === 0) return null;
 
                                 return (
-                                    <div key={type} className="flex items-center gap-3 bg-white/10 rounded-lg p-4 hover:bg-white/20 transition-all duration-300">
-                                        {/* Ícono de la red social */}
+                                    <div
+                                        key={type}
+                                        className={`flex items-center  bg-white/10 rounded-lg p-4 hover:bg-white/20 transition-all duration-300 ${
+                                            type === 'facebook' ? 'md:col-span-2 justify-between gap-5' : 'gap-3'
+                                        }`}
+                                    >
                                         <div className="flex-shrink-0">
                                             <img
                                                 src={socialGroup.icon}

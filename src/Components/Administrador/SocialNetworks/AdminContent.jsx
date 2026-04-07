@@ -69,6 +69,14 @@ const AdminContent = () => {
             bgColor: 'bg-slate-100',
             borderColor: 'border-slate-200'
         },
+        {
+            value: 'threads',
+            label: 'Threads',
+            icon: 'icon-[ph--threads-logo-bold]',
+            color: 'text-black',
+            bgColor: 'bg-slate-100',
+            borderColor: 'border-slate-200'
+        }
     ];
 
     const handleOpenModal = (item = null) => {

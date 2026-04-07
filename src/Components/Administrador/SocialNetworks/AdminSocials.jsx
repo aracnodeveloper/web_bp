@@ -22,6 +22,7 @@ const AdminSocials = () => {
         { value: 'youtube', label: 'YouTube', color: '#e6231c', icon: 'icon-[mdi--youtube]' },
         { value: 'twitter', label: 'Twitter/X', color: '#000000', icon: 'icon-[ph--x-logo-bold]' },
         { value: 'linkedin', label: 'LinkedIn', color: '#0e76a8', icon: 'icon-[akar-icons--linkedinv2-fill]' },
+        { value: 'threads', label: 'Threads', color: '#000000', icon: 'icon-[ph--threads-logo-bold]' },
     ];
 
     const handleOpenModal = (item = null) => {

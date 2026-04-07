@@ -41,6 +41,12 @@ const Footer = () => {
             gradient: 'from-blue-900 to-blue-700',
             hoverGradient: 'hover:from-blue-800 hover:to-blue-600',
             name: 'LinkedIn'
+        },
+        'threads': {
+            icon: 'icon-[ph--threads-logo]',
+            gradient: 'from-gray-800 to-gray-600',
+            hoverGradient: 'hover:from-gray-700 hover:to-gray-500',
+            name: 'Threads'
         }
     };
 
