@@ -95,7 +95,7 @@ const ContactoForm = () => {
 
                 <div className='w-full md:w-6/12 flex flex-col justify-between relative z-10'>
                     <div className="mb-8">
-                        <h2 className="text-3xl font-bold text-gray-800 mb-4">Contáctanos</h2>
+                        <h2 className="text-3xl font-bold text-gray-800 mb-4">¡Pílas!</h2>
                         <p className="text-gray-600 mb-8">Estamos aquí para responder tus preguntas y ayudarte a planificar tu próxima aventura en Ecuador.</p>
 
                         <div className="flex flex-col gap-4 mb-8">
@@ -145,7 +145,7 @@ const ContactoForm = () => {
                             <h3 className='font-semibold text-xl text-gray-800'>Escanea el QR</h3>
                             <p className="text-gray-500 text-sm text-center">Apunta la cámara de tu teléfono para conectarte directamente con nosotros.</p>
                             <img
-                                src='/images/qr.jpeg'
+                                src='/images/QR.png'
                                 alt='QR Code'
                                 className='w-80 h-80 object-contain drop-shadow-lg rounded-lg'
                             />

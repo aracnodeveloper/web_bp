@@ -133,7 +133,7 @@ const Cabecera = () => {
                     )}
                     {/* Phrase */}
                     {currentItem.phrase && (
-                        <label className='text-xs max-w-[300px] sm:max-w-[400px] mt-4 text-gray-500 text-center italic transition-opacity duration-500'>
+                        <label className='text-xs max-w-[300px] font-extrabold sm:max-w-[400px] mt-4 text-black text-center italic transition-opacity duration-500'>
                             "{currentItem.phrase}"
                         </label>
                     )}
