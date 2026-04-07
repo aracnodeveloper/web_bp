@@ -51,6 +51,7 @@ const Medidor = () => {
         { type: 'tiktok', color: '#60605f', label: 'TikTok' },
         { type: 'youtube', color: '#e6231c', label: 'Youtube' },
         { type: 'linkedin', color: '#0e76a8', label: 'LinkedIn' },
+        { type: 'threads', color: '#000000', label: 'Threads' },
     ];
 
     return (
