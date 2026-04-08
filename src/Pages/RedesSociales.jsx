@@ -5,6 +5,7 @@ import Footer from '../Components/Global/Footer';
 import Contenido from '../Components/RedesSociales/Contenido';
 import Metricas from '../Components/RedesSociales/Metricas';
 import FooterHome from "../Components/Home/FooterHome";
+import Documentos from "../Components/RedesSociales/Documentos";
 
 const RedesSociales = () => {
     const location = useLocation();
@@ -41,10 +42,11 @@ const RedesSociales = () => {
                 <div ref={metricasRef}>
                     <Metricas/>
                 </div>
+                <Documentos/>
                 <FooterHome/>
             </div>
-            </div>
-            );
-            };
+        </div>
+    );
+};
 
-            export default RedesSociales;
+export default RedesSociales;
