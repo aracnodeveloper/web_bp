@@ -3,14 +3,14 @@ import React from 'react';
 
 const docs = [
   {
-    title: 'Media Kit 2025',
-    description: 'Conoce las estadísticas, audiencia y oportunidades de colaboración disponibles.',
+    title: 'Marca Personal y Oportunidades de Colaboración',
+    description: 'Aprende conmigo como establecer tu marca personal.',
     previewImg: '/images/img_12.png',
     url: 'https://drive.google.com/file/d/1CHxdbi4WEvzkcVLODKdHy1Sl2TXNcfmM/view',
   },
   {
-    title: 'Reporte de Métricas',
-    description: 'Reporte detallado del crecimiento y rendimiento en todas las plataformas.',
+    title: 'Posicionamiento en Redes Sociales',
+    description: 'Conoce la forma de posicionarte en redes sociales.',
     previewImg: '/images/img_12.png',
     url: 'https://drive.google.com/file/d/1NNMFwq2a_GXFePFdNqQRUBpuriMqeEKy/view',
   },
@@ -121,7 +121,7 @@ function DocCard({ doc }) {
         </div>
 
         {/* 25% — Info + botones */}
-        <div className="border-t border-slate-200 px-4 py-3 flex items-center justify-between gap-3"
+        <div className="border-t border-slate-200 px-4 py-3 flex items-center justify-between gap-3 mb-2"
              style={{ flex: '0 0 25%' }}>
           <div className="flex-1 min-w-0">
             <h3 className="text-[0.95rem] font-bold text-slate-800 truncate mb-1">
@@ -148,7 +148,7 @@ function DocCard({ doc }) {
 export default function Documentos() {
   return (
       <section className="bg-slate-100 px-8 py-12 pb-16">
-        <h2 className='text-3xl text-center font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#005F6B] to-[#96c121] mb-5'>Métricas</h2>
+        <h2 className='text-3xl text-center font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#005F6B] to-[#96c121] mb-5'>Documentos</h2>
         <div className="grid grid-cols-2 gap-2 max-w-6xl mx-auto px-8">
           {docs.map((doc) => (
               <DocCard key={doc.title} doc={doc} />
