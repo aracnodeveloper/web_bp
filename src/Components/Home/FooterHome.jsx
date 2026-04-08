@@ -7,37 +7,37 @@ const FooterHome = () => {
 
     const socialConfig = {
         'instagram': {
-            icon: './images/instagram_icon.webp',
+            icon: './images/instagram_logo3D.png',
             name: 'Instagram',
             normalizedType: 'instagram'
         },
         'facebook': {
-            icon: './images/facebook_icon.webp',
+            icon: './images/facebook_logo3D.png',
             name: 'Facebook',
             normalizedType: 'facebook'
         },
         'tiktok': {
-            icon: './images/tiktok_icon.webp',
+            icon: './images/tiktok_logo3D.png',
             name: 'TikTok',
             normalizedType: 'tiktok'
         },
         'youtube': {
-            icon: './images/youtube_icon.webp',
+            icon: './images/youtube_logo3D.png',
             name: 'YouTube',
             normalizedType: 'youtube'
         },
         'twitter': {
-            icon: './images/x_icon.webp',
+            icon: './images/x_logo3D.png',
             name: 'X',
             normalizedType: 'twitter'
         },
         'linkedin': {
-            icon: './images/linkedin_icon.webp',
+            icon: './images/linkedin_logo3D.png',
             name: 'LinkedIn',
             normalizedType: 'linkedin'
         },
         'threads': {
-            icon: './images/img_11.png',
+            icon: './images/Threads_logo3D.png',
             name: 'Threads',
             normalizedType: 'threads'
         }

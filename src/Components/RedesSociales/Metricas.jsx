@@ -12,13 +12,13 @@ const Metricas = () => {
     // Mapear tipos de la BD a iconos
     const getSocialIcon = (type) => {
         const icons = {
-            'instagram': './images/instagram_icon.webp',
-            'facebook': './images/facebook_icon.webp',
-            'tiktok': './images/tiktok_icon.webp',
-            'youtube': './images/youtube_icon.webp',
-            'twitter': './images/x_icon.webp',
-            'linkedin': './images/linkedin_icon.webp',
-            'threads': './images/img_2.png',
+            'instagram': './images/instagram_logo3D.png',
+            'facebook': './images/facebook_logo3D.png',
+            'tiktok': './images/tiktok_logo3D.png',
+            'youtube': './images/youtube_logo3D.png',
+            'twitter': './images/x_logo3D.png',
+            'linkedin': './images/linkedin_logo3D.png',
+            'threads': './images/Threads_logo3D.png',
         };
         return icons[type] || './images/instagram_icon.webp';
     };
