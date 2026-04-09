@@ -3,13 +3,13 @@ import React from 'react';
 
 const docs = [
   {
-    title: 'Marca Personal y Oportunidades de Colaboración',
+    title: 'Marca Personal y Oportunidades de Colaboración Resumen',
     description: 'Aprende conmigo como establecer tu marca personal.',
     previewImg: '/images/img_12.png',
     url: 'https://drive.google.com/file/d/1CHxdbi4WEvzkcVLODKdHy1Sl2TXNcfmM/view',
   },
   {
-    title: 'Posicionamiento en Redes Sociales',
+    title: 'Posicionamiento en Redes Sociales Extendido',
     description: 'Conoce la forma de posicionarte en redes sociales.',
     previewImg: '/images/img_12.png',
     url: 'https://drive.google.com/file/d/1NNMFwq2a_GXFePFdNqQRUBpuriMqeEKy/view',
