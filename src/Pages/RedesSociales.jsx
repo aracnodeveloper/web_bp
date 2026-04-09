@@ -11,6 +11,7 @@ const RedesSociales = () => {
     const location = useLocation();
     const contenidoRef = useRef(null);
     const metricasRef = useRef(null);
+    const documentosRef = useRef(null);
 
     useEffect(() => {
         if (location.state && location.state.scrollTo) {
@@ -24,6 +25,11 @@ const RedesSociales = () => {
                 } else if (section === 'metricas' && metricasRef.current) {
                 const yOffset = -80;
                 const element = metricasRef.current;
+                const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+                } else if (section === 'documentos' && documentosRef.current) {
+                const yOffset = -80;
+                const element = documentosRef.current;
                 const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
                 window.scrollTo({ top: y, behavior: 'smooth' });
                 }
@@ -42,7 +48,10 @@ const RedesSociales = () => {
                 <div ref={metricasRef}>
                     <Metricas/>
                 </div>
-                <Documentos/>
+
+                <div ref={documentosRef}>
+                    <Documentos/>
+                </div>
                 <FooterHome/>
             </div>
         </div>

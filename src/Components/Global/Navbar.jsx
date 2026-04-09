@@ -176,6 +176,16 @@ const Navbar = ({ activo }) => {
                     <span className="icon-[nimbus--stats]"></span>
                     <label className="cursor-pointer">Metricas</label>
                   </div>
+                    <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleSectionClick("/redes-sociales", "documentos");
+                    }}
+                    className="bg-white flex gap-1 items-center w-32 py-1 rounded-full px-2 hover:bg-gray-200 cursor-pointer"
+                  >
+                    <span className="icon-[nimbus--stats]"></span>
+                    <label className="cursor-pointer">Documentos</label>
+                  </div>
                 </div>
               </div>
             )}
@@ -295,6 +305,12 @@ const Navbar = ({ activo }) => {
                   className="py-1 cursor-pointer"
                 >
                   Metricas
+                </div>
+                <div
+                  onclick={() => handleSectionClick("/redes-sociales", "documentos")}
+                  className="py-1 cursor-pointer"
+                >
+                  Documentos
                 </div>
               </div>
             </div>
